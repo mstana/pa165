@@ -2,6 +2,9 @@ package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.*;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
+import org.springframework.beans.factory.annotation.Autowired;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -10,9 +13,14 @@ import java.util.List;
  */
 public class RoomManager implements RoomDAO {
 
+    @Autowired
+    EntityManager em;
+
     @Override
     public void create(Room room) {
-        throw new UnsupportedOperationException("Not supported yet."); 
+        if (room.getId() != null) throw new IllegalArgumentException("The room to be added must have null id (has"+room.getId()+")");
+        if (! validate(room)) throw new IllegalArgumentException("The hotel and room number must be set");
+        em.persist(room);
     }
 
     @Override
@@ -34,5 +42,12 @@ public class RoomManager implements RoomDAO {
     public List<Room> findAll() {
         throw new UnsupportedOperationException("Not supported yet.");
     }
-    
+
+
+    private boolean validate(Room room) {
+        if (room.getHotel() == null ||
+                room.getNumber() == null ||
+                "".equals(room.getNumber())) return false;
+        return true;
+    }
 }
