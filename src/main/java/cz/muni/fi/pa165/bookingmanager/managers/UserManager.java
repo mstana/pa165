@@ -5,10 +5,40 @@
  */
 package cz.muni.fi.pa165.bookingmanager.managers;
 
+import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
+import cz.muni.fi.pa165.bookingmanager.entities.User;
+import java.util.List;
+
 /**
  *
  * @author mstana
  */
-public class UserManager {
+public class UserManager implements UserDAO{
+
+    @Override
+    public void create(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void update(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public void delete(User user) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public User find(Long id) {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    @Override
+    public List<User> findAll() {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+    
     
 }
