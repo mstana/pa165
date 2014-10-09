@@ -16,7 +16,7 @@ public class Room implements Serializable {
     private Long id;
     
     @Column(nullable = false)
-    private Long number;
+    private String number;
     
     @Column(nullable = false)
     private Long price;
@@ -24,6 +24,8 @@ public class Room implements Serializable {
     @Column(nullable = false)
     private Long bedsCount;
 
+    @Column(nullable = false)
+    private Hotel hotel;
     
     public Long getId() {
         return id;
@@ -33,11 +35,11 @@ public class Room implements Serializable {
         this.id = id;
     }
 
-    public Long getNumber() {
+    public String getNumber() {
         return number;
     }
 
-    public void setNumber(Long number) {
+    public void setNumber(String number) {
         this.number = number;
     }
 
@@ -55,6 +57,14 @@ public class Room implements Serializable {
 
     public void setBedsCount(Long bedsCount) {
         this.bedsCount = bedsCount;
+    }
+
+    public Hotel getHotel() {
+        return hotel;
+    }
+
+    public void setHotel(Hotel hotel) {
+        this.hotel = hotel;
     }
 
     @Override
