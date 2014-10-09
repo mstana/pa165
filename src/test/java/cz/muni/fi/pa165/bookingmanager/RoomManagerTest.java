@@ -17,6 +17,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
+import java.util.List;
+
 import static org.junit.Assert.*;
 
 /**
@@ -75,4 +77,99 @@ public class RoomManagerTest extends TestCase {
         assertNotNull("Failed to retreive room from DB", r2);
         assertEquals("The retreived room does not equal the original one", room, r2);
     }
+
+    @Test
+    @Transactional
+    public void testUpdate() {
+        Room room = new Room();
+        assertNull(room.getId());
+
+        Hotel hotel = new Hotel();
+        hotel.setName("Hotel1");
+        hotel.setAddress("Avenue1");
+
+        room.setHotel(hotel);
+        room.setNumber("100");
+        room.setBedsCount(100L);
+        room.setPrice(100L);
+
+        roomManager.create(room);
+        assertNotNull(room.getId());
+        assertTrue(room.getReservations().isEmpty());
+
+        room.setBedsCount(1);
+        room.setPrice(1);
+
+        roomManager.update(room);
+
+        assertEquals(room.getBedsCount(), (Long) 1L);
+        assertEquals(room.getPrice(), (Long) 1L);
+        assertEquals(room.getNumber(), "100");
+    }
+    @Test
+    @Transactional
+    public void testDelete() {
+        Room room = new Room();
+        Hotel hotel = new Hotel();
+        hotel.setName("Hotel1");
+        hotel.setAddress("Avenue1");
+        room.setHotel(hotel);
+        room.setNumber("100");
+        room.setBedsCount(100L);
+        room.setPrice(100L);
+
+        roomManager.create(room);
+        assertNotNull(room.getId());
+        roomManager.delete(room);
+        assertNull(roomManager.find(room.getId()));
+    }
+
+    @Test
+    @Transactional
+    public void testFind() {
+
+        Hotel hotel = new Hotel();
+        hotel.setName("Hotel1");
+        hotel.setAddress("Avenue1");
+        Room room = new Room();
+        room.setHotel(hotel);
+        room.setNumber("100");
+        room.setBedsCount(100L);
+        room.setPrice(100L);
+
+        roomManager.create(room);
+        assertNotNull(room.getId());
+
+        Room expected = roomManager.find(room.getId());
+        assertEquals(expected, room);
+    }
+
+    @Test
+    @Transactional
+    public void testFindAll() {
+        Hotel hotel = new Hotel();
+        hotel.setName("One");
+        hotel.setAddress("Street");
+
+        Room room = new Room();
+        room.setHotel(hotel);
+        room.setNumber("A01");
+        room.setBedsCount(2L);
+        room.setPrice(50L);
+
+        roomManager.create(room);
+
+        List<Room> rooms = roomManager.findAll();
+
+        assertTrue(rooms.contains(room));
+        assertEquals("The db should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
+
+        rooms = roomManager.findAll(hotel);
+
+        assertTrue(rooms.contains(room));
+        assertEquals("The hotel should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
+
+
+    }
+
 }
