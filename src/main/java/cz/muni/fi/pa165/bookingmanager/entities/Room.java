@@ -10,23 +10,23 @@ import javax.persistence.*;
  */
 @Entity
 public class Room implements Serializable {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE)
     private Long id;
-    
+
     @Column(nullable = false)
     private String number;
-    
+
     @Column(nullable = false)
     private int price;
-    
+
     @Column(nullable = false)
     private int bedsCount;
 
-    @Column(nullable = false)
+    @ManyToOne(cascade = CascadeType.ALL)
     private Hotel hotel;
-    
+
     public Long getId() {
         return id;
     }
@@ -87,5 +87,5 @@ public class Room implements Serializable {
             return false;
         }
         return true;
-    }  
+    }
 }
