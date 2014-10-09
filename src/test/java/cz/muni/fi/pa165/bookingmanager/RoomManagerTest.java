@@ -63,8 +63,8 @@ public class RoomManagerTest extends TestCase {
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("A01");
-        room.setBedsCount(2L);
-        room.setPrice(50L);
+        room.setBedsCount(2);
+        room.setPrice(50);
 
         assertNull("New room should have null id", room.getId());
 
@@ -90,8 +90,8 @@ public class RoomManagerTest extends TestCase {
 
         room.setHotel(hotel);
         room.setNumber("100");
-        room.setBedsCount(100L);
-        room.setPrice(100L);
+        room.setBedsCount(6);
+        room.setPrice(100);
 
         roomManager.create(room);
         assertNotNull(room.getId());
@@ -104,7 +104,7 @@ public class RoomManagerTest extends TestCase {
 
         assertEquals(room.getBedsCount(), (Long) 1L);
         assertEquals(room.getPrice(), (Long) 1L);
-        assertEquals(room.getNumber(), "100");
+        assertEquals(room.getNumber(), "6");
     }
     @Test
     @Transactional
@@ -115,8 +115,8 @@ public class RoomManagerTest extends TestCase {
         hotel.setAddress("Avenue1");
         room.setHotel(hotel);
         room.setNumber("100");
-        room.setBedsCount(100L);
-        room.setPrice(100L);
+        room.setBedsCount(100);
+        room.setPrice(100);
 
         roomManager.create(room);
         assertNotNull(room.getId());
@@ -134,8 +134,8 @@ public class RoomManagerTest extends TestCase {
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("100");
-        room.setBedsCount(100L);
-        room.setPrice(100L);
+        room.setBedsCount(100);
+        room.setPrice(100);
 
         roomManager.create(room);
         assertNotNull(room.getId());
@@ -154,8 +154,8 @@ public class RoomManagerTest extends TestCase {
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("A01");
-        room.setBedsCount(2L);
-        room.setPrice(50L);
+        room.setBedsCount(2);
+        room.setPrice(50);
 
         roomManager.create(room);
 

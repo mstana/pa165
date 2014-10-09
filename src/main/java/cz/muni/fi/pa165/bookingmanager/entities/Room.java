@@ -19,10 +19,10 @@ public class Room implements Serializable {
     private String number;
     
     @Column(nullable = false)
-    private Long price;
+    private int price;
     
     @Column(nullable = false)
-    private Long bedsCount;
+    private int bedsCount;
 
     @Column(nullable = false)
     private Hotel hotel;
@@ -43,19 +43,19 @@ public class Room implements Serializable {
         this.number = number;
     }
 
-    public Long getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Long price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
-    public Long getBedsCount() {
+    public int getBedsCount() {
         return bedsCount;
     }
 
-    public void setBedsCount(Long bedsCount) {
+    public void setBedsCount(int bedsCount) {
         this.bedsCount = bedsCount;
     }
 
