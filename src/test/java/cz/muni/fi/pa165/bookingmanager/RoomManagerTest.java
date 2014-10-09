@@ -57,25 +57,25 @@ public class RoomManagerTest extends TestCase {
     @Transactional
     public void testCreate() {
         Hotel hotel = new Hotel();
-        /*hotel.setName("One");
-        hotel.setAddress("Street");*/
+        hotel.setName("One");
+        hotel.setAddress("Street");
 
-        Room room = new Room();
-        room.setHotel(hotel);
-        room.setNumber("A01");
-        room.setBedsCount(2);
-        room.setPrice(50);
+        Room room1 = new Room();
+        room1.setHotel(hotel);
+        room1.setNumber("A01");
+        room1.setBedsCount(2);
+        room1.setPrice(50);
 
-        assertNull("New room should have null id", room.getId());
+        assertNull("New room should have null id", room1.getId());
 
-        roomManager.create(room);
+        roomManager.create(room1);
 
-        assertNotNull("The room id should be assigned by now", room.getId());
+        assertNotNull("The room id should be assigned by now", room1.getId());
 
-        Room r2 = roomManager.find(room.getId());
+        Room room2 = roomManager.find(room1.getId());
 
-        assertNotNull("Failed to retreive room from DB", r2);
-        assertEquals("The retreived room does not equal the original one", room, r2);
+        assertNotNull("Failed to retreive room from DB", room2);
+        assertEquals("The retreived room does not equal the original one", room1, room2);
     }
 
     @Test
@@ -102,8 +102,8 @@ public class RoomManagerTest extends TestCase {
 
         roomManager.update(room);
 
-        assertEquals(room.getBedsCount(), (Long) 1L);
-        assertEquals(room.getPrice(), (Long) 1L);
+        assertEquals(room.getBedsCount(), 1);
+        assertEquals(room.getPrice(), 1);
         assertEquals(room.getNumber(), "6");
     }
     @Test
