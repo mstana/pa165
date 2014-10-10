@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.*;
+import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -45,6 +46,11 @@ public class RoomManager implements RoomDAO {
     @Override
     public List<Room> findAll() {
         throw new UnsupportedOperationException("Not supported yet.");
+    }
+
+    @Override
+    public List<Room> findAll(Hotel hotel) {
+        return null;
     }
 
 

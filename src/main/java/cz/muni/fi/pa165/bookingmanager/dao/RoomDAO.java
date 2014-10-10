@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.bookingmanager.dao;
 
+import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import java.util.List;
 
@@ -18,4 +19,6 @@ public interface RoomDAO {
     public Room find(Long id);
     
     public List<Room> findAll();
+
+    public List<Room> findAll(Hotel hotel);
 }

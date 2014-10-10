@@ -91,7 +91,6 @@ public class RoomManagerTest extends TestCase {
 
         roomDAO.create(room);
         assertNotNull(room.getId());
-        //TODO:assertTrue(room.getReservations().isEmpty());
 
         room.setBedsCount(1);
         room.setPrice(1);
@@ -160,7 +159,7 @@ public class RoomManagerTest extends TestCase {
         assertTrue(rooms.contains(room));
         assertEquals("The db should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
 
-        //TODO:rooms = roomDAO.findAll(hotel);
+        rooms = roomDAO.findAll(hotel);
 
         assertTrue(rooms.contains(room));
         assertEquals("The hotel should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
