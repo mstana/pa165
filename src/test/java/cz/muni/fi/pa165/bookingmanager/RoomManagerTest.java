@@ -99,7 +99,7 @@ public class RoomManagerTest extends TestCase {
 
         assertEquals(room.getBedsCount(), 1);
         assertEquals(room.getPrice(), 1);
-        assertEquals(room.getNumber(), "6");
+        assertEquals(room.getNumber(), "100");
     }
     @Test
     @Transactional
@@ -145,7 +145,7 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("One");
         hotel.setAddress("Street");
-
+        
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("A01");
@@ -163,8 +163,5 @@ public class RoomManagerTest extends TestCase {
 
         assertTrue(rooms.contains(room));
         assertEquals("The hotel should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
-
-
     }
-
 }

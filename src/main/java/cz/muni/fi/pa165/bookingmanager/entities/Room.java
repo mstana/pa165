@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.bookingmanager.entities;
 
 import java.io.Serializable;
-import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
@@ -49,6 +48,10 @@ public class Room implements Serializable {
     }
 
     public void setPrice(int price) {
+        if (price < 0) {
+            throw new IllegalArgumentException("Price cannot be negative.");
+        }
+        
         this.price = price;
     }
 
@@ -57,6 +60,10 @@ public class Room implements Serializable {
     }
 
     public void setBedsCount(int bedsCount) {
+        if (bedsCount <= 0) {
+            throw new IllegalArgumentException("Room must have at least one bed.");
+        }
+        
         this.bedsCount = bedsCount;
     }
 
@@ -65,6 +72,10 @@ public class Room implements Serializable {
     }
 
     public void setHotel(Hotel hotel) {
+        if (hotel == null) {
+             throw new IllegalArgumentException("Hotel cannot be null.");
+        }
+        
         this.hotel = hotel;
     }
 
