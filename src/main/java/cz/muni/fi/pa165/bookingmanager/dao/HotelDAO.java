@@ -19,6 +19,6 @@ public interface HotelDAO {
 
     public Hotel find(String name);
 
-    public List<Hotel> findAll(String name);
+    public List<Hotel> findAll( );
 
 }
