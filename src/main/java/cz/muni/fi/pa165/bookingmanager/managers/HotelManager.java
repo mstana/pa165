@@ -75,7 +75,7 @@ public class HotelManager implements HotelDAO {
     }
 
     @Override
-    public List<Hotel> findAll(String name) {
+    public List<Hotel> findAll() {
         return entityManager.createQuery("SELECT h FROM Hotel h", Hotel.class).getResultList();
     }
 
