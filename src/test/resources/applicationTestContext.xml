@@ -12,7 +12,7 @@
 
 
     <tx:annotation-driven transaction-manager="transactionManager"/>
-    <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager.dao"/>
+    <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager"/>
     <context:annotation-config/>
 
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>

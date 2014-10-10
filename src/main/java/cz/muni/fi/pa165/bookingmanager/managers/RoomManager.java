@@ -3,14 +3,18 @@ package cz.muni.fi.pa165.bookingmanager.managers;
 import cz.muni.fi.pa165.bookingmanager.dao.*;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
 
 import javax.persistence.EntityManager;
+import javax.transaction.Transactional;
 import java.util.List;
 
 /**
  *
  * @author David Kadlec
  */
+@Repository
+@Transactional
 public class RoomManager implements RoomDAO {
 
     @Autowired

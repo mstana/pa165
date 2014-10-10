@@ -5,7 +5,6 @@ import cz.muni.fi.pa165.bookingmanager.entities.Administrator;
 import cz.muni.fi.pa165.bookingmanager.entities.Guest;
 import cz.muni.fi.pa165.bookingmanager.entities.User;
 import java.util.List;
-import javax.persistence.EntityManager;
 import javax.transaction.Transactional;
 import org.junit.After;
 import org.junit.AfterClass;
@@ -29,10 +28,7 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 public class UserManagerTest {
 
     @Autowired
-    private EntityManager entityManager;
-
-    @Autowired
-    private UserDAO userManager;
+    private UserDAO userDAO;
 
     public UserManagerTest() {
         super();
@@ -61,18 +57,18 @@ public class UserManagerTest {
         User administrator = new Administrator();
 
         assertNull("ID must be null before persist", guest.getId());
-        userManager.create(guest);
+        userDAO.create(guest);
         assertNotNull("ID should not be null", guest.getId());
 
         assertNull("ID must be null before persist", administrator.getId());
-        userManager.create(administrator);
+        userDAO.create(administrator);
         assertNotNull("ID should not be null", administrator.getId());
 
-        User guestEqual = userManager.find(guest.getId());
+        User guestEqual = userDAO.find(guest.getId());
         assertNotNull(guestEqual.getId());
         assertEquals(guestEqual, guest);
 
-        User adminEqual = userManager.find(administrator.getId());
+        User adminEqual = userDAO.find(administrator.getId());
         assertNotNull(adminEqual.getId());
         assertEquals(adminEqual, administrator);
     }
@@ -84,12 +80,12 @@ public class UserManagerTest {
         User administrator = new Administrator();
 
         assertNull("ID must be null before persist", guest.getId());
-        userManager.create(guest);
+        userDAO.create(guest);
         assertNotNull("ID should not be null", guest.getId());
 
         guest.setFirstName("Thomas");
         guest.setLastName("Podolski");
-        userManager.update(guest);
+        userDAO.update(guest);
 
         assertNotNull(guest.getFirstName());
         assertNotNull(guest.getLastName());
@@ -97,12 +93,12 @@ public class UserManagerTest {
         assertEquals("Podolski", guest.getLastName());
 
         assertNull("ID must be null before persist", administrator.getId());
-        userManager.create(administrator);
+        userDAO.create(administrator);
         assertNotNull("ID should not be null", administrator.getId());
 
         administrator.setFirstName("Miroslav");
         administrator.setLastName("Stoch");
-        userManager.update(administrator);
+        userDAO.update(administrator);
 
         assertNotNull(administrator.getFirstName());
         assertNotNull(administrator.getLastName());
@@ -116,13 +112,13 @@ public class UserManagerTest {
         User guest = new Guest();
         User administrator = new Administrator();
 
-        userManager.create(guest);
-        userManager.delete(guest);
-        assertNull("ID must be null after delete", userManager.find(guest.getId()));
+        userDAO.create(guest);
+        userDAO.delete(guest);
+        assertNull("ID must be null after delete", userDAO.find(guest.getId()));
 
-        userManager.create(administrator);
-        userManager.delete(administrator);
-        assertNull("ID must be null after delete", userManager.find(administrator.getId()));
+        userDAO.create(administrator);
+        userDAO.delete(administrator);
+        assertNull("ID must be null after delete", userDAO.find(administrator.getId()));
 
     }
 
@@ -133,16 +129,16 @@ public class UserManagerTest {
         User administrator = new Administrator();
 
         assertNull(guest.getId());
-        userManager.create(guest);
+        userDAO.create(guest);
 
-        User guestEqual = userManager.find(guest.getId());
+        User guestEqual = userDAO.find(guest.getId());
         assertNotNull(guestEqual);
         assertEquals(guestEqual, guest);
 
         assertNull(administrator.getId());
-        userManager.create(administrator);
+        userDAO.create(administrator);
 
-        User adminEqual = userManager.find(administrator.getId());
+        User adminEqual = userDAO.find(administrator.getId());
         assertNotNull(adminEqual);
         assertEquals(adminEqual, administrator);
     }
@@ -164,14 +160,14 @@ public class UserManagerTest {
         assertNull(administrator2.getId());
         assertNull(administrator3.getId());
 
-        userManager.create(guest1);
-        userManager.create(guest2);
-        userManager.create(guest3);
-        userManager.create(administrator1);
-        userManager.create(administrator2);
-        userManager.create(administrator3);
+        userDAO.create(guest1);
+        userDAO.create(guest2);
+        userDAO.create(guest3);
+        userDAO.create(administrator1);
+        userDAO.create(administrator2);
+        userDAO.create(administrator3);
 
-        List<User> userList = userManager.findAll();
+        List<User> userList = userDAO.findAll();
 
         assertTrue(userList.contains(guest1));
         assertTrue(userList.contains(guest2));
