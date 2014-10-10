@@ -32,7 +32,7 @@ public class UserManager implements UserDAO{
 
     public UserManager() {
     }
-    
+
     public EntityManager getEntityManager() {
         return entityManager;
     }
@@ -67,14 +67,13 @@ public class UserManager implements UserDAO{
 
         CriteriaQuery<User> query = criteriaBuilder.createQuery(User.class);
         Root<User> c = query.from(User.class);
-        Expression<Long> param1 = criteriaBuilder.parameter(Long.class);
-        query.select(c).where(criteriaBuilder.equal(c.get("user_id").as(Long.class),param1));
+        query.select(c);
 
         TypedQuery<User> typedQuery = entityManager.createQuery(query);
 
         return typedQuery.getResultList();
         //return em.createQuery("SELECT u FROM User u WHERE u.user = :user", User.class).setParameter("user", user).getResultList();
     }
-    
-    
+
+
 }

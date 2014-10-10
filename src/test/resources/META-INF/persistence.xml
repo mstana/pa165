@@ -6,6 +6,8 @@
     <persistence-unit name="unit-test" transaction-type="RESOURCE_LOCAL">
         <provider>org.hibernate.ejb.HibernatePersistence</provider>
         <class>cz.muni.fi.pa165.bookingmanager.entities.User</class>
+        <class>cz.muni.fi.pa165.bookingmanager.entities.Administrator</class>
+        <class>cz.muni.fi.pa165.bookingmanager.entities.Guest</class>
         <class>cz.muni.fi.pa165.bookingmanager.entities.Room</class>
         <class>cz.muni.fi.pa165.bookingmanager.entities.Reservation</class>
         <class>cz.muni.fi.pa165.bookingmanager.entities.Hotel</class>
