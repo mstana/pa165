@@ -5,11 +5,15 @@ import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Adam Studenic
  */
+@Repository
+@Transactional
 public class HotelManager implements HotelDAO {
 
     @Autowired
