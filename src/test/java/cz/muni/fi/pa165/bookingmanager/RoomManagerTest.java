@@ -164,4 +164,5 @@ public class RoomManagerTest extends TestCase {
         assertTrue(rooms.contains(room));
         assertEquals("The hotel should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
     }
+
 }
