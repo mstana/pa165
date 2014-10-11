@@ -85,6 +85,9 @@ public class Hotel {
     }
 
 
+    public void addRoom (Room rooom) {
+        this.rooms.add(rooom);
+    }
 
 
 }
