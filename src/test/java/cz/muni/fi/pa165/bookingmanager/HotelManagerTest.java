@@ -214,6 +214,7 @@ public class HotelManagerTest extends TestCase {
         Assert.assertEquals(hotelFromDb.getName(), "Hotel");
 
 
+        assertEquals(listOfRooms.size(), hotelFromDb.getRooms().size());
         assertEquals(listOfRooms.contains(hotelFromDb.getRooms().get(0)), true);
         assertEquals(listOfRooms.contains(hotelFromDb.getRooms().get(1)), true);
         assertEquals(listOfRooms.contains(hotelFromDb.getRooms().get(2)), true);
