@@ -53,8 +53,8 @@ public class RoomManagerTest extends TestCase {
     @Transactional
     public void testCreate() {
         Hotel hotel = new Hotel();
-        hotel.setName("One");
-        hotel.setAddress("Street");
+        hotel.setName("Continental");
+        hotel.setAddress("Botanicka");
 
         Room room1 = new Room();
         room1.setHotel(hotel);
@@ -70,7 +70,7 @@ public class RoomManagerTest extends TestCase {
 
         Room room2 = roomDAO.find(room1.getId());
 
-        assertNotNull("Failed to retreive room from DB", room2);
+        assertNotNull("Failed to retreive room from db", room2);
         assertEquals("The retreived room does not equal the original one", room1, room2);
     }
 
@@ -81,8 +81,8 @@ public class RoomManagerTest extends TestCase {
         assertNull(room.getId());
 
         Hotel hotel = new Hotel();
-        hotel.setName("Hotel1");
-        hotel.setAddress("Avenue1");
+        hotel.setName("Holliday Inn");
+        hotel.setAddress("Tankodrom");
 
         room.setHotel(hotel);
         room.setNumber("100");
@@ -106,8 +106,8 @@ public class RoomManagerTest extends TestCase {
     public void testDelete() {
         Room room = new Room();
         Hotel hotel = new Hotel();
-        hotel.setName("Hotel1");
-        hotel.setAddress("Avenue1");
+        hotel.setName("SKM");
+        hotel.setAddress("Botanicka");
         room.setHotel(hotel);
         room.setNumber("100");
         room.setBedsCount(100);
@@ -124,8 +124,8 @@ public class RoomManagerTest extends TestCase {
     public void testFind() {
 
         Hotel hotel = new Hotel();
-        hotel.setName("Hotel1");
-        hotel.setAddress("Avenue1");
+        hotel.setName("FI MU");
+        hotel.setAddress("Sumavska");
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("100");
@@ -143,8 +143,8 @@ public class RoomManagerTest extends TestCase {
     @Transactional
     public void testFindAll() {
         Hotel hotel = new Hotel();
-        hotel.setName("One");
-        hotel.setAddress("Street");
+        hotel.setName("Molin rouge");
+        hotel.setAddress("Opavska");
         
         Room room = new Room();
         room.setHotel(hotel);
