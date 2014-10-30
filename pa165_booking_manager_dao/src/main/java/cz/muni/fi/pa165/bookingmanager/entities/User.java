@@ -32,7 +32,7 @@ public class User {
     @Column
     private String email;
 
-    //to do: booking list
+    //dto do: booking list
     
     
     public String getEmail() {

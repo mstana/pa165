@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.bookingmanager;
+package cz.muni.fi.pa165.bookingmanager.api;
 
 import org.springframework.dao.DataAccessException;
 

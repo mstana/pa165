@@ -54,7 +54,7 @@ public class ReservationManagerTest extends TestCase {
 
         Reservation reservationFromDAO = reservationDAO.find(reservation.getId());
 
-        assertNotNull("Failed to retreive reservation from DB", reservationFromDAO);
+        assertNotNull("Failed dto retreive reservation from DB", reservationFromDAO);
         assertEquals("The retreived reservation does not equal the original one", reservation, reservationFromDAO);
     }
 

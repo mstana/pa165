@@ -41,7 +41,7 @@ public class HotelManager implements HotelDAO {
     @Override
     public void update(Hotel hotel) {
         if (hotel.getId() == null) {
-            throw new IllegalArgumentException("The hotel to be update cannot have null id");
+            throw new IllegalArgumentException("The hotel dto be update cannot have null id");
         }
         if(! validate(hotel)) {
             throw new IllegalArgumentException("The hotel name is not valid");
@@ -52,7 +52,7 @@ public class HotelManager implements HotelDAO {
     @Override
     public void delete(Hotel hotel) {
         if (hotel.getId() == null) {
-            throw new IllegalArgumentException("The hotel to be removed cannot have null id");
+            throw new IllegalArgumentException("The hotel dto be removed cannot have null id");
         }
         Hotel h = entityManager.merge(hotel);
         entityManager.remove(h);
@@ -61,7 +61,7 @@ public class HotelManager implements HotelDAO {
     @Override
     public Hotel find(Long id) {
         if (id == null) {
-            throw new IllegalArgumentException("The hotel to be found cannot have null id");
+            throw new IllegalArgumentException("The hotel dto be found cannot have null id");
         }
         return entityManager.find(Hotel.class, id);
     }
@@ -69,7 +69,7 @@ public class HotelManager implements HotelDAO {
     @Override
     public Hotel find(String name) {
         if (name == null) {
-            throw new IllegalArgumentException("The hotel to be found cannot have null name");
+            throw new IllegalArgumentException("The hotel dto be found cannot have null name");
         }
         return entityManager.find(Hotel.class, name);
     }

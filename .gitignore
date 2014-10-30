@@ -1,3 +1,5 @@
 .idea
 *.iml
+/pa165_booking_manager_api/target/
+/pa165_booking_manager_dao/target/
 /pa165_booking_manager_service/target/

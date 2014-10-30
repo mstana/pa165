@@ -1,7 +1,7 @@
 
-package cz.muni.fi.pa165.bookingmanager.services;
+package cz.muni.fi.pa165.bookingmanager.api.services;
 
-import cz.muni.fi.pa165.bookingmanager.to.UserTO;
+import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import java.util.List;
 
 /**
