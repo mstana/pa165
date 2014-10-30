@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.bookingmanager.to;
+package cz.muni.fi.pa165.bookingmanager.api.dto;
 
 import java.util.Objects;
 

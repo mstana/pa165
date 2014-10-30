@@ -1,6 +1,10 @@
-package cz.muni.fi.pa165.bookingmanager.services.impl;
+package cz.muni.fi.pa165.bookingmanager.services;
 
-import cz.muni.fi.pa165.bookingmanager.services.UserService;
+
+import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
+import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -8,6 +12,8 @@ import java.util.List;
  *
  * @author Adam Studenic
  */
+@Service
+@Transactional
 public class UserServiceImpl implements UserService {
 
     @Override

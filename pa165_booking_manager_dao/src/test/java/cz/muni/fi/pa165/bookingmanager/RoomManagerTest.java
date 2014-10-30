@@ -70,7 +70,7 @@ public class RoomManagerTest extends TestCase {
 
         Room room2 = roomDAO.find(room1.getId());
 
-        assertNotNull("Failed to retreive room from db", room2);
+        assertNotNull("Failed dto retreive room from db", room2);
         assertEquals("The retreived room does not equal the original one", room1, room2);
     }
 

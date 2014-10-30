@@ -13,21 +13,21 @@ public interface ReservationDAO {
     /**
      * Create entry for reservation
      *
-     * @param reservation to create
+     * @param reservation dto create
      */
     public void create(Reservation reservation);
 
     /**
      * Update reservation entry
      *
-     * @param reservation to update
+     * @param reservation dto update
      */
     public void update(Reservation reservation);
 
     /**
      * Remove reservation entry
      *
-     * @param reservation to remove
+     * @param reservation dto remove
      */
     public void delete(Reservation reservation);
 
@@ -49,7 +49,7 @@ public interface ReservationDAO {
     /**
      * Returns list of all reservations for given room
      *
-     * @param room to find all reservations for
+     * @param room dto find all reservations for
      * @return {@link List} of {@link Reservation} for given {@param room}
      */
     public List<Reservation> findAll(Room room);
@@ -57,7 +57,7 @@ public interface ReservationDAO {
     /**
      * Returns list of all reservations for given user
      *
-     * @param user to find all reservations for
+     * @param user dto find all reservations for
      * @return {@link List} of {@link Reservation} for given {@param user}
      */
     public List<Reservation> findAll(User user);
