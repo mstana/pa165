@@ -24,13 +24,9 @@ public class ReservationServiceImpl implements ReservationService {
 
     public void create(ReservationTO reservation) {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-/*        try{
-            //TODO:mapping na TO
-            //Reservation transferalReservation = ReservationTOMapping.toEntity(reservation);
-            reservationDAO.create(reservation);
-        } catch(Exception ex) {
-            throw new BookingDataAccessException(ex.getMessage());
-        }*/
+        //TODO:mapping na TO
+        //Reservation transferalReservation = ReservationTOMapping.toEntity(reservation);
+        //reservationDAO.create(reservation);
     }
 }
 
