@@ -58,7 +58,6 @@
 
     <bean id="exceptionInterceptorAspect" class="cz.muni.fi.pa165.bookingmanager.ExceptionInterceptor" />
 
-
     <bean id="mapper" class="org.dozer.DozerBeanMapper">
         <property name="mappingFiles">
             <list>
