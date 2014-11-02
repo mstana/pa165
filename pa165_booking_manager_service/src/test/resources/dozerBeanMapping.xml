@@ -41,8 +41,8 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
             <b>firstName</b>
         </field>
         <field>
-            <a>secondName</a>
-            <b>secondName</b>
+            <a>lastName</a>
+            <b>lastName</b>
         </field>
         <field>
             <a>email</a>
