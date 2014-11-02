@@ -53,7 +53,27 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
     <mapping>
         <class-a>cz.muni.fi.pa165.bookingmanager.entities.Room</class-a>
         <class-b>cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO</class-b>
-        <!--TODO-->
+         <field>
+            <a>id</a>
+            <b>id</b>
+        </field>
+         <field>
+            <a>number</a>
+            <b>number</b>
+        </field>
+         <field>
+            <a>price</a>
+            <b>price</b>
+        </field>
+         <field>
+            <a>bedsCount</a>
+            <b>bedsCount</b>
+        </field>
+        <field>
+            <a>hotel</a>
+            <b>hotel</b>
+            <b-hint>cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO</b-hint>
+        </field>
     </mapping>
 
     <mapping>

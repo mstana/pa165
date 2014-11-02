@@ -16,7 +16,6 @@ public class RoomTO {
 
     private int bedsCount;
     
-    /* TODO HotelTO
     private HotelTO hotel;
 
     public HotelTO getHotel() {
@@ -26,7 +25,7 @@ public class RoomTO {
     public void setHotel(HotelTO hotel) {
         this.hotel = hotel;
     }
-    */
+    
     
     public Long getId() {
         return id;
@@ -75,7 +74,7 @@ public class RoomTO {
         hash = 9187 * hash + Objects.hashCode(this.bedsCount);
         hash = 9187 * hash + Objects.hashCode(this.number);
         hash = 9187 * hash + Objects.hashCode(this.price); 
-        //hash = 9187 * hash + Objects.hashCode(this.hotel);
+        hash = 9187 * hash + Objects.hashCode(this.hotel);
         return hash;
     }
 

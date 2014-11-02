@@ -44,13 +44,16 @@ public class RoomServiceImplTest extends TestCase {
     @Autowired
     private Mapper mapper;
 
-    private RoomService roomService = new RoomServiceImpl();
+    private RoomService roomService;
 
     public RoomServiceImplTest() {
     }
 
     @Before
     public void setUp() {
+        roomDAO = Mockito.mock(RoomDAO.class);
+        roomService = new RoomServiceImpl();
+        
         ReflectionTestUtils.setField(roomService, "roomDAO", roomDAO);
         ReflectionTestUtils.setField(roomService, "mapper", mapper);
     }
