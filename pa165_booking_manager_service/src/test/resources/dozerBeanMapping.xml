@@ -32,7 +32,22 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
     <mapping>
         <class-a>cz.muni.fi.pa165.bookingmanager.entities.User</class-a>
         <class-b>cz.muni.fi.pa165.bookingmanager.api.dto.UserTO</class-b>
-        <!--TODO-->
+         <field>
+            <a>id</a>
+            <b>id</b>
+        </field>
+        <field>
+            <a>firstName</a>
+            <b>firstName</b>
+        </field>
+        <field>
+            <a>secondName</a>
+            <b>secondName</b>
+        </field>
+        <field>
+            <a>email</a>
+            <b>email</b>
+        </field>
     </mapping>
 
     <mapping>
