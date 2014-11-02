@@ -14,11 +14,11 @@ import java.util.List;
  */
 public interface HotelService {
     
-    public void create(HotelTO user);
+    public void create(HotelTO hotel);
 
-    public void update(HotelTO user);
+    public void update(HotelTO hotel);
 
-    public void delete(HotelTO user);
+    public void delete(HotelTO hotel);
 
     public HotelTO find(Long id);
 
