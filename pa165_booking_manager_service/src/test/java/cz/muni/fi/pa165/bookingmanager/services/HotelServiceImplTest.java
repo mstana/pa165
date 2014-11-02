@@ -3,7 +3,6 @@ package cz.muni.fi.pa165.bookingmanager.services;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
-import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import java.util.ArrayList;
@@ -31,7 +30,6 @@ public class HotelServiceImplTest extends TestCase {
     private HotelDAO hotelDAO;
     private HotelService hotelService = new HotelServiceImpl();
     private Mapper mapper;
-    private RoomService roomService;
 
     @Before
     public void setUp() {
@@ -39,8 +37,6 @@ public class HotelServiceImplTest extends TestCase {
 
         mapper = context.getBean("mapper", org.dozer.DozerBeanMapper.class);
         hotelDAO = Mockito.mock(HotelDAO.class);
-
-//        roomService = context.getBean(RoomService.class);
 
         ReflectionTestUtils.setField(hotelService, "hotelDAO", hotelDAO);
         ReflectionTestUtils.setField(hotelService, "mapper", mapper);
@@ -106,8 +102,11 @@ public class HotelServiceImplTest extends TestCase {
         hotelTO.setAddress("Lidická 6, Brno");
         hotelTO.setName("BobyCentrum");
         hotelService.create(hotelTO);
+        hotelTO.setId(1L);
 
         Mockito.when(hotelDAO.find(hotelTO.getId())).thenReturn(mapper.map(hotelTO, Hotel.class));
+
+        hotelTO = hotelService.find(1L);
         Mockito.verify(hotelDAO).find(hotelTO.getId());
 
     }
@@ -118,12 +117,12 @@ public class HotelServiceImplTest extends TestCase {
         HotelTO hotelTO = new HotelTO();
         hotelTO.setAddress("Lidická 6, Brno");
         hotelTO.setName("BobyCentrum");
+        hotelTO.setId(1L);
 
         RoomTO room1 = new RoomTO();
         room1.setNumber("123");
         room1.setPrice(100);
         room1.setBedsCount(2);
-//        room1.setHotel(hotelTO);
 
         if (hotelTO.getRooms() == null) {
             List<RoomTO> rooms = new ArrayList<>();
@@ -131,7 +130,6 @@ public class HotelServiceImplTest extends TestCase {
             hotelTO.setRooms(rooms);
         }
 
-//        hotel.setId(1L);
         //Room is null
         RoomTO room2 = null;
         hotelTO.getRooms().add(room2);
@@ -146,12 +144,13 @@ public class HotelServiceImplTest extends TestCase {
         HotelTO hotelTO2 = new HotelTO();
         hotelTO2.setAddress("Lidická 6, Brno");
         hotelTO2.setName("BobyCentrum");
+        hotelTO2.setId(1L);
+
 
         RoomTO room3 = new RoomTO();
         room3.setNumber("123");
         room3.setPrice(100);
         room3.setBedsCount(2);
-//        room3.setHotel(hotelTO2);
 
         hotelTO2.getRooms().add(room3);
         try {
@@ -161,21 +160,20 @@ public class HotelServiceImplTest extends TestCase {
             //OK
         }
 
-        // BedsCount negative
-        RoomTO room4 = new RoomTO();
-        room4.setNumber("123");
-        room4.setPrice(100);
-        room4.setBedsCount(-10);
-
-        hotelTO2.getRooms().add(room4);
-
         try {
+            // BedsCount negative
+            RoomTO room4 = new RoomTO();
+            room4.setNumber("123");
+            room4.setPrice(100);
+            room4.setBedsCount(-10);
+
+            hotelTO2.getRooms().add(room4);
             hotelService.update(hotelTO2);
             fail("Rooms BedsCount cannot be negative");
         } catch (IllegalArgumentException e) {
             //OK
         }
-        Mockito.verify(hotelDAO, Mockito.times(3)).find(1L);
+        Mockito.verify(hotelDAO, Mockito.times(2)).find(1L);
     }
 
     @Test
@@ -197,7 +195,9 @@ public class HotelServiceImplTest extends TestCase {
         hotelTO.setId(1L);
 
         Mockito.when(hotelDAO.find(hotelTO.getId())).thenReturn(mapper.map(hotelTO, Hotel.class));
+
         hotelService.delete(hotelTO);
+        Mockito.verify(hotelDAO).delete(mapper.map(hotelTO, Hotel.class));
 
     }
 
