@@ -39,18 +39,21 @@ import org.springframework.transaction.annotation.Transactional;
 public class RoomServiceImplTest extends TestCase {
 
     @Mock
-    private RoomDAO roomDAO = Mockito.mock(RoomDAO.class);
+    private RoomDAO roomDAO;
 
     @Autowired
     private Mapper mapper;
 
-    private RoomService roomService = new RoomServiceImpl();
+    private RoomService roomService;
 
     public RoomServiceImplTest() {
     }
 
     @Before
     public void setUp() {
+        roomDAO = Mockito.mock(RoomDAO.class);
+        roomService = new RoomServiceImpl();
+        
         ReflectionTestUtils.setField(roomService, "roomDAO", roomDAO);
         ReflectionTestUtils.setField(roomService, "mapper", mapper);
     }
