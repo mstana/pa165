@@ -13,14 +13,39 @@ import java.util.List;
  * @author mstana
  */
 public interface HotelService {
-    
+    /**
+     * Creates hotel.
+     *
+     * @param hotel
+     */
     public void create(HotelTO hotel);
-
+    
+    /**
+     * Update hotel.
+     *
+     * @param hotel
+     */
     public void update(HotelTO hotel);
-
+    
+    /**
+     * Delete hotel.
+     *
+     * @param hotel
+     */
     public void delete(HotelTO hotel);
-
+    
+    /**
+     * Find hotel by id.
+     *
+     * @param id
+     * @return 
+     */
     public HotelTO find(Long id);
-
+    
+    /**
+     * Find all hotels.
+     *
+     * @return
+     */
     public List<HotelTO> findAll();
 }
