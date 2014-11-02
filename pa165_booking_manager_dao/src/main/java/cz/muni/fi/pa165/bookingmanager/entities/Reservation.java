@@ -24,6 +24,10 @@ public class Reservation {
     @ManyToOne
     private User user;
 
+    public Reservation() {
+    
+    }
+    
     public Reservation(Room room, Date beginDate, Date endDate) {
         this.room = room;
         this.beginDate = beginDate;
