@@ -1,6 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.services;
 
 
+import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
@@ -66,7 +67,7 @@ public class RoomServiceImplTest extends TestCase {
     }
 
     @Test
-    public void testCreateRoomWithoutHotel() {
+    public void testCreateEmptyRoom() {
         RoomTO room = new RoomTO();
         room.setNumber("1");
         room.setBedsCount(2);
@@ -75,4 +76,17 @@ public class RoomServiceImplTest extends TestCase {
         roomService.create(room);
         Mockito.verify(roomDAO).create(mapper.map(room, Room.class));
     }
+
+    @Test
+    public void testCreateWithWrongAttributes() {
+        try {
+            roomService.create(null);
+            fail("Cannot create null room.");
+        } catch (Exception ex) {
+            //OK
+        }
+
+        Mockito.verify(roomDAO, Mockito.never()).create(Mockito.any(Room.class));
+    }
+
 }

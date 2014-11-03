@@ -63,7 +63,7 @@ public class UserServiceImplTest {
         userService.create(userTO);
         Mockito.verify(userDAO).create(mapper.map(userTO, User.class));
     }
-        @Test
+    @Test
     public void testFindHotel() {
         try {
             userService.find(null);
