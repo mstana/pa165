@@ -10,6 +10,8 @@ import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import java.util.List;
+
+import cz.muni.fi.pa165.bookingmanager.entities.User;
 import junit.framework.TestCase;
 import org.dozer.Mapper;
 import org.junit.*;
@@ -67,18 +69,7 @@ public class RoomServiceImplTest extends TestCase {
     }
 
     @Test
-    public void testCreateEmptyRoom() {
-        RoomTO room = new RoomTO();
-        room.setNumber("1");
-        room.setBedsCount(2);
-        room.setPrice(500);
-
-        roomService.create(room);
-        Mockito.verify(roomDAO).create(mapper.map(room, Room.class));
-    }
-
-    @Test
-    public void testCreateWithWrongAttributes() {
+    public void testCreateGetAndDeleteRoom() {
         try {
             roomService.create(null);
             fail("Cannot create null room.");
@@ -87,6 +78,29 @@ public class RoomServiceImplTest extends TestCase {
         }
 
         Mockito.verify(roomDAO, Mockito.never()).create(Mockito.any(Room.class));
+
+        RoomTO room = new RoomTO();
+        room.setNumber("1");
+        room.setBedsCount(2);
+        room.setPrice(500);
+
+        roomService.create(room);
+        Mockito.verify(roomDAO).create(mapper.map(room,Room.class));
+        room.setId(1L);
+
+        try {
+            roomService.find(null);
+            fail("Cannot find room with null id.");
+        } catch (Exception ex) {
+            //OK
+        }
+
+        Mockito.when(roomDAO.find(room.getId())).thenReturn(mapper.map(room, Room.class));
+        roomService.find(room.getId());
+        Mockito.verify(roomDAO).find(room.getId());
+
+        roomService.delete(room);
+        Mockito.verify(roomDAO).delete(mapper.map(room, Room.class));
     }
 
 }
