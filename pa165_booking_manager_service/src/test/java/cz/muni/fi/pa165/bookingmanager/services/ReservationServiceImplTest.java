@@ -1,35 +1,21 @@
 package cz.muni.fi.pa165.bookingmanager.services;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.ReservationTO;
-import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
-import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
-import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.ReservationDAO;
-import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
-import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
-import cz.muni.fi.pa165.bookingmanager.entities.Administrator;
-import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Reservation;
-import cz.muni.fi.pa165.bookingmanager.entities.Room;
-import cz.muni.fi.pa165.bookingmanager.entities.User;
 import java.util.Calendar;
-import java.util.List;
 import junit.framework.TestCase;
 import org.dozer.Mapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import static org.mockito.Matchers.any;
-import static org.mockito.Matchers.anyLong;
 import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
 /**

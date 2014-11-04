@@ -1,13 +1,9 @@
 package cz.muni.fi.pa165.bookingmanager.services;
 
 
-import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
-import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
-import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
-import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import java.util.List;
 
@@ -16,7 +12,6 @@ import org.dozer.Mapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
 import org.mockito.*;
-import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
@@ -54,15 +49,6 @@ public class RoomServiceImplTest extends TestCase {
     public void setUp() {
         MockitoAnnotations.initMocks(this);
         roomService = new RoomServiceImpl(roomDAO,mapper);
-
-        /*        ApplicationContext context = new ClassPathXmlApplicationContext("applicationTestContext.xml");
-
-        mapper = context.getBean("mapper", org.dozer.DozerBeanMapper.class);
-        hotelDAO = Mockito.mock(HotelDAO.class);
-
-        ReflectionTestUtils.setField(hotelService, "hotelDAO", hotelDAO);
-        ReflectionTestUtils.setField(hotelService, "mapper", mapper);
-*/
     }
 
     @After

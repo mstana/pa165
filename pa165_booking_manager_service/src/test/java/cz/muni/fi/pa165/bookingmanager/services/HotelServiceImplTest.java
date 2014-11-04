@@ -7,7 +7,6 @@ import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.transaction.Transactional;
 import junit.framework.TestCase;
 import org.dozer.Mapper;
 import org.junit.After;
@@ -18,18 +17,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.test.util.ReflectionTestUtils;
+import org.springframework.transaction.annotation.Transactional;
 
 /**
  *
  * @author Adam Studenic
  */
-@org.springframework.transaction.annotation.Transactional
+@Transactional
 @TransactionConfiguration(defaultRollback = true)
 @ContextConfiguration(locations = "classpath:/application" +
         "Test" +
