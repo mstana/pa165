@@ -11,21 +11,19 @@ import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import java.util.List;
 
-import cz.muni.fi.pa165.bookingmanager.entities.User;
 import junit.framework.TestCase;
 import org.dozer.Mapper;
 import org.junit.*;
 import org.junit.runner.RunWith;
-import org.mockito.Mock;
-import org.mockito.Mockito;
+import org.mockito.*;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.ApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
-import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
+
+import javax.inject.Inject;
 
 
 /**
@@ -35,11 +33,13 @@ import org.springframework.transaction.annotation.Transactional;
 
 @Transactional
 @TransactionConfiguration(defaultRollback = true)
-@RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "classpath:/application" +
         "Test" +
         "Context.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class RoomServiceImplTest extends TestCase {
+
+    private RoomService roomService;
 
     @Mock
     private RoomDAO roomDAO;
@@ -47,18 +47,22 @@ public class RoomServiceImplTest extends TestCase {
     @Autowired
     private Mapper mapper;
 
-    private RoomService roomService;
-
     public RoomServiceImplTest() {
     }
 
     @Before
     public void setUp() {
-        roomDAO = Mockito.mock(RoomDAO.class);
-        roomService = new RoomServiceImpl();
-        
-        ReflectionTestUtils.setField(roomService, "roomDAO", roomDAO);
-        ReflectionTestUtils.setField(roomService, "mapper", mapper);
+        MockitoAnnotations.initMocks(this);
+        roomService = new RoomServiceImpl(roomDAO,mapper);
+
+        /*        ApplicationContext context = new ClassPathXmlApplicationContext("applicationTestContext.xml");
+
+        mapper = context.getBean("mapper", org.dozer.DozerBeanMapper.class);
+        hotelDAO = Mockito.mock(HotelDAO.class);
+
+        ReflectionTestUtils.setField(hotelService, "hotelDAO", hotelDAO);
+        ReflectionTestUtils.setField(hotelService, "mapper", mapper);
+*/
     }
 
     @After

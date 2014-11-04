@@ -25,11 +25,15 @@ import java.util.List;
 @Transactional
 public class ReservationServiceImpl implements ReservationService {
 
-    @Autowired
-    private ReservationDAO reservationDAO;
+    private final ReservationDAO reservationDAO;
+
+    private final Mapper mapper;
 
     @Autowired
-    private Mapper mapper;
+    public ReservationServiceImpl(ReservationDAO reservationDAO, Mapper mapper) {
+        this.reservationDAO = reservationDAO;
+        this.mapper = mapper;
+    }
 
     public ReservationDAO getReservationDAO() {
         return reservationDAO;

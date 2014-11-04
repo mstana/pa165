@@ -21,11 +21,15 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional
 public class RoomServiceImpl implements RoomService {
 
-    @Autowired
-    private RoomDAO roomDAO;
+    private final RoomDAO roomDAO;
+
+    private final Mapper mapper;
 
     @Autowired
-    private Mapper mapper;
+    public RoomServiceImpl(RoomDAO roomDAO, Mapper mapper) {
+        this.roomDAO = roomDAO;
+        this.mapper = mapper;
+    }
 
     public RoomDAO getRoomDAO() {
         return roomDAO;

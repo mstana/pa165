@@ -13,9 +13,15 @@ import org.dozer.Mapper;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 
@@ -23,23 +29,26 @@ import org.springframework.test.util.ReflectionTestUtils;
  *
  * @author Adam Studenic
  */
+@org.springframework.transaction.annotation.Transactional
 @TransactionConfiguration(defaultRollback = true)
-@Transactional
+@ContextConfiguration(locations = "classpath:/application" +
+        "Test" +
+        "Context.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class HotelServiceImplTest extends TestCase {
 
+    @Mock
     private HotelDAO hotelDAO;
-    private HotelService hotelService = new HotelServiceImpl();
+
+    @Autowired
     private Mapper mapper;
+
+    private HotelService hotelService;
 
     @Before
     public void setUp() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationTestContext.xml");
-
-        mapper = context.getBean("mapper", org.dozer.DozerBeanMapper.class);
-        hotelDAO = Mockito.mock(HotelDAO.class);
-
-        ReflectionTestUtils.setField(hotelService, "hotelDAO", hotelDAO);
-        ReflectionTestUtils.setField(hotelService, "mapper", mapper);
+        MockitoAnnotations.initMocks(this);
+        hotelService  = new HotelServiceImpl(hotelDAO,mapper);
     }
 
     @After

@@ -15,7 +15,10 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.test.context.ContextConfiguration;
@@ -27,24 +30,26 @@ import org.springframework.test.util.ReflectionTestUtils;
  *
  * @author mstana
  */
+@org.springframework.transaction.annotation.Transactional
 @TransactionConfiguration(defaultRollback = true)
-@Transactional
+@ContextConfiguration(locations = "classpath:/application" +
+        "Test" +
+        "Context.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class UserServiceImplTest {
 
-    
+    @Mock
     private UserDAO userDAO;
-    private UserServiceImpl userService = new UserServiceImpl();
+
+    @Autowired
     private Mapper mapper;
+
+    private UserServiceImpl userService;
 
     @Before
     public void setUp() {
-        ApplicationContext context = new ClassPathXmlApplicationContext("applicationTestContext.xml");
-
-        mapper = context.getBean("mapper", org.dozer.DozerBeanMapper.class);
-        userDAO = Mockito.mock(UserDAO.class);
-
-        ReflectionTestUtils.setField(userService, "userDAO", userDAO);
-        ReflectionTestUtils.setField(userService, "mapper", mapper);
+        MockitoAnnotations.initMocks(this);
+        userService = new UserServiceImpl(userDAO,mapper);
     }
 
     @After
@@ -76,9 +81,14 @@ public class UserServiceImplTest {
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
         userTO.setEmail("rstanamarek@gmail.com");
+
         userService.create(userTO);
+        Mockito.verify(userDAO).create(mapper.map(userTO, User.class));
+
+        userTO.setId(1L);
 
         Mockito.when(userDAO.find(userTO.getId())).thenReturn(mapper.map(userTO, User.class));
+        userDAO.find(userTO.getId());
         Mockito.verify(userDAO).find(userTO.getId());
 
     }

@@ -2,13 +2,15 @@ package cz.muni.fi.pa165.bookingmanager.api.services;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
+import org.dozer.Mapper;
+
 import java.util.List;
 
 /**
  *
  * @author David Kadlec
  */
-public interface RoomService {
+public interface RoomService  {
     /**
      * Creates room.
      *

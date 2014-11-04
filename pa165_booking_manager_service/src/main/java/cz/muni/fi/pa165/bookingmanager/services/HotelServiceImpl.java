@@ -18,11 +18,15 @@ import org.springframework.transaction.annotation.Transactional;
 
 public class HotelServiceImpl implements HotelService {
 
-    @Autowired
-    private HotelDAO hotelDAO;
+    private final HotelDAO hotelDAO;
+
+    private final Mapper mapper;
 
     @Autowired
-    private Mapper mapper;
+    public HotelServiceImpl(HotelDAO hotelDAO, Mapper mapper) {
+        this.hotelDAO = hotelDAO;
+        this.mapper = mapper;
+    }
 
     public HotelDAO getHotelDAO() {
         return hotelDAO;

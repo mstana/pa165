@@ -23,9 +23,12 @@ import static org.mockito.Matchers.any;
 import static org.mockito.Matchers.anyLong;
 import org.mockito.Mock;
 import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
+import org.mockito.runners.MockitoJUnitRunner;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
+import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.test.util.ReflectionTestUtils;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -33,10 +36,12 @@ import org.springframework.transaction.annotation.Transactional;
  *
  * @author David Kadlec
  */
-@RunWith(SpringJUnit4ClassRunner.class)
+@Transactional
+@TransactionConfiguration(defaultRollback = true)
 @ContextConfiguration(locations = "classpath:/application" +
         "Test" +
         "Context.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class ReservationServiceImplTest extends TestCase {
     
     @Mock
@@ -52,11 +57,8 @@ public class ReservationServiceImplTest extends TestCase {
 
     @Before
     public void setUp() {
-        reservationDAO = Mockito.mock(ReservationDAO.class);
-        reservationService = new ReservationServiceImpl();
-        
-        ReflectionTestUtils.setField(reservationService, "reservationDAO", reservationDAO);
-        ReflectionTestUtils.setField(reservationService, "mapper", mapper);
+        MockitoAnnotations.initMocks(this);
+        reservationService = new ReservationServiceImpl(reservationDAO,mapper);
     }
 
     @After

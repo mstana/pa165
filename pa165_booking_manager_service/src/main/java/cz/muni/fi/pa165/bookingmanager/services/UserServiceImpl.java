@@ -20,11 +20,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 @Transactional
 public class UserServiceImpl implements UserService {
 
-    @Autowired
-    private UserDAO userDAO;
+    private final UserDAO userDAO;
+
+    private final Mapper mapper;
 
     @Autowired
-    private Mapper mapper;
+    public UserServiceImpl(UserDAO userDAO, Mapper mapper) {
+        this.userDAO = userDAO;
+        this.mapper = mapper;
+    }
 
     public UserDAO getUserDAO() {
         return userDAO;
