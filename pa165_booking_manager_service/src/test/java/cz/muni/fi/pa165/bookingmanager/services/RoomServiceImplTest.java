@@ -1,10 +1,14 @@
 package cz.muni.fi.pa165.bookingmanager.services;
 
 
+import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
+import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import junit.framework.TestCase;
@@ -93,4 +97,73 @@ public class RoomServiceImplTest extends TestCase {
         Mockito.verify(roomDAO).delete(mapper.map(room, Room.class));
     }
 
+    @Test
+    public void testUpdate() {
+        try {
+            roomService.update(null);
+            fail("Cannot update null room.");
+        } catch (Exception ex) {
+            //OK
+        }
+
+        Mockito.verify(roomDAO, Mockito.never()).create(Mockito.any(Room.class));
+
+        RoomTO room = new RoomTO();
+        room.setNumber("1");
+        room.setBedsCount(2);
+        room.setPrice(500);
+
+        try {
+            roomService.update(room);
+            fail("Cannot update not created room.");
+        } catch (Exception ex) {
+            //OK
+        }
+
+        roomService.create(room);
+        Mockito.verify(roomDAO).create(mapper.map(room,Room.class));
+        room.setId(1L);
+
+        room.setPrice(0);
+        Mockito.when(roomDAO.find(room.getId())).thenReturn(mapper.map(room, Room.class));
+
+        roomService.update(room);
+        Mockito.verify(roomDAO).update(mapper.map(room, Room.class));
+    }
+
+    @Test
+    public void testFindAll() {
+        try {
+            roomService.findAll(null);
+            fail("Cannot look for null room.");
+        } catch (Exception ex) {
+            //OK
+        }
+
+        Mockito.verify(roomDAO, Mockito.never()).create(Mockito.any(Room.class));
+
+        RoomTO room = new RoomTO();
+        room.setNumber("1");
+        room.setBedsCount(2);
+        room.setPrice(500);
+
+        HotelTO hotelTO = new HotelTO();
+        hotelTO.setName("Grand Hotel");
+        hotelTO.setAddress("Dlouha 5");
+        hotelTO.addRoom(room);
+        room.setHotel(hotelTO);
+
+        roomService.create(room);
+        Mockito.verify(roomDAO).create(mapper.map(room,Room.class));
+        room.setId(1L);
+
+        Mockito.when(roomDAO.find(room.getId())).thenReturn(mapper.map(room, Room.class));
+        roomService.find(room.getId());
+        Mockito.verify(roomDAO).find(room.getId());
+
+        Hotel hotel = mapper.map(hotelTO, Hotel.class);
+        Mockito.when(roomDAO.findAll(hotel)).thenReturn(hotel.getRooms());
+        List<RoomTO> roomList = roomService.findAll(hotelTO);
+        assertTrue(roomList.contains(room));
+    }
 }

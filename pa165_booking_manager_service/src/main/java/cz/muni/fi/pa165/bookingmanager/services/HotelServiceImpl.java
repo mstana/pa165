@@ -31,6 +31,7 @@ public class HotelServiceImpl implements HotelService {
     public HotelDAO getHotelDAO() {
         return hotelDAO;
     }
+
     @Override
     public void create(HotelTO hotel) {
         if (hotel == null) {
