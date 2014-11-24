@@ -6,14 +6,14 @@
          version="3.0">
 
     <servlet>
-        <servlet-name>springmvc</servlet-name>
+        <servlet-name>pa165</servlet-name>
         <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>springmvc</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>pa165</servlet-name>
+        <url-pattern>/pa165/*</url-pattern>
     </servlet-mapping>
 
     <welcome-file-list>

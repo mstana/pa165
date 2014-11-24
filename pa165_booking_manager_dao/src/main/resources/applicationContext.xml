@@ -20,13 +20,13 @@
     <bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">
         <property name="locations">
             <list>
-                <value>classpath:testdatabase.properties</value>
+                <value>classpath:database.properties</value>
             </list>
         </property>
     </bean>
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
-        <property name="persistenceUnitName" value="unit-test"/>
+        <property name="persistenceUnitName" value="pa165"/>
         <property name="dataSource" ref="dataSource" />
     </bean>
 
