@@ -17,7 +17,7 @@ import java.io.IOException;
 public class HelloController  {
 
 
-    @RequestMapping(method=RequestMethod.GET, value="hello")
+    @RequestMapping(method=RequestMethod.GET, value="/hello")
     public ModelAndView handleRequest() throws ServletException, IOException {
 
         String aMessage = "Hello World MVC!";
@@ -28,8 +28,8 @@ public class HelloController  {
         return modelAndView;
     }
 
-    @RequestMapping(method=RequestMethod.GET, value="hello2")
+    @RequestMapping(method=RequestMethod.GET, value="")
     public String handleRequest2() throws ServletException, IOException {
-        return "hello";
+        return "index";
     }
 }
