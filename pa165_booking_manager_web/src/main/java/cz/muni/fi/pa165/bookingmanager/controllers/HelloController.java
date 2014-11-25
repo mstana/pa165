@@ -1,7 +1,9 @@
 package cz.muni.fi.pa165.bookingmanager.controllers;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
+import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
+import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -17,6 +19,8 @@ public class HelloController  {
 
     @Autowired
     HotelService hotelService;
+    @Autowired
+    UserService userService;
 
     @Autowired
     MessageSource messageSource;
@@ -41,15 +45,42 @@ public class HelloController  {
         for (HotelTO hotel : hotelService.findAll()) {
             hotelService.delete(hotel);
         }
-        HotelTO hotel = new HotelTO();
-        hotel.setAddress("sdf");
-        hotel.setName("prvni");
-        hotelService.create(hotel);
 
-        HotelTO hotel2 = new HotelTO();
-        hotel2.setName("druhy");
-        hotelService.create(hotel2);
+        HotelTO hotelTO = new HotelTO();
+        hotelTO.setAddress("Lidická 6, Brno");
+        hotelTO.setName("BobyCentrum");
+        hotelService.create(hotelTO);
 
+        HotelTO hotelTO2 = new HotelTO();
+        hotelTO2.setAddress("Hrcirska 10, Brno");
+        hotelTO2.setName("Hotel Slovan");
+        hotelService.create(hotelTO2);
+
+        HotelTO hotelTO3 = new HotelTO();
+        hotelTO3.setAddress("Masarykova 1, Brno");
+        hotelTO3.setName("Hotel Continental");
+        hotelService.create(hotelTO3);
+
+        
+        UserTO u1 = new UserTO();
+        u1.setFirstName("Marek");
+        u1.setLastName("Stana");
+        u1.setEmail("marek.stana@ms.com");
+        userService.create(u1);
+        
+        UserTO u2 = new UserTO();
+        u2.setFirstName("David");
+        u2.setLastName("Kadlec");
+        u2.setEmail("david.kadlec@dk.com");
+        userService.create(u2);
+        
+        UserTO u3 = new UserTO();
+        u3.setFirstName("Adam");
+        u3.setLastName("Studenic");
+        u3.setEmail("adam.studenic@as.com");
+        userService.create(u3);
+        
+        
         return "index";
     }
 }
