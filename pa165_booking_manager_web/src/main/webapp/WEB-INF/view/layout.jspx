@@ -1,3 +1,9 @@
+<jsp:root
+        xmlns:c="http://java.sun.com/jsp/jstl/core"
+        xmlns:spring="http://www.springframework.org/tags"
+        xmlns:jsp="http://java.sun.com/JSP/Page"
+        version="2.0">
+
 <html xmlns:c="http://java.sun.com/jsp/jstl/core"
       xmlns:spring="http://www.springframework.org/tags"
       xmlns:tiles="http://tiles.apache.org/tags-tiles"
@@ -6,8 +12,8 @@
 <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
 <jsp:directive.page contentType="text/html;charset=UTF-8" />
 
-<head>
 
+<head>
     <meta charset="utf-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -16,14 +22,6 @@
 
     <title><c:out value="${title}"/></title>
 
-    <!--head>
-      <meta charset="utf-8"/>
-      <title><c:out value="{title}"/></title>
-      <spring:url value="/style" var="styleUrl" />
-      <link href="{styleUrl}/app.css" rel="stylesheet"/>
-    </head-->
-
-
     <!-- Bootstrap Core CSS -->
     <link href="css/bootstrap.min.css" rel="stylesheet" />
 
@@ -31,7 +29,44 @@
 
 <body>
 <div class="container" style="padding-top: 50px;">
-    <jsp:include page="/WEB-INF/view/menu.jspx"/>
+    <!-- Navigation -->
+    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" xmlns:spring="http://java.sun.com/jsf/html">
+        <div class="container">
+            <!-- Brand and toggle get grouped for better mobile display -->
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="./">Start Bootstrap</a>
+            </div>
+            <tiles:importAttribute name="hotels" />
+            <!-- Collect the nav links, forms, and other content for toggling -->
+            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                <ul class="nav navbar-nav">
+                    <li>
+                        <c:set var="hotels"><tiles:getAsString name="hotels"/></c:set>
+                        <a href="hotels"><c:out value="${hotels}"/>
+                                <spring:message code="${hotels}"/></a>
+                    </li>
+                    <li>
+                        <a href="#">About</a>
+                    </li>
+                    <li>
+                        <a href="#">Services</a>
+                    </li>
+                    <li>
+                        <a href="#">Contact</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- /.navbar-collapse -->
+        </div>
+        <!-- /.container -->
+    </nav>
+    <!--jsp:include page="/WEB-INF/view/menu.jspx"/-->
     <tiles:insertAttribute name="main" />
     <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
 </div>
@@ -44,3 +79,4 @@
 
 </body>
 </html>
+</jsp:root>
