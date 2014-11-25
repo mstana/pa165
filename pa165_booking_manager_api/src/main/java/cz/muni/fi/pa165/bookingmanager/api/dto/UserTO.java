@@ -16,6 +16,15 @@ public class UserTO {
 
     private String email;
 
+    private Boolean isAdmin;
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
     public UserTO() {
     }
 

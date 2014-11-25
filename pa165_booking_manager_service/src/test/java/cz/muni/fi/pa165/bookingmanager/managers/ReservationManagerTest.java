@@ -4,7 +4,6 @@ import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.ReservationDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
-import cz.muni.fi.pa165.bookingmanager.entities.Administrator;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Reservation;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
@@ -130,7 +129,8 @@ public class ReservationManagerTest extends TestCase {
 
     
     private Reservation createReservationInMemory() {
-        User administrator = new Administrator();
+        User administrator = new User();
+        administrator.setIsAdmin(true);
         userDAO.create(administrator);
         
         Hotel hotel = new Hotel();

@@ -16,7 +16,7 @@ import javax.persistence.Id;
  *
  * @author mstana
  */
-@Entity
+@Entity(name = "booking_user")
 public class User {
     
     @Id
@@ -31,9 +31,18 @@ public class User {
     
     @Column
     private String email;
-
-    //dto do: booking list
     
+    @Column
+    private Boolean isAdmin;
+    //to do: booking list
+
+    public Boolean getIsAdmin() {
+        return isAdmin;
+    }
+
+    public void setIsAdmin(Boolean isAdmin) {
+        this.isAdmin = isAdmin;
+    }
     
     public String getEmail() {
         return email;
@@ -66,6 +75,9 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
+    
+    
+    
 
     @Override
     public int hashCode() {

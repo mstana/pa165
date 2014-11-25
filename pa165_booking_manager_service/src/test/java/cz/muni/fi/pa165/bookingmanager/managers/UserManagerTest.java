@@ -1,8 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
-import cz.muni.fi.pa165.bookingmanager.entities.Administrator;
-import cz.muni.fi.pa165.bookingmanager.entities.Guest;
+
 import cz.muni.fi.pa165.bookingmanager.entities.User;
 import java.util.List;
 import javax.transaction.Transactional;
@@ -53,8 +52,10 @@ public class UserManagerTest {
     @Test
     @Transactional
     public void testCreate() {
-        User guest = new Guest();
-        User administrator = new Administrator();
+        User guest = new User();
+        guest.setIsAdmin(Boolean.FALSE);
+        User administrator = new User();
+        administrator.setIsAdmin(Boolean.TRUE);
 
         assertNull("ID must be null before persist", guest.getId());
         userDAO.create(guest);
@@ -76,15 +77,15 @@ public class UserManagerTest {
     @Test
     @Transactional
     public void testUpdate() {
-        User guest = new Guest();
-        User administrator = new Administrator();
-
+        User guest = new User();
+        User administrator = new User();
         assertNull("ID must be null before persist", guest.getId());
         userDAO.create(guest);
         assertNotNull("ID should not be null", guest.getId());
 
         guest.setFirstName("Thomas");
         guest.setLastName("Podolski");
+        guest.setIsAdmin(Boolean.FALSE);
         userDAO.update(guest);
 
         assertNotNull(guest.getFirstName());
@@ -98,6 +99,7 @@ public class UserManagerTest {
 
         administrator.setFirstName("Miroslav");
         administrator.setLastName("Stoch");
+        administrator.setIsAdmin(Boolean.TRUE);
         userDAO.update(administrator);
 
         assertNotNull(administrator.getFirstName());
@@ -109,8 +111,10 @@ public class UserManagerTest {
     @Test
     @Transactional
     public void testDelete() {
-        User guest = new Guest();
-        User administrator = new Administrator();
+        User guest = new User();
+        guest.setIsAdmin(Boolean.FALSE);
+        User administrator = new User();
+        administrator.setIsAdmin(Boolean.TRUE);
 
         userDAO.create(guest);
         userDAO.delete(guest);
@@ -125,8 +129,10 @@ public class UserManagerTest {
     @Test
     @Transactional
     public void testFind() {
-        User guest = new Guest();
-        User administrator = new Administrator();
+        User guest = new User();
+        guest.setIsAdmin(Boolean.FALSE);
+        User administrator = new User();
+        administrator.setIsAdmin(Boolean.TRUE);
 
         assertNull(guest.getId());
         userDAO.create(guest);
@@ -146,13 +152,18 @@ public class UserManagerTest {
     @Test
     @Transactional
     public void testFindAll() {
-        User guest1 = new Guest();
-        User guest2 = new Guest();
-        User guest3 = new Guest();
-        User administrator1 = new Administrator();
-        User administrator2 = new Administrator();
-        User administrator3 = new Administrator();
-
+        User guest1 = new User();
+        guest1.setIsAdmin(Boolean.FALSE);
+        User guest2 = new User();
+        guest2.setIsAdmin(Boolean.FALSE);
+        User guest3 = new User();
+        guest3.setIsAdmin(Boolean.FALSE);
+        User administrator1 = new User();
+        administrator1.setIsAdmin(Boolean.TRUE);
+        User administrator2 = new User();
+        administrator2.setIsAdmin(Boolean.TRUE);
+        User administrator3 = new User();
+        administrator3.setIsAdmin(Boolean.TRUE);
         assertNull(guest1.getId());
         assertNull(guest2.getId());
         assertNull(guest3.getId());

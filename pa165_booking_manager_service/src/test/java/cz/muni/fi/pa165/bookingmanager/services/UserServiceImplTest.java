@@ -52,7 +52,7 @@ public class UserServiceImplTest {
         userDAO = null;
     }
     @Test
-    public void testCreateUserWithNoRooms() {
+    public void testCreateUser() {
         UserTO userTO = new UserTO();
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
@@ -74,6 +74,7 @@ public class UserServiceImplTest {
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
         userTO.setEmail("rstanamarek@gmail.com");
+        userTO.setIsAdmin(Boolean.FALSE);
 
         userService.create(userTO);
         Mockito.verify(userDAO).create(mapper.map(userTO, User.class));
@@ -102,6 +103,7 @@ public class UserServiceImplTest {
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
         userTO.setEmail("rstanamarek@gmail.com");
+        userTO.setIsAdmin(Boolean.FALSE);
         
 
         userService.create(userTO);
