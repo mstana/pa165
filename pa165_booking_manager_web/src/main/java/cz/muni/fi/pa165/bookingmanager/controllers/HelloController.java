@@ -62,9 +62,9 @@ public class HelloController  {
         hotelService.create(hotelTO3);
 
 
-        for (UserTO user : userService.findAll()) {
-            userService.delete(user);
-        }
+//        for (UserTO user : userService.findAll()) {
+//            userService.delete(user);
+//        }
 
         UserTO u1 = new UserTO();
         u1.setFirstName("Marek");
