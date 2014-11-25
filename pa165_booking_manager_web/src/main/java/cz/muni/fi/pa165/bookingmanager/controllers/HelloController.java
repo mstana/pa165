@@ -25,7 +25,7 @@ public class HelloController  {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(method=RequestMethod.GET, value="/hotels")
+    @RequestMapping(method=RequestMethod.GET, value="/hello")
     public ModelAndView handleRequest() throws ServletException, IOException {
 
         String aMessage = new String();
@@ -61,26 +61,30 @@ public class HelloController  {
         hotelTO3.setName("Hotel Continental");
         hotelService.create(hotelTO3);
 
-        
+
+        for (UserTO user : userService.findAll()) {
+            userService.delete(user);
+        }
+
         UserTO u1 = new UserTO();
         u1.setFirstName("Marek");
         u1.setLastName("Stana");
         u1.setEmail("marek.stana@ms.com");
         userService.create(u1);
-        
+
         UserTO u2 = new UserTO();
         u2.setFirstName("David");
         u2.setLastName("Kadlec");
         u2.setEmail("david.kadlec@dk.com");
         userService.create(u2);
-        
+
         UserTO u3 = new UserTO();
         u3.setFirstName("Adam");
         u3.setLastName("Studenic");
         u3.setEmail("adam.studenic@as.com");
         userService.create(u3);
-        
-        
+
+
         return "index";
     }
 }
