@@ -35,6 +35,7 @@ public class HotelManager implements HotelDAO {
             throw new IllegalArgumentException("The hotel name is not valid");
         }
         entityManager.persist(hotel);
+        entityManager.flush();
     }
 
     @Override

@@ -23,7 +23,7 @@
     <title><c:out value="${title}"/></title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/css/bootstrap.min.css" rel="stylesheet" />
 
 </head>
 
@@ -52,7 +52,7 @@
                                 <spring:message code="${hotels}"/></a>
                     </li>
                     <li>
-                        <a href="#">About</a>
+                        <a href="/rooms">Rooms</a>
                     </li>
                     <li>
                         <a href="#">Services</a>
@@ -67,7 +67,12 @@
         <!-- /.container -->
     </nav>
     <!--jsp:include page="/WEB-INF/view/menu.jspx"/-->
-    <tiles:insertAttribute name="main" />
+    <div class="container">
+        <c:if test="${message != null}">
+            <div class="alert alert-success" role="alert">${message}</div>
+        </c:if>
+        <tiles:insertAttribute name="main" />
+    </div>
     <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
 </div>
 

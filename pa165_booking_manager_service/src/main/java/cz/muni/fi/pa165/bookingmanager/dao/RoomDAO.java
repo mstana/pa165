@@ -11,7 +11,7 @@ import java.util.List;
 public interface RoomDAO {
         
     public void create(Room room);
-    
+
     public void update(Room room);
     
     public void delete(Room room);

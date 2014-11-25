@@ -37,6 +37,7 @@ public class RoomManager implements RoomDAO {
             throw new IllegalArgumentException("The hotel and number must be set.");
         }
         entityManager.persist(room);
+        entityManager.flush();
     }
 
     @Override

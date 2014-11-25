@@ -40,6 +40,7 @@ public class UserManager implements UserDAO{
     @Override
     public void create(User user) {
         entityManager.persist(user);
+        entityManager.flush();
     }
 
     @Override
@@ -50,7 +51,7 @@ public class UserManager implements UserDAO{
     @Override
     public void delete(User user) {
         User u = entityManager.merge(user);
-        entityManager.remove(user);
+        entityManager.remove(u);
     }
 
     @Override

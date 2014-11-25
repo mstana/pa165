@@ -36,6 +36,7 @@ public class ReservationManager implements ReservationDAO {
     @Override
     public void create(Reservation reservation) {
         entityManager.persist(reservation);
+        entityManager.flush();
     }
 
     @Override

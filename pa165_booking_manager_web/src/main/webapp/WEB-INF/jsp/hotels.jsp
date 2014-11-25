@@ -18,6 +18,7 @@
           <th>ID</th>
           <th>Name</th>
           <th>Address1</th>
+          <th>Rooms</th>
       </tr>
 
       <c:forEach items="${hotels}" var="hotel">
@@ -25,13 +26,11 @@
           <td>${hotel.id}</td>
           <td>${hotel.name}</td>
           <td>${hotel.address}</td>
+          <td><a href="/rooms/${hotel.id}">Show all rooms</a></td>
         </tr>
     </c:forEach>
 
   </table>
-
-        <span>${message}</span>
-
 </div></div>
 
 
