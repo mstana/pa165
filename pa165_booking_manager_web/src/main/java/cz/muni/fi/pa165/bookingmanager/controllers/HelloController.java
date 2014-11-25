@@ -23,33 +23,40 @@ public class HelloController  {
     @Autowired
     HotelService hotelService;
 
-    @RequestMapping(method=RequestMethod.GET, value="/hotels")
-    public ModelAndView handleRequest() throws ServletException, IOException {
-
-        String aMessage = new String();
-        for (HotelTO hotel : hotelService.findAll()) {
-            aMessage += "<br /> hotel: "+hotel.getName();
-        }
-
-        ModelAndView modelAndView = new ModelAndView("hotels");
-        modelAndView.addObject("message", aMessage);
-
-        return modelAndView;
-    }
+//    @RequestMapping(method=RequestMethod.GET, value="/hotels")
+//    public ModelAndView handleRequest() throws ServletException, IOException {
+//
+//        String aMessage = new String();
+//        for (HotelTO hotel : hotelService.findAll()) {
+//            aMessage += "<br /> hotel: "+hotel.getName();
+//        }
+//
+//        ModelAndView modelAndView = new ModelAndView("hotels");
+//        modelAndView.addObject("message", aMessage);
+//
+//        return modelAndView;
+//    }
 
     @RequestMapping(method=RequestMethod.GET, value="")
     public String handleRequest2() throws ServletException, IOException {
         for (HotelTO hotel : hotelService.findAll()) {
             hotelService.delete(hotel);
         }
-        HotelTO hotel = new HotelTO();
-        hotel.setAddress("sdf");
-        hotel.setName("prvni");
-        hotelService.create(hotel);
 
-        HotelTO hotel2 = new HotelTO();
-        hotel2.setName("druhy");
-        hotelService.create(hotel2);
+        HotelTO hotelTO = new HotelTO();
+        hotelTO.setAddress("Lidická 6, Brno");
+        hotelTO.setName("BobyCentrum");
+        hotelService.create(hotelTO);
+
+        HotelTO hotelTO2 = new HotelTO();
+        hotelTO2.setAddress("Hrcirska 10, Brno");
+        hotelTO2.setName("Hotel Slovan");
+        hotelService.create(hotelTO2);
+
+        HotelTO hotelTO3 = new HotelTO();
+        hotelTO3.setAddress("Masarykova 1, Brno");
+        hotelTO3.setName("Hotel Continental");
+        hotelService.create(hotelTO3);
 
         return "index";
     }
