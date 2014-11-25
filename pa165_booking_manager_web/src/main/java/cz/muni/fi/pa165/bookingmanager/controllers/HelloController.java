@@ -3,6 +3,7 @@ package cz.muni.fi.pa165.bookingmanager.controllers;
 import com.sun.org.apache.xpath.internal.operations.Mod;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
+import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,13 +23,15 @@ public class HelloController  {
     @Autowired
     HotelService hotelService;
 
-    @RequestMapping(method=RequestMethod.GET, value="/hello")
+    @RequestMapping(method=RequestMethod.GET, value="/hotels")
     public ModelAndView handleRequest() throws ServletException, IOException {
 
-        String aMessage = "Hello World MVC!";
-        aMessage += hotelService.findAll().toString();
+        String aMessage = new String();
+        for (HotelTO hotel : hotelService.findAll()) {
+            aMessage += "<br /> hotel: "+hotel.getName();
+        }
 
-        ModelAndView modelAndView = new ModelAndView("hello");
+        ModelAndView modelAndView = new ModelAndView("hotels");
         modelAndView.addObject("message", aMessage);
 
         return modelAndView;
@@ -36,10 +39,18 @@ public class HelloController  {
 
     @RequestMapping(method=RequestMethod.GET, value="")
     public String handleRequest2() throws ServletException, IOException {
+        for (HotelTO hotel : hotelService.findAll()) {
+            hotelService.delete(hotel);
+        }
         HotelTO hotel = new HotelTO();
         hotel.setAddress("sdf");
-        hotel.setName("dalsi");
+        hotel.setName("prvni");
         hotelService.create(hotel);
+
+        HotelTO hotel2 = new HotelTO();
+        hotel2.setName("druhy");
+        hotelService.create(hotel2);
+
         return "index";
     }
 }
