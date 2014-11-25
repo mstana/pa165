@@ -52,7 +52,7 @@ public class UserServiceImplTest {
         userDAO = null;
     }
     @Test
-    public void testCreateHotelWithNoRooms() {
+    public void testCreateUserWithNoRooms() {
         UserTO userTO = new UserTO();
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
@@ -62,7 +62,7 @@ public class UserServiceImplTest {
         Mockito.verify(userDAO).create(mapper.map(userTO, User.class));
     }
     @Test
-    public void testFindHotel() {
+    public void testFindUser() {
         try {
             userService.find(null);
             fail("No IllegalArgumentException for null id");
@@ -88,10 +88,10 @@ public class UserServiceImplTest {
     
    
     @Test
-    public void testDeleteHotel() {
+    public void testDeleteUser() {
         try {
             userService.delete(null);
-            fail("NO IllegalArgumentException when deleting null HotelTO");
+            fail("NO IllegalArgumentException when deleting null UserTO");
         } catch (Exception e) {
             //OK
         }
