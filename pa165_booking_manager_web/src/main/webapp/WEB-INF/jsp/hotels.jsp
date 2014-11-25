@@ -5,6 +5,8 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
+<div xmlns:c="http://java.sun.com/jsp/jstl/core" xmlns:jsp="http://java.sun.com/JSP/Page">
+
 
     <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -30,7 +32,7 @@
 
         <span>${message}</span>
 
-</div>
+</div></div>
 
 
 
