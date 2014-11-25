@@ -12,7 +12,7 @@ import javax.persistence.*;
 public class Room implements Serializable {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @Column(nullable = false)
@@ -51,7 +51,7 @@ public class Room implements Serializable {
         if (price < 0) {
             throw new IllegalArgumentException("Price cannot be negative.");
         }
-        
+
         this.price = price;
     }
 
@@ -63,7 +63,7 @@ public class Room implements Serializable {
         if (bedsCount <= 0) {
             throw new IllegalArgumentException("Room must have at least one bed.");
         }
-        
+
         this.bedsCount = bedsCount;
     }
 
@@ -75,7 +75,7 @@ public class Room implements Serializable {
         if (hotel == null) {
              throw new IllegalArgumentException("Hotel cannot be null.");
         }
-        
+
         this.hotel = hotel;
     }
 

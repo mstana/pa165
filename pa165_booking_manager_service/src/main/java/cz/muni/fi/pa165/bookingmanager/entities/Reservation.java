@@ -9,7 +9,7 @@ import java.util.Date;
 @Entity
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.SEQUENCE)
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
     @ManyToOne
@@ -25,9 +25,9 @@ public class Reservation {
     private User user;
 
     public Reservation() {
-    
+
     }
-    
+
     public Reservation(Room room, Date beginDate, Date endDate) {
         this.room = room;
         this.beginDate = beginDate;
