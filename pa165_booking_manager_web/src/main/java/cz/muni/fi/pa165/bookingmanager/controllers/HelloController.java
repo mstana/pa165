@@ -1,20 +1,15 @@
 package cz.muni.fi.pa165.bookingmanager.controllers;
 
-import com.sun.org.apache.xpath.internal.operations.Mod;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
-import org.aspectj.weaver.patterns.HasThisTypePatternTriedToSneakInSomeGenericOrParameterizedTypePatternMatchingStuffAnywhereVisitor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.ui.ModelMap;
 import org.springframework.web.servlet.ModelAndView;
-
 import javax.servlet.ServletException;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.ws.rs.GET;
 import java.io.IOException;
 
 @Controller
@@ -23,16 +18,20 @@ public class HelloController  {
     @Autowired
     HotelService hotelService;
 
+    @Autowired
+    MessageSource messageSource;
+
     @RequestMapping(method=RequestMethod.GET, value="/hotels")
     public ModelAndView handleRequest() throws ServletException, IOException {
 
         String aMessage = new String();
         for (HotelTO hotel : hotelService.findAll()) {
-            aMessage += "<br /> hotel: "+hotel.getName();
+            aMessage += "<br /> " + messageSource.getMessage("hotel.title",null, LocaleContextHolder.getLocale()) + ": "+hotel.getName();
         }
 
         ModelAndView modelAndView = new ModelAndView("hotels");
         modelAndView.addObject("message", aMessage);
+        modelAndView.addObject("hotelsTitle",messageSource.getMessage("hotel.list.title",null, LocaleContextHolder.getLocale()));
 
         return modelAndView;
     }
