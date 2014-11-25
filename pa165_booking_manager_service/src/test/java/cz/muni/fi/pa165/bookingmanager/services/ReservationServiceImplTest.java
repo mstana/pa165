@@ -54,15 +54,15 @@ public class ReservationServiceImplTest extends TestCase {
         reservationService = null;
     }
 
-    @Test
+    @org.junit.Test
     public void testCreateEmptyReservation() {
         ReservationTO reservation = new ReservationTO();
         
         reservationService.create(reservation);
         Mockito.verify(reservationDAO).create(mapper.map(reservation, Reservation.class));
     }
-    
-    @Test
+
+    @org.junit.Test
     public void testUpdateReservation() {
         ReservationTO reservation = new ReservationTO();
         
@@ -80,8 +80,8 @@ public class ReservationServiceImplTest extends TestCase {
         reservationService.update(reservation);
         Mockito.verify(reservationDAO).update(mapper.map(reservation, Reservation.class));
     }
-    
-    @Test
+
+    @org.junit.Test
     public void testDeleteReservation() {
         ReservationTO reservation = new ReservationTO();
         
@@ -92,7 +92,7 @@ public class ReservationServiceImplTest extends TestCase {
         Mockito.verify(reservationDAO).delete(mapper.map(reservation, Reservation.class));
     }
     
-    @Test
+    @org.junit.Test
     public void testFindReservation() {
         ReservationTO reservation = new ReservationTO();
         

@@ -62,7 +62,7 @@ public class RoomServiceImplTest extends TestCase {
         roomService = null;
     }
 
-    @Test
+    @org.junit.Test
     public void testCreateGetAndDeleteRoom() {
         try {
             roomService.create(null);
@@ -97,7 +97,7 @@ public class RoomServiceImplTest extends TestCase {
         Mockito.verify(roomDAO).delete(mapper.map(room, Room.class));
     }
 
-    @Test
+    @org.junit.Test
     public void testUpdate() {
         try {
             roomService.update(null);
@@ -131,7 +131,7 @@ public class RoomServiceImplTest extends TestCase {
         Mockito.verify(roomDAO).update(mapper.map(room, Room.class));
     }
 
-    @Test
+    @org.junit.Test
     public void testFindAll() {
         try {
             roomService.findAll(null);

@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.bookingmanager.dao;
 
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
+
+import javax.persistence.EntityManager;
 import java.util.List;
 
 /**
@@ -20,5 +22,4 @@ public interface HotelDAO {
     public Hotel find(String name);
 
     public List<Hotel> findAll( );
-
 }

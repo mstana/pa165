@@ -3,10 +3,14 @@ package cz.muni.fi.pa165.bookingmanager.services;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
+import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
+import cz.muni.fi.pa165.bookingmanager.dao.ReservationDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import java.util.ArrayList;
 import java.util.List;
+
+import cz.muni.fi.pa165.bookingmanager.entities.Reservation;
 import junit.framework.TestCase;
 import org.dozer.Mapper;
 import org.junit.After;
@@ -36,6 +40,9 @@ public class HotelServiceImplTest extends TestCase {
 
     @Mock
     private HotelDAO hotelDAO;
+
+    @Autowired
+    private ReservationDAO reservationDAO;
 
     @Autowired
     private Mapper mapper;

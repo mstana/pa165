@@ -11,6 +11,7 @@
        ">
 
     <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager.controllers"/>
+    <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager.services"/>
     <context:annotation-config />
     <mvc:annotation-driven />
     <!-- Web site resources -->
