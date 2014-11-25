@@ -13,7 +13,6 @@ import org.springframework.transaction.annotation.Transactional;
  * @author Adam Studenic
  */
 @Repository
-@Transactional
 public class HotelManager implements HotelDAO {
 
     @Autowired

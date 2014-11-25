@@ -8,7 +8,7 @@ import javax.persistence.Entity;
  * @author Adam Studenic
  */
 @Entity
-@DiscriminatorValue("1")
+@DiscriminatorValue("0")
 public class Guest extends User{
     public Guest () {
         super();

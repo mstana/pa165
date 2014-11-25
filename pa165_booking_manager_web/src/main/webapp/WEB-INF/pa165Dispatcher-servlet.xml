@@ -10,8 +10,7 @@
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
        ">
 
-    <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager.controllers"/>
-    <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager.services"/>
+    <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager"/>
     <context:annotation-config />
     <mvc:annotation-driven />
     <!-- Web site resources -->

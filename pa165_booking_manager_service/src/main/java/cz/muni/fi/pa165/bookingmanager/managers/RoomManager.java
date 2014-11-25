@@ -92,7 +92,7 @@ public class RoomManager implements RoomDAO {
         CriteriaQuery<Room> query = criteriaBuilder.createQuery(Room.class);
         Root<Room> room = query.from(Room.class);
         
-        Predicate whereCondition = criteriaBuilder.equal(room.get("hotel").as(Long.class), hotel.getId());
+        Predicate whereCondition = criteriaBuilder.equal(room.get("hotel").get("id").as(Long.class), hotel.getId());
         
         query.select(room).where(whereCondition);
 

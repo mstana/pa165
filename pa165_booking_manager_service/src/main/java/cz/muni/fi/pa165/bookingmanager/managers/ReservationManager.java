@@ -73,7 +73,7 @@ public class ReservationManager implements ReservationDAO {
 
         CriteriaQuery<Reservation> query = criteriaBuilder.createQuery(Reservation.class);
         Root<Reservation> from = query.from(Reservation.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(from.get("room").as(Long.class), room.getId());
+        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(from.get("room").get("id").as(Long.class), room.getId());
         query.select(from).where(param1);
 
         TypedQuery<Reservation> typedQuery = entityManager.createQuery(query);
@@ -87,7 +87,7 @@ public class ReservationManager implements ReservationDAO {
 
         CriteriaQuery<Reservation> query = criteriaBuilder.createQuery(Reservation.class);
         Root<Reservation> from = query.from(Reservation.class);
-        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(from.get("user").as(Long.class), user.getId());
+        javax.persistence.criteria.Predicate param1 = criteriaBuilder.equal(from.get("user").get("id").as(Long.class), user.getId());
         query.select(from).where(param1);
 
         TypedQuery<Reservation> typedQuery = entityManager.createQuery(query);

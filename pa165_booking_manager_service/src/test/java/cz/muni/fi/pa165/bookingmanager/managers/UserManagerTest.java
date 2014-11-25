@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.bookingmanager;
+package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Administrator;

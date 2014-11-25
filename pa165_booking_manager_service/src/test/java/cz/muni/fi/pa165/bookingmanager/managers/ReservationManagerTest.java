@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.bookingmanager;
+package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.ReservationDAO;
@@ -116,11 +116,12 @@ public class ReservationManagerTest extends TestCase {
         assertTrue("Reservations do not contain created one", reservations.contains(reservation));
         assertEquals("The db does not contain one reservation using the findAll() method", 1, reservations.size());
 
-        reservations = reservationDAO.findAll(reservation.getRoom());
+        Room room = reservation.getRoom();
+        reservations = reservationDAO.findAll(room);
 
         assertTrue(reservations.contains(reservation));
         assertEquals("The db does not contain one reservation using the findAll(Room) method", 1, reservations.size());
-        
+
         reservations = reservationDAO.findAll(reservation.getUser());
 
         assertTrue(reservations.contains(reservation));
