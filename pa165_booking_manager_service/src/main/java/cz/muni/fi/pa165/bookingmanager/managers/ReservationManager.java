@@ -20,7 +20,6 @@ import java.util.List;
  * @author: Ondřej Pavelka <pavelka@cesnet.cz>
  */
 @Repository
-@Transactional
 public class ReservationManager implements ReservationDAO {
 
     @Autowired

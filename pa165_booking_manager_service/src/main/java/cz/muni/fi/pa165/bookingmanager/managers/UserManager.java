@@ -24,7 +24,6 @@ import org.springframework.stereotype.Repository;
  * @author mstana
  */
 @Repository
-@Transactional
 public class UserManager implements UserDAO{
 
     @Autowired

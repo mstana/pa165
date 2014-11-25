@@ -26,6 +26,7 @@ public class HelloController  {
     public ModelAndView handleRequest() throws ServletException, IOException {
 
         String aMessage = "Hello World MVC!";
+        aMessage += hotelService.findAll().toString();
 
         ModelAndView modelAndView = new ModelAndView("hello");
         modelAndView.addObject("message", aMessage);

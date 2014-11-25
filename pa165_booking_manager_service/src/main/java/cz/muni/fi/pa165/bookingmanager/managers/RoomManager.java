@@ -20,7 +20,6 @@ import javax.persistence.criteria.Root;
  * @author David Kadlec
  */
 @Repository
-@Transactional
 public class RoomManager implements RoomDAO {
 
     @Autowired
