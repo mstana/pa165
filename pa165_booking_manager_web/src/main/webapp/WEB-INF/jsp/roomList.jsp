@@ -25,11 +25,11 @@
     <table class="table table-hover">
       <thead>
         <tr>
-            <th>Action</th>
-            <th>Number</th>
-            <th>Price</th>
-            <th>Number of beds</th>
-            <th>Hotel</th>
+            <th><fmt:message key="general.action"/></th>
+            <th><fmt:message key="room.number"/></th>
+            <th><fmt:message key="room.price"/></th>
+            <th><fmt:message key="room.beds"/></th>
+            <th><fmt:message key="room.hotel"/></th>
         </tr>
       </thead>
       <c:forEach items="${rooms}" var="room">
