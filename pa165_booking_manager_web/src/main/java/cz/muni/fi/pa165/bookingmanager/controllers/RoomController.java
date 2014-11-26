@@ -172,4 +172,35 @@ public class RoomController {
 
         return "redirect:/room/" + hotelId + "/" + room.getId();
     }
+
+    @RequestMapping(method= RequestMethod.GET, value="/deleteroom/{hotelId}/{roomId}")
+    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
+    {
+        HotelTO hotel = hotelService.find(hotelId);
+        ModelAndView modelAndView = new ModelAndView("index");
+
+        if (hotel == null)
+        {
+            return "redirect:/";
+        }
+
+        RoomTO room = roomService.find(roomId);
+        if (room == null) {
+            return "redirect:/";
+        }
+
+        try
+        {
+            roomService.delete(room);
+        }
+        catch (Exception ex)
+        {
+            return "redirect:/";
+        }
+
+        modelAndView.setViewName("roomList");
+        modelAndView.addObject("hotel", hotel);
+
+        return "redirect:/rooms/" + hotelId;
+    }
 }
