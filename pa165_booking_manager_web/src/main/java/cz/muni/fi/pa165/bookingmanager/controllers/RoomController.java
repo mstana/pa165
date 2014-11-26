@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
@@ -157,12 +158,12 @@ public class RoomController {
 
 
     @RequestMapping(method= RequestMethod.POST, value="/newroom/{hotelId}")
-    public String createRoomSubmit(@PathVariable("hotelId") long hotelId,  @Valid RoomTO room, BindingResult result) throws ServletException, IOException
+    public String createRoomSubmit(@PathVariable("hotelId") long hotelId,  @Valid RoomTO room, BindingResult result, HttpServletRequest req) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
         if (hotel == null)
         {
-            return "redirect:/";
+            return "redirect:" + req.getContextPath() + "/";
         }
 
         room.setHotel(hotel);
@@ -170,11 +171,11 @@ public class RoomController {
 
         roomService.create(room);
 
-        return "redirect:/room/" + hotelId + "/" + room.getId();
+        return "redirect:" + req.getContextPath() + "/room/" + hotelId + "/" + room.getId();
     }
 
     @RequestMapping(method= RequestMethod.GET, value="/deleteroom/{hotelId}/{roomId}")
-    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
+    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, HttpServletRequest req) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
@@ -186,7 +187,7 @@ public class RoomController {
 
         RoomTO room = roomService.find(roomId);
         if (room == null) {
-            return "redirect:/";
+            return "redirect:" + req.getContextPath() + "/";
         }
 
         try
@@ -195,12 +196,12 @@ public class RoomController {
         }
         catch (Exception ex)
         {
-            return "redirect:/";
+            return "redirect:" + req.getContextPath() + "/";
         }
 
         modelAndView.setViewName("roomList");
         modelAndView.addObject("hotel", hotel);
 
-        return "redirect:/rooms/" + hotelId;
+        return "redirect:" + req.getContextPath() + "/rooms/" + hotelId;
     }
 }
