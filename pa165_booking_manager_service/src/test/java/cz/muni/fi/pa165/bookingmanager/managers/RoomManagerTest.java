@@ -1,5 +1,6 @@
 package cz.muni.fi.pa165.bookingmanager.managers;
 
+import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
@@ -30,6 +31,9 @@ public class RoomManagerTest extends TestCase {
 
     @Autowired
     RoomDAO roomDAO;
+    
+    @Autowired
+    HotelDAO hotelDAO;
 
     public RoomManagerTest() {
     }
@@ -64,6 +68,8 @@ public class RoomManagerTest extends TestCase {
         hotel.setName("Continental");
         hotel.setAddress("Botanicka");
 
+        hotelDAO.create(hotel);
+        
         Room room1 = new Room();
         room1.setHotel(hotel);
         room1.setNumber("A01");
@@ -92,6 +98,8 @@ public class RoomManagerTest extends TestCase {
         hotel.setName("Holliday Inn");
         hotel.setAddress("Tankodrom");
 
+        hotelDAO.create(hotel);
+        
         room.setHotel(hotel);
         room.setNumber("100");
         room.setBedsCount(6);
@@ -116,7 +124,10 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("SKM");
         hotel.setAddress("Botanicka");
-        room.setHotel(hotel);
+        
+        hotelDAO.create(hotel);
+        
+        room.setHotel(hotel); 
         room.setNumber("100");
         room.setBedsCount(100);
         room.setPrice(100);
@@ -134,6 +145,9 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("FI MU");
         hotel.setAddress("Sumavska");
+        
+         hotelDAO.create(hotel);
+        
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("100");
@@ -153,6 +167,8 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("Molin rouge");
         hotel.setAddress("Opavska");
+        
+        hotelDAO.create(hotel);
         
         Room room = new Room();
         room.setHotel(hotel);
