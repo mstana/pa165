@@ -10,6 +10,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -17,12 +18,13 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.validation.Valid;
 import javax.ws.rs.core.Response;
 import java.io.IOException;
 import java.util.List;
 
 /**
- * Created by David on 25. 11. 2014.
+ * Created by David Kadlec
  */
 @Controller
 public class RoomController {
@@ -94,7 +96,7 @@ public class RoomController {
 
 
     @RequestMapping(method= RequestMethod.POST, value="/room/{hotelId}/{roomId}")
-    public ModelAndView editSpecifiedRoomSubmit(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, @ModelAttribute("RoomTO")RoomTO room) throws ServletException, IOException
+    public ModelAndView editSpecifiedRoomSubmit(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, @Valid RoomTO room, BindingResult result) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
@@ -155,7 +157,7 @@ public class RoomController {
 
 
     @RequestMapping(method= RequestMethod.POST, value="/newroom/{hotelId}")
-    public String createRoomSubmit(@PathVariable("hotelId") long hotelId, @ModelAttribute("RoomTO")RoomTO room) throws ServletException, IOException
+    public String createRoomSubmit(@PathVariable("hotelId") long hotelId,  @Valid RoomTO room, BindingResult result) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
         if (hotel == null)
@@ -166,7 +168,6 @@ public class RoomController {
         room.setHotel(hotel);
         hotel.addRoom(room);
 
-        // Zde to pada, problem se persistem detached objektu, reseni sem za 5 minut nenasel, tak sem to zatim nechal
         roomService.create(room);
 
         return "redirect:/room/" + hotelId + "/" + room.getId();

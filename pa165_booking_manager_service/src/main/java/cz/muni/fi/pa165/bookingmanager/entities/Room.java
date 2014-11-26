@@ -24,7 +24,7 @@ public class Room implements Serializable {
     @Column(nullable = false)
     private int bedsCount;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Hotel hotel;
 
     public Long getId() {

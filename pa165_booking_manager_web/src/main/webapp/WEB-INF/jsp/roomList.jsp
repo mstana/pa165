@@ -4,33 +4,37 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
+<c:choose>
+    <c:when test="${hotel != null}">
+        <h3><fmt:message key="room.hotel"/> ${hotel.name}</h3>
+    </c:when>
+    <c:otherwise>
+        <h3>All rooms</h3>
+    </c:otherwise>
+</c:choose>
+
 <c:if test="${hotel != null}">
     <a class="btn btn-success" href="${pageContext.request.contextPath}/newroom/${hotel.id}"><fmt:message key="room.new"/></a>
 </c:if>
 <div class="panel panel-default">
 
     <div class="panel-heading">
-        <c:choose>
-            <c:when test="${hotel != null}">
-                <b>${hotel.name} hotel</b>
-            </c:when>
-            <c:otherwise>
-                <b>All rooms</b>
-            </c:otherwise>
-        </c:choose>
+     <b>Rooms</b>
     </div>
 
     <table class="table table-hover">
       <thead>
         <tr>
-          <th>Number</th>
-          <th>Price</th>
-          <th>Number of beds</th>
-          <th>Hotel</th>
+            <th>Action</th>
+            <th>Number</th>
+            <th>Price</th>
+            <th>Number of beds</th>
+            <th>Hotel</th>
         </tr>
       </thead>
       <c:forEach items="${rooms}" var="room">
         <tr>
+            <td></td>
             <td><a href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}">${room.number}</a></td>
             <td>${room.price}</td>
             <td>${room.bedsCount}</td>

@@ -27,7 +27,7 @@ public class Hotel {
     @Column
     private String address;
 
-    @OneToMany(mappedBy = "hotel", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(mappedBy = "hotel", cascade = {CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
     private List<Room> rooms = new ArrayList<>();
 
     public Long getId() {

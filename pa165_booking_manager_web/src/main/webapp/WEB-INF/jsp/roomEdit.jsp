@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-<h3><fmt:message key="room.hotel"/> ${hotel.name}</h3>
+<h3><fmt:message key="room.hotel"/> <a href="${pageContext.request.contextPath}/rooms/${hotel.id}">${hotel.name}</a></h3>
 
 <div class="panel panel-default">
   <!-- Default panel contents -->

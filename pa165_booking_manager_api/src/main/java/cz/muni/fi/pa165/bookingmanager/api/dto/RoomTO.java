@@ -25,8 +25,8 @@ public class RoomTO {
     public void setHotel(HotelTO hotel) {
         this.hotel = hotel;
     }
-    
-    
+
+
     public Long getId() {
         return id;
     }

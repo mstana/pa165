@@ -12,7 +12,7 @@ public class Reservation {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Room room;
 
     @Temporal(javax.persistence.TemporalType.DATE)
@@ -21,7 +21,7 @@ public class Reservation {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
 
-    @ManyToOne
+    @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private User user;
 
     public Reservation() {

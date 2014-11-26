@@ -42,6 +42,8 @@ public class HomeController {
         hotelTO.setAddress("Lidická 6, Brno");
         hotelTO.setName("BobyCentrum");
 
+        hotelService.create(hotelTO);
+
         RoomTO room1 = new RoomTO();
         room1.setBedsCount(4);
         room1.setNumber("404");
