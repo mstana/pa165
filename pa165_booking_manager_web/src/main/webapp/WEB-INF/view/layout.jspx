@@ -52,13 +52,13 @@
                                 <spring:message code="${hotels}"/></a>
                     </li>
                     <li>
-                        <a href="/rooms">Rooms</a>
+                        <a href="roomList">Rooms</a>
                     </li>
                     <li>
-                        <a href="#">Services</a>
+                        <a href="userList">Users</a>
                     </li>
                     <li>
-                        <a href="#">Contact</a>
+                        <a href="hotels">Hotels</a>
                     </li>
                 </ul>
             </div>
