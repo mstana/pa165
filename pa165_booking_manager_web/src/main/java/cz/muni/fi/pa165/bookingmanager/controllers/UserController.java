@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
  * @author mstana
  */
 
-@Controller 
+@Controller
 public class UserController {
     @Autowired
     UserService userService;
@@ -35,11 +35,11 @@ public class UserController {
 
         ModelAndView modelAndView = new ModelAndView("userList");
         modelAndView.addObject("listUsers", users);
-        
+
         return modelAndView;
     }
 
-    @RequestMapping(method= RequestMethod.GET)
+    @RequestMapping(method= RequestMethod.GET, value="/userCreate")
     public ModelAndView createUserForm() throws ServletException, IOException
     {
 
@@ -49,8 +49,8 @@ public class UserController {
         return modelAndView;
     }
 
-    
-    @RequestMapping(method= RequestMethod.POST)
+
+    @RequestMapping(method= RequestMethod.POST, value="/userCreate")
     public String createUserSubmit(@ModelAttribute("UserTO")UserTO user) throws ServletException, IOException
     {
         userService.create(user);
@@ -70,11 +70,11 @@ public class UserController {
 
         return modelAndView;
     }
-    
+
     @RequestMapping(method= RequestMethod.POST, value="/user/{userId}")
     public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @ModelAttribute("UserTO")UserTO user) throws ServletException, IOException
     {
-        
+
         UserTO userFromDB = userService.find(userId);
         if (userFromDB == null) {
             return new ModelAndView("index");
