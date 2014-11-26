@@ -34,7 +34,10 @@
       </thead>
       <c:forEach items="${rooms}" var="room">
         <tr>
-            <td></td>
+            <td>
+                <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}"><span class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
+                <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}"><span class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
+            </td>
             <td><a href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}">${room.number}</a></td>
             <td>${room.price}</td>
             <td>${room.bedsCount}</td>
