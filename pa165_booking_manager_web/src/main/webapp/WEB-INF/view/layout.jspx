@@ -23,7 +23,7 @@
     <title><c:out value="${title}"/></title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="/pa165/css/bootstrap.min.css" rel="stylesheet" />
 
 </head>
 
@@ -77,10 +77,10 @@
 </div>
 
 <!-- jQuery Version 1.11.1 -->
-<script src="js/jquery.js"></script>
+<script src="/pa165/js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="js/bootstrap.min.js"></script>
+<script src="/pa165/js/bootstrap.min.js"></script>
 
 </body>
 </html>
