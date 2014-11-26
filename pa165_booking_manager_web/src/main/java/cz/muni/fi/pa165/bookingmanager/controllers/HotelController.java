@@ -57,7 +57,7 @@ public class HotelController {
         HotelTO hotelFromDB = hotelService.find(hotelId);
         if (hotelFromDB == null) {
             ModelAndView index = new ModelAndView("index");
-            index.addObject("message", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            index.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return index;
         }
 
@@ -67,7 +67,7 @@ public class HotelController {
 
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
         modelAndView.addObject("hotel", hotelFromDB);
-        modelAndView.addObject("message", messageSource.getMessage("all.right", null, LocaleContextHolder.getLocale()));
+        modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
 
         return modelAndView;
     }

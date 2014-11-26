@@ -5,6 +5,8 @@ import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -31,6 +33,9 @@ public class RoomController {
     @Autowired
     HotelService hotelService;
 
+    @Autowired
+    MessageSource messageSource;
+
     @RequestMapping(method= RequestMethod.GET, value="/rooms")
     public ModelAndView getAllRooms() throws ServletException, IOException
     {
@@ -46,16 +51,18 @@ public class RoomController {
     public ModelAndView getAllRoomsOfSpecifiedHotel(@PathVariable("hotelId") long hotelId) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
+        ModelAndView modelAndView = new ModelAndView("index");
 
         if (hotel == null) {
-            return new ModelAndView("index");
+            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
         List<RoomTO> rooms = roomService.findAll(hotel);
 
-        ModelAndView modelAndView = new ModelAndView("roomList");
+        modelAndView.setViewName("roomList");
         modelAndView.addObject("rooms", rooms);
-
+        modelAndView.addObject("hotel", hotel);
         return modelAndView;
     }
 
@@ -64,18 +71,23 @@ public class RoomController {
     public ModelAndView editSpecifiedRoomForm(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
+        ModelAndView modelAndView = new ModelAndView("index");
+
         if (hotel == null)
         {
-            return new ModelAndView("index");
+            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
         RoomTO room = roomService.find(roomId);
         if (room == null) {
-            return new ModelAndView("index");
+            modelAndView.addObject("error",  messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
-        ModelAndView modelAndView = new ModelAndView("roomEdit");
+        modelAndView.setViewName("roomEdit");
         modelAndView.addObject("room", room);
+        modelAndView.addObject("hotel", hotel);
 
         return modelAndView;
     }
@@ -85,26 +97,38 @@ public class RoomController {
     public ModelAndView editSpecifiedRoomSubmit(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, @ModelAttribute("RoomTO")RoomTO room) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
+        ModelAndView modelAndView = new ModelAndView("index");
+
         if (hotel == null)
         {
-            return new ModelAndView("index");
+            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
         RoomTO roomFromDB = roomService.find(roomId);
-        if (roomFromDB == null) {
-            return new ModelAndView("index");
+        if (roomFromDB == null)
+        {
+            modelAndView.addObject("error",  messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
-        roomFromDB.setPrice(room.getPrice());
-        roomFromDB.setNumber(room.getNumber());
-        roomFromDB.setBedsCount(room.getBedsCount());
+        modelAndView.setViewName("roomEdit");
+        try
+        {
+            roomFromDB.setPrice(room.getPrice());
+            roomFromDB.setNumber(room.getNumber());
+            roomFromDB.setBedsCount(room.getBedsCount());
 
-        roomService.update(roomFromDB);
+            roomService.update(roomFromDB);
 
-        ModelAndView modelAndView = new ModelAndView("roomEdit");
-        modelAndView.addObject("room", roomFromDB);
-        modelAndView.addObject("message", "All right!");
-
+            modelAndView.addObject("room", roomFromDB);
+            modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
+        }
+        catch (Exception ex)
+        {
+            modelAndView.addObject("room", room);
+            modelAndView.addObject("error", messageSource.getMessage("general.error", null, LocaleContextHolder.getLocale()));
+        }
 
         return modelAndView;
     }
@@ -114,13 +138,17 @@ public class RoomController {
     public ModelAndView createRoomForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
+        ModelAndView modelAndView = new ModelAndView("index");
+
         if (hotel == null)
         {
-            return new ModelAndView("index");
+            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
-        ModelAndView modelAndView = new ModelAndView("roomEdit");
+        modelAndView.setViewName("roomEdit");
         modelAndView.addObject("room", new RoomTO());
+        modelAndView.addObject("hotel", hotel);
 
         return modelAndView;
     }
@@ -130,6 +158,11 @@ public class RoomController {
     public String createRoomSubmit(@PathVariable("hotelId") long hotelId, @ModelAttribute("RoomTO")RoomTO room) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
+        if (hotel == null)
+        {
+            return "redirect:/";
+        }
+
         room.setHotel(hotel);
         hotel.addRoom(room);
 

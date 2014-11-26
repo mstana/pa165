@@ -23,7 +23,8 @@
     <title><c:out value="${title}"/></title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet" />
 
 </head>
 
@@ -40,7 +41,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="./">Start Bootstrap</a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/">Booking manager</a>
             </div>
             <tiles:importAttribute name="hotels" />
             <!-- Collect the nav links, forms, and other content for toggling -->
@@ -57,9 +58,6 @@
                     <li>
                         <a href="${pageContext.request.contextPath}/userList">Users</a>
                     </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/hotels">Hotels</a>
-                    </li>
                 </ul>
             </div>
             <!-- /.navbar-collapse -->
@@ -68,10 +66,15 @@
     </nav>
     <!--jsp:include page="/WEB-INF/view/menu.jspx"/-->
     <div class="container">
-        <c:if test="${message != null}">
-            <div class="alert alert-success" role="alert">${message}</div>
-        </c:if>
-        <tiles:insertAttribute name="main" />
+        <div class="content">
+            <c:if test="${ok != null}">
+                <div class="alert alert-success" role="alert">${ok}</div>
+            </c:if>
+            <c:if test="${error != null}">
+                <div class="alert alert-danger" role="alert">${error}</div>
+            </c:if>
+            <tiles:insertAttribute name="main" />
+        </div>
     </div>
     <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
 </div>

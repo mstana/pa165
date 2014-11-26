@@ -14,6 +14,6 @@
 
         <%@include file="hotelForm.jsp"%>
 
-        <button type="submit" class="btn btn-default"><fmt:message key="submit"/></button>
+        <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
     </form>
 </div>
