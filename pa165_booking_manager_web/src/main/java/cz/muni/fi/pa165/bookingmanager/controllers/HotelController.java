@@ -17,7 +17,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 /**
  *
- * @author Adams
+ * @author Adam Studenic
  */
 @Controller
 public class HotelController {
@@ -61,8 +61,8 @@ public class HotelController {
             return index;
         }
 
+        hotelFromDB.setName(hotel.getName());
         hotelFromDB.setAddress(hotel.getAddress());
-        hotelFromDB.setName(hotel.getAddress());
         hotelService.update(hotelFromDB);
 
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
