@@ -23,7 +23,7 @@
     <title><c:out value="${title}"/></title>
 
     <!-- Bootstrap Core CSS -->
-    <link href="/pa165/css/bootstrap.min.css" rel="stylesheet" />
+    <link href="${pageContext.request.contextPath}/css/bootstrap.min.css" rel="stylesheet" />
 
 </head>
 
@@ -48,17 +48,17 @@
                 <ul class="nav navbar-nav">
                     <li>
                         <c:set var="hotels"><tiles:getAsString name="hotels"/></c:set>
-                        <a href="hotels"><c:out value="${hotels}"/>
+                        <a href="${pageContext.request.contextPath}/hotels"><c:out value="${hotels}"/>
                                 <spring:message code="${hotels}"/></a>
                     </li>
                     <li>
-                        <a href="roomList">Rooms</a>
+                        <a href="${pageContext.request.contextPath}/rooms">Rooms</a>
                     </li>
                     <li>
-                        <a href="userList">Users</a>
+                        <a href="${pageContext.request.contextPath}/userList">Users</a>
                     </li>
                     <li>
-                        <a href="hotels">Hotels</a>
+                        <a href="${pageContext.request.contextPath}/hotels">Hotels</a>
                     </li>
                 </ul>
             </div>
@@ -77,10 +77,10 @@
 </div>
 
 <!-- jQuery Version 1.11.1 -->
-<script src="/pa165/js/jquery.js"></script>
+<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
 
 <!-- Bootstrap Core JavaScript -->
-<script src="/pa165/js/bootstrap.min.js"></script>
+<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
 
 </body>
 </html>
