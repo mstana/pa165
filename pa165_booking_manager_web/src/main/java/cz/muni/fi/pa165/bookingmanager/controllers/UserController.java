@@ -13,6 +13,8 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.List;
+import org.springframework.context.MessageSource;
+import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +28,8 @@ import org.springframework.web.bind.annotation.PathVariable;
 public class UserController {
     @Autowired
     UserService userService;
+    @Autowired
+    MessageSource messageSource;
 
     @RequestMapping(method=RequestMethod.GET, value="/userList")
     public ModelAndView handleRequest() throws ServletException, IOException {
@@ -56,7 +60,7 @@ public class UserController {
         userService.create(user);
         return "redirect:userList";
     }
-    @RequestMapping(method= RequestMethod.GET, value="/user/{userId}")
+    @RequestMapping(method= RequestMethod.GET, value="/userEdit/{userId}")
     public ModelAndView editUser(@PathVariable("userId") long userId) throws ServletException, IOException
     {
 
@@ -71,7 +75,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @RequestMapping(method= RequestMethod.POST, value="/user/{userId}")
+    @RequestMapping(method= RequestMethod.POST, value="/userEdit/{userId}")
     public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @ModelAttribute("UserTO")UserTO user) throws ServletException, IOException
     {
 
@@ -90,6 +94,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("userEdit");
         modelAndView.addObject("user", userFromDB);
         modelAndView.addObject("message", "Edit done!");
+        modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
 
         return modelAndView;
     }
