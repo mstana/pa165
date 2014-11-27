@@ -24,8 +24,10 @@
   <table class="table table-hover">
     <thead>
     <tr>
+      <th><fmt:message key="reservation.id"/></th>
       <th><fmt:message key="reservation.room.number"/></th>
       <th><fmt:message key="reservation.room.hotel"/></th>
+      <th><fmt:message key="reservation.user.name"/></th>
       <th><fmt:message key="reservation.begin"/></th>
       <th><fmt:message key="reservation.end"/></th>
       <th><fmt:message key="general.action"/></th>
@@ -33,8 +35,10 @@
     </thead>
     <c:forEach items="${reservations}" var="reservation">
       <tr>
+        <td><a href="${pageContext.request.contextPath}/reservation/${reservation.id}">${reservation.id}</a></td>
         <td>${reservation.room.number}</td>
         <td>${reservation.room.hotel.name}</td>
+        <td>${reservation.user.firstName} ${reservation.user.lastName}</td>
         <td>${reservation.beginDate}</td>
         <td>${reservation.endDate}</td>
         <td>
