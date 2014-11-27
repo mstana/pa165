@@ -27,7 +27,7 @@
                     <td>${hotel.id}</td>
                     <td><a href="hotel/${hotel.id}">${hotel.name}</a></td>
                     <td>${hotel.address}</td>
-                    <td><a href="rooms/${hotel.id}"><fmt:message key="hotel.show.all.rooms"/></a></td>
+                    <td><a class="btn btn-default btn-xs" href="rooms/${hotel.id}"><fmt:message key="hotel.show.all.rooms"/></a></td>
                     <td>
                         <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/hotel/${hotel.id}"><span class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
                         <a onclick="return confirm('<fmt:message key="hotel.confirm.delete"/>');" class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/deletehotel/${hotel.id}"><span class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>

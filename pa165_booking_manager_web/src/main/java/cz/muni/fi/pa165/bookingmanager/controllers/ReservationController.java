@@ -41,7 +41,7 @@ public class ReservationController {
     @Autowired
     UserService userService;
 
-    @RequestMapping(method= RequestMethod.GET, value="/reservations/{userId}")
+    @RequestMapping(method= RequestMethod.GET, value="/userreservations/{userId}")
     public ModelAndView getUserReservations(@PathVariable("userId") long userId) throws ServletException, IOException
     {
         UserTO user = userService.find(userId);
@@ -59,5 +59,49 @@ public class ReservationController {
         modelAndView.addObject("user", user);
 
         return modelAndView;
+    }
+
+    @RequestMapping(method= RequestMethod.GET, value="/roomreservations/{roomId}")
+    public ModelAndView getRoomReservations(@PathVariable("roomId") long roomId) throws ServletException, IOException
+    {
+        RoomTO room = roomService.find(roomId);
+        ModelAndView modelAndView = new ModelAndView("index");
+
+        if (room == null) {
+            modelAndView.addObject("error",  messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+        }
+
+        List<ReservationTO> reservations = reservationService.findAll(room);
+
+        modelAndView.setViewName("reservationList");
+        modelAndView.addObject("reservations", reservations);
+        modelAndView.addObject("room", room);
+
+        return modelAndView;
+    }
+
+    @RequestMapping(method= RequestMethod.GET, value="/deletereservation/{reservationId}")
+    public String deleteSpecifiedReservation(@PathVariable("reservationId") long reservationId) throws ServletException, IOException
+    {
+        ReservationTO reservation = reservationService.find(reservationId);
+
+        if (reservation == null)
+        {
+            return "redirect:/";
+        }
+
+        RoomTO room = reservation.getRoom();
+
+        try
+        {
+            reservationService.delete(reservation);
+        }
+        catch (Exception ex)
+        {
+            return "redirect:/";
+        }
+
+        return "redirect:/roomreservations/" + room.getId();
     }
 }

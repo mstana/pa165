@@ -34,17 +34,6 @@ public class RoomController {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(method= RequestMethod.GET, value="/rooms")
-    public ModelAndView getAllRooms() throws ServletException, IOException
-    {
-        List<RoomTO> rooms = roomService.findAll();
-
-        ModelAndView modelAndView = new ModelAndView("roomList");
-        modelAndView.addObject("rooms", rooms);
-
-        return modelAndView;
-    }
-
     @RequestMapping(method= RequestMethod.GET, value="/rooms/{hotelId}")
     public ModelAndView getAllRoomsOfSpecifiedHotel(@PathVariable("hotelId") long hotelId) throws ServletException, IOException
     {
@@ -173,8 +162,6 @@ public class RoomController {
     public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
-        ModelAndView modelAndView = new ModelAndView("index");
-
         if (hotel == null)
         {
             return "redirect:/";
@@ -193,9 +180,6 @@ public class RoomController {
         {
             return "redirect:/";
         }
-
-        modelAndView.setViewName("roomList");
-        modelAndView.addObject("hotel", hotel);
 
         return "redirect:/rooms/" + hotelId;
     }

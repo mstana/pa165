@@ -54,9 +54,6 @@
                                 <spring:message code="${hotels}"/></a>
                     </li>
                     <li>
-                        <a href="${pageContext.request.contextPath}/rooms"><fmt:message key="room.list.title"/></a>
-                    </li>
-                    <li>
                         <a href="${pageContext.request.contextPath}/userList"><fmt:message key="user.list.title"/></a>
                     </li>
                 </ul>

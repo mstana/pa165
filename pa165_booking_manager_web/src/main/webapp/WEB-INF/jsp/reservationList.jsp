@@ -4,14 +4,12 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:choose>
-  <c:when test="${user != null}">
-    <h3><fmt:message key="reservation.list.title"/> ${user.firstName}</h3>
-  </c:when>
-  <c:otherwise>
-    <h3>TODO</h3>
-  </c:otherwise>
-</c:choose>
+  <c:if test="${user != null}">
+    <h3>${user.firstName} <fmt:message key="reservation.list.title"/> </h3>
+  </c:if>
+  <c:if test="${room != null}">
+    <h3>${room.number} <fmt:message key="reservation.list.title"/> </h3>
+  </c:if>
 
 <div class="panel panel-default">
 

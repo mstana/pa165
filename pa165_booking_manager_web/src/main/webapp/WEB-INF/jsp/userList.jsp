@@ -36,7 +36,7 @@
             <td>${user.lastName}</td>
             <td>${user.email}</td>
             <td><tags:yesno value="${user.isAdmin}"/></td>
-            <td><a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/reservations/${user.id}"><fmt:message key="user.reservations"/></a></td>
+            <td><a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/userreservations/${user.id}"><fmt:message key="user.reservations"/></a></td>
             <td>
                 <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/userEdit/${user.id}"><span class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
                 <a onclick="return confirm('<fmt:message key="user.confirm.delete"/>');" class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/userDelete/${user.id}"><span class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>

@@ -29,6 +29,7 @@
             <th><fmt:message key="room.price"/></th>
             <th><fmt:message key="room.beds"/></th>
             <th><fmt:message key="room.hotel"/></th>
+            <th><fmt:message key="reservation.list.title"/></th>
             <th><fmt:message key="general.action"/></th>
         </tr>
       </thead>
@@ -38,6 +39,7 @@
             <td>${room.price}</td>
             <td>${room.bedsCount}</td>
             <td>${room.hotel.name}</td>
+            <td><a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/roomreservations/${room.id}"><fmt:message key="room.reservations"/></a></td>
             <td>
                 <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}"><span class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
                 <a onclick="return confirm('<fmt:message key="room.confirm.delete"/>');" class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/deleteroom/${room.hotel.id}/${room.id}"><span class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
