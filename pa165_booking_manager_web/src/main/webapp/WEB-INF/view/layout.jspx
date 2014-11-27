@@ -60,10 +60,10 @@
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="/pa165/en">English</a>
+                        <a href="${pageContext.request.contextPath}/en">English</a>
                     </li>
                     <li>
-                        <a href="/pa165/cs">Česky</a>
+                        <a href="${pageContext.request.contextPath}/cs">Česky</a>
                     </li>
                 </ul>
             </div>
