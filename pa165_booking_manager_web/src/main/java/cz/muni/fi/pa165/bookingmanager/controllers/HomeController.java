@@ -21,6 +21,11 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import org.springframework.util.StringUtils;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
 
 @Controller
 public class HomeController {
@@ -35,6 +40,20 @@ public class HomeController {
     MessageSource messageSource;
     @Autowired
     ReservationService reservationService;
+
+    @RequestMapping(value = "/cs", method = RequestMethod.GET)
+    public String changeLocaleCs(HttpServletRequest request, HttpServletResponse response) {
+        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+        localeResolver.setLocale(request, response, StringUtils.parseLocaleString("cs"));
+        return "index";
+    }
+
+    @RequestMapping(value = "/en", method = RequestMethod.GET)
+    public String changeLocaleEn(HttpServletRequest request, HttpServletResponse response) {
+        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+        localeResolver.setLocale(request, response, StringUtils.parseLocaleString("en"));
+        return "index";
+    }
 
     @RequestMapping(method=RequestMethod.GET, value="")
     public String Home() throws ServletException, IOException {

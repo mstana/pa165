@@ -47,6 +47,7 @@
             <tiles:importAttribute name="hotels" />
             <!-- Collect the nav links, forms, and other content for toggling -->
             <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+
                 <ul class="nav navbar-nav">
                     <li>
                         <c:set var="hotels"><tiles:getAsString name="hotels"/></c:set>
@@ -55,6 +56,14 @@
                     </li>
                     <li>
                         <a href="${pageContext.request.contextPath}/userList"><fmt:message key="user.list.title"/></a>
+                    </li>
+                </ul>
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="/pa165/en">English</a>
+                    </li>
+                    <li>
+                        <a href="/pa165/cs">Česky</a>
                     </li>
                 </ul>
             </div>
