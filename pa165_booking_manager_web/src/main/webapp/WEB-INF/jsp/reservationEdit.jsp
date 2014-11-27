@@ -24,12 +24,18 @@
   <form action="#" method="post" role="form">
     <div class="form-group">
       <label for="beginDate"><fmt:message key="reservation.begin"/></label>
-      <input data-provide="datepicker" name="beginDate" id="beginDate" value="<fmt:formatDate value="${reservation.beginDate}" pattern="MM/dd/yyyy" />" class="form-control" />
+      <div class="input-append date">
+        <input class="datepicker" data-provide="datepicker" name="beginDate" id="beginDate" value="<fmt:formatDate value="${reservation.beginDate}" pattern="MM/dd/yyyy" />" readonly>
+        <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+      </div>
     </div>
 
     <div class="form-group">
-      <label for="endDate"><fmt:message key="reservation.end"/></label>
-      <input data-provide="datepicker" name="endDate" id="endDate" value="<fmt:formatDate value="${reservation.endDate}" pattern="MM/dd/yyyy" />" class="form-control" />
+      <label for="beginDate"><fmt:message key="reservation.end"/></label>
+      <div class="input-append date">
+        <input class="datepicker" data-provide="datepicker" name="endDate" id="endDate" value="<fmt:formatDate value="${reservation.endDate}" pattern="MM/dd/yyyy" />" readonly>
+        <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
+      </div>
     </div>
 
     <div class="form-group">
