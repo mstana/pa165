@@ -9,12 +9,18 @@
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading"><fmt:message key="user.edit"/></div>
+  <div class="panel-heading">
+    <c:choose>
+    <c:when test="${user.id != null}">
+      <b><fmt:message key="user.edit"/></b></div>
+    </c:when>
+    <c:otherwise>
+      <b><fmt:message key="user.create"/></b></div>
+    </c:otherwise>
+  </c:choose>
 
 
   <form action="#" method="post" role="form" accept-charset="UTF-8">
-    <input type="hidden" value="${user.id}" />
-
     <div class="form-group">
       <label for="firstNameInput"><fmt:message key="user.firstName"/></label>
       <input type="text" name="firstName" id="firstNameInput" value="${user.firstName}" class="form-control" placeholder="<fmt:message key="user.firstName.enter"/>"/>
@@ -31,11 +37,10 @@
     </div>
     <div class="form-group">
       <label for="isAdmin"><fmt:message key="user.isAdmin"/></label>
-      <input type="checkbox" name="isAdmin" id="isAdmin"value="True" ${user.isAdmin == 'True' ? 'checked':''}>
-      
+      <input type="checkbox" name="isAdmin" id="isAdmin" value="True" ${user.isAdmin == 'true' ? 'checked':''}>
     </div>
-    <button type="submit" class="btn btn-default"><fmt:message key="general.submit"/></button>
-    <a href="/pa165/userList"><input type="button" class="btn btn-default" value="<fmt:message key="general.back"/>" name="back"/></a>
+    <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/userList"><fmt:message key="general.back"/></a>
 
   </form>
 </div>

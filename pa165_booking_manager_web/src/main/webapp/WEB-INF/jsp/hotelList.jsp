@@ -12,14 +12,15 @@
         <div class="panel-heading"><fmt:message key="hotel.list"/></div>
 
         <!-- Table -->
-        <table class="table">
-            <tr>
-                <th><fmt:message key="hotel.id"/></th>
-                <th><fmt:message key="hotel.name"/></th>
-                <th><fmt:message key="hotel.address"/></th>
-                <th><fmt:message key="hotel.rooms"/></th>
-            </tr>
-
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                    <th><fmt:message key="hotel.id"/></th>
+                    <th><fmt:message key="hotel.name"/></th>
+                    <th><fmt:message key="hotel.address"/></th>
+                    <th><fmt:message key="hotel.rooms"/></th>
+                </tr>
+            </thead>
             <c:forEach items="${hotels}" var="hotel">
                 <tr>
                     <td>${hotel.id}</td>
@@ -28,7 +29,6 @@
                     <td><a href="rooms/${hotel.id}"><fmt:message key="hotel.show.all.rooms"/></a></td>
                 </tr>
             </c:forEach>
-
         </table>
     </div>
 

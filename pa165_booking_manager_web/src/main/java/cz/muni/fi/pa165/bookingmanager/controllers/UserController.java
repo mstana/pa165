@@ -45,7 +45,7 @@ public class UserController {
     public ModelAndView createUserForm() throws ServletException, IOException
     {
 
-        ModelAndView modelAndView = new ModelAndView("userCreate");
+        ModelAndView modelAndView = new ModelAndView("userEdit");
         modelAndView.addObject("user", new UserTO());
 
         return modelAndView;
@@ -111,12 +111,12 @@ public class UserController {
         return "redirect:/userList";
     }
     @RequestMapping(method= RequestMethod.GET, value="/userDelete/{userId}")
-    public String deleteSpecifiedUser(@PathVariable("userId") long userId, HttpServletRequest req) throws ServletException, IOException
+    public String deleteSpecifiedUser(@PathVariable("userId") long userId) throws ServletException, IOException
     {
 
         UserTO user = userService.find(userId);
         if (user == null) {
-            return "redirect:" + req.getContextPath() + "/";
+            return "redirect:/";
         }
 
         try

@@ -158,12 +158,12 @@ public class RoomController {
 
 
     @RequestMapping(method= RequestMethod.POST, value="/newroom/{hotelId}")
-    public String createRoomSubmit(@PathVariable("hotelId") long hotelId,  @Valid RoomTO room, BindingResult result, HttpServletRequest req) throws ServletException, IOException
+    public String createRoomSubmit(@PathVariable("hotelId") long hotelId,  @Valid RoomTO room, BindingResult result) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
         if (hotel == null)
         {
-            return "redirect:" + req.getContextPath() + "/";
+            return "redirect:/";
         }
 
         room.setHotel(hotel);
@@ -171,11 +171,11 @@ public class RoomController {
 
         roomService.create(room);
 
-        return "redirect:" + req.getContextPath() + "/room/" + hotelId + "/" + room.getId();
+        return "redirect:/room/" + hotelId + "/" + room.getId();
     }
 
     @RequestMapping(method= RequestMethod.GET, value="/deleteroom/{hotelId}/{roomId}")
-    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, HttpServletRequest req) throws ServletException, IOException
+    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
     {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
@@ -187,7 +187,7 @@ public class RoomController {
 
         RoomTO room = roomService.find(roomId);
         if (room == null) {
-            return "redirect:" + req.getContextPath() + "/";
+            return "redirect:/";
         }
 
         try
@@ -196,12 +196,12 @@ public class RoomController {
         }
         catch (Exception ex)
         {
-            return "redirect:" + req.getContextPath() + "/";
+            return "redirect:/";
         }
 
         modelAndView.setViewName("roomList");
         modelAndView.addObject("hotel", hotel);
 
-        return "redirect:/" + req.getContextPath() + "/rooms/" + hotelId;
+        return "redirect:/rooms/" + hotelId;
     }
 }

@@ -23,8 +23,6 @@
   </div>
 
   <form action="#" method="post" role="form">
-    <input type="hidden" value="${room.id}" />
-
     <div class="form-group">
       <label for="numberInput"><fmt:message key="room.number"/></label>
       <input type="text" name="number" id="numberInput" value="${room.number}" class="form-control" placeholder="<fmt:message key="room.number.plc"/>"/>
@@ -40,5 +38,6 @@
       <input type="text" name="bedsCount" id="bedsInput" value="${room.bedsCount}" class="form-control" placeholder="<fmt:message key="room.beds.plc"/>"/>
     </div>
     <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
+    <a class="btn btn-default" href="${pageContext.request.contextPath}/rooms/${hotel.id}"><fmt:message key="general.back"/></a>
   </form>
 </div>
