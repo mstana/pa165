@@ -42,7 +42,7 @@
       <label for="user"><fmt:message key="reservation.user"/></label>
       <select class="form-control" name="user" id="user">
         <c:forEach items="${users}" var="user">
-          <option <c:choose><c:when test="${reservation.user.id == user.id}">selected="selected"</c:when></c:choose> value="${user}">${user.firstName} ${user.lastName}</option>
+          <option <c:choose><c:when test="${reservation.user.id == user.id}">selected="selected"</c:when></c:choose> value="${user.id}">${user.firstName} ${user.lastName}</option>
         </c:forEach>
       </select>
     </div>

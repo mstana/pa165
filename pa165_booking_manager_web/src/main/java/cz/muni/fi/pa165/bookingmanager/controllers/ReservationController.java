@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
@@ -169,17 +170,26 @@ public class ReservationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/newreservation/{roomId}")
-    public String createReservationSubmit(@PathVariable("roomId") long roomId, @Valid ReservationTO reservation, BindingResult result) throws ServletException, IOException {
+    public String createReservationSubmit(@PathVariable("roomId") long roomId, @Valid ReservationTO reservation, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
         RoomTO room = roomService.find(roomId);
         if (room == null) {
             return "redirect:/";
         }
 
-        room.addReservation(reservation);
-        reservation.setRoom(room);
-        reservation.setUser(userService.findAll().get(0));
+        try {
+            Long userId = Long.parseLong(req.getParameter("user"));
+            UserTO user = userService.find(userId);
 
-        reservationService.create(reservation);
+            room.addReservation(reservation);
+            reservation.setRoom(room);
+            reservation.setUser(user);
+
+            reservationService.create(reservation);
+        }
+        catch (Exception ex)
+        {
+            return "redirect:/";
+        }
 
         return "redirect:/reservation/" + reservation.getId();
     }
