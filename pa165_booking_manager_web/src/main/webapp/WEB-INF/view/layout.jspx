@@ -76,6 +76,12 @@
             </c:if>
             <tiles:insertAttribute name="main" />
         </div>
+
+
+
+
+
+
     </div>
     <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
 </div>

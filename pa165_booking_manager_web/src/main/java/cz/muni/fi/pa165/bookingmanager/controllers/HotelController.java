@@ -5,6 +5,7 @@ import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -42,7 +43,7 @@ public class HotelController {
     public ModelAndView editHotelForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         if (hotel == null) {
-            return new ModelAndView("index");
+            return new ModelAndView("hotelList");
         }
 
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
@@ -55,17 +56,16 @@ public class HotelController {
     public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @ModelAttribute("HotelTO") HotelTO hotel) throws ServletException, IOException {
 
         HotelTO hotelFromDB = hotelService.find(hotelId);
+        ModelAndView modelAndView = new ModelAndView("hotelEdit");
         if (hotelFromDB == null) {
-            ModelAndView index = new ModelAndView("index");
-            index.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
-            return index;
+            modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
         }
 
         hotelFromDB.setName(hotel.getName());
         hotelFromDB.setAddress(hotel.getAddress());
         hotelService.update(hotelFromDB);
 
-        ModelAndView modelAndView = new ModelAndView("hotelEdit");
         modelAndView.addObject("hotel", hotelFromDB);
         modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
 
@@ -82,11 +82,28 @@ public class HotelController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/newhotel")
-    public String createHotelSubmit(@ModelAttribute("HotelTO") HotelTO hotel) throws ServletException, IOException {
+    public String createHotelSubmit(@ModelAttribute("HotelTO") HotelTO hotel, HttpServletRequest req) throws ServletException, IOException {
 
         hotelService.create(hotel);
 
         return "redirect:/hotel/" + hotel.getId();
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "/deletehotel/{hotelId}")
+    public String deleteHotel(@PathVariable("hotelId") long hotelId, HttpServletRequest req) throws ServletException, IOException {
+
+        HotelTO hotel = hotelService.find(hotelId);
+        if (hotel == null) {
+            return "redirect:" + req.getContextPath() + "/";
+        }
+
+        try {
+            hotelService.delete(hotel);
+        } catch (Exception ex) {
+            return "redirect:/hotels";
+        }
+
+        return "redirect:/hotels";
     }
 
 }
