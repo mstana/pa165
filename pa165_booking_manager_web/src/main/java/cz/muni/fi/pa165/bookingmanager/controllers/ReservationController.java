@@ -93,6 +93,7 @@ public class ReservationController {
 
         modelAndView.setViewName("reservationEdit");
         modelAndView.addObject("reservation", reservation);
+        modelAndView.addObject("room", reservation.getRoom());
         modelAndView.addObject("users", userService.findAll());
 
         return modelAndView;
@@ -113,13 +114,12 @@ public class ReservationController {
         try {
             resFromDB.setBeginDate(reservation.getBeginDate());
             resFromDB.setEndDate(reservation.getEndDate());
-            System.out.println("ahoj");
-            System.out.println(reservation.getUser());
             resFromDB.setUser(reservation.getUser());
 
             reservationService.update(resFromDB);
 
             modelAndView.addObject("reservation", resFromDB);
+            modelAndView.addObject("room", resFromDB.getRoom());
             modelAndView.addObject("users", userService.findAll());
 
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));

@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<a href="${pageContext.request.contextPath}/roomreservations/${reservation.room.id}" class="btn btn-default"><fmt:message key="general.back"/></a>
+<a href="${pageContext.request.contextPath}/roomreservations/${room.id}" class="btn btn-default"><fmt:message key="general.back"/></a>
 
 <div class="panel panel-default">
 
