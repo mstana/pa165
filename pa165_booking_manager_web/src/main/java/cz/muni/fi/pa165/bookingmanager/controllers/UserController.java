@@ -55,6 +55,7 @@ public class UserController {
     @RequestMapping(method= RequestMethod.POST, value="/userCreate")
     public String createUserSubmit(@ModelAttribute("UserTO")UserTO user, HttpServletRequest req) throws ServletException, IOException
     {
+        req.setCharacterEncoding("UTF-8");
         if (req.getParameter("isAdmin")!= null && req.getParameter("isAdmin").equals("True")) 
         {
             user.setIsAdmin(Boolean.TRUE);
@@ -62,6 +63,7 @@ public class UserController {
         {
             user.setIsAdmin(Boolean.FALSE);
         }
+
         userService.create(user);
         return "redirect:userList";
     }
