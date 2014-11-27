@@ -5,7 +5,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-
+<a class="btn btn-default" href="${pageContext.request.contextPath}/userList"><fmt:message key="general.back"/></a>
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -35,17 +35,16 @@
       <label for="emailInput"><fmt:message key="user.email"/></label>
       <input type="text" name="email" id="emailInput" value="${user.email}" class="form-control" placeholder="<fmt:message key="user.email.enter"/>"/>
     </div>
-    
-    
-    
-    
-    
+
+
+
+
+
     <div class="form-group">
       <label for="isAdmin"><fmt:message key="user.isAdmin"/></label>
       <input type="checkbox" name="isAdmin" id="isAdmin" value="True" ${user.isAdmin == 'true' ? 'checked':''}>
     </div>
     <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/userList"><fmt:message key="general.back"/></a>
 
   </form>
 </div>

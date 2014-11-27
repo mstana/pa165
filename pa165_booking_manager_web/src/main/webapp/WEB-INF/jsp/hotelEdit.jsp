@@ -5,7 +5,7 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
-<a href="/pa165/hotels" class="btn btn-danger"><fmt:message key="hotel.back"/></a>
+<a href="/pa165/hotels" class="btn btn-default"><fmt:message key="general.back"/></a>
 
 <div class="panel panel-default">
 

@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<h3>TODO</h3>
+<a href="${pageContext.request.contextPath}/roomreservations/${room.id}" class="btn btn-default"><fmt:message key="general.back"/></a>
 
 <div class="panel panel-default">
   <!-- Default panel contents -->
@@ -42,6 +42,5 @@
     </div>
 
     <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
-    <a class="btn btn-default" href="${pageContext.request.contextPath}/roomreservations/${room.id}"><fmt:message key="general.back"/></a>
   </form>
 </div>

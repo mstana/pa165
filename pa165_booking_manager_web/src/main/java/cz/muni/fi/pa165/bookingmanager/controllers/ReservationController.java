@@ -82,6 +82,19 @@ public class ReservationController {
         return modelAndView;
     }
 
+    @RequestMapping(method= RequestMethod.GET, value="/reservation/{reservationId}")
+    public ModelAndView editReservation(@PathVariable("reservationId") long reservationId) throws ServletException, IOException
+    {
+        ReservationTO reservation = reservationService.find(reservationId);
+
+        ModelAndView modelAndView = new ModelAndView("reservationEdit");
+        modelAndView.addObject("reservation", reservation);
+        modelAndView.addObject("room", reservation.getRoom());
+        modelAndView.addObject("users", userService.findAll());
+
+        return modelAndView;
+    }
+
     @RequestMapping(method= RequestMethod.GET, value="/deletereservation/{reservationId}")
     public String deleteSpecifiedReservation(@PathVariable("reservationId") long reservationId) throws ServletException, IOException
     {
