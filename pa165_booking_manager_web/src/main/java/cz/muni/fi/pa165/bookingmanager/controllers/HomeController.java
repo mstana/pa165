@@ -1,9 +1,11 @@
 package cz.muni.fi.pa165.bookingmanager.controllers;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
+import cz.muni.fi.pa165.bookingmanager.api.dto.ReservationTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
+import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
 import org.hibernate.Session;
@@ -17,6 +19,7 @@ import org.springframework.web.servlet.ModelAndView;
 import javax.servlet.ServletException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -28,9 +31,10 @@ public class HomeController {
     UserService userService;
     @Autowired
     RoomService roomService;
-
     @Autowired
     MessageSource messageSource;
+    @Autowired
+    ReservationService reservationService;
 
     @RequestMapping(method=RequestMethod.GET, value="")
     public String Home() throws ServletException, IOException {
@@ -109,6 +113,21 @@ public class HomeController {
         u3.setEmail("adam.studenic@as.com");
         u3.setIsAdmin(Boolean.FALSE);
         userService.create(u3);
+
+        ReservationTO res = new ReservationTO();
+        res.setRoom(room1);
+        res.setUser(u1);
+
+        Calendar beginDate = Calendar.getInstance();
+        beginDate.set(2014, 10, 1);
+
+        Calendar endDate = Calendar.getInstance();
+        endDate.set(2014, 11, 1);
+
+        res.setBeginDate(beginDate.getTime());
+        res.setEndDate(endDate.getTime());
+
+        reservationService.create(res);
 
         return "index";
     }

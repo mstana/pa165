@@ -1,6 +1,8 @@
 package cz.muni.fi.pa165.bookingmanager.entities;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 import javax.persistence.*;
 
@@ -26,6 +28,9 @@ public class Room implements Serializable {
 
     @ManyToOne(cascade = {CascadeType.MERGE,CascadeType.REFRESH})
     private Hotel hotel;
+
+    @OneToMany(mappedBy = "room", cascade = {CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
 
     public Long getId() {
         return id;
@@ -77,6 +82,18 @@ public class Room implements Serializable {
         }
 
         this.hotel = hotel;
+    }
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void addReservation (Reservation reservation) {
+        this.reservations.add(reservation);
     }
 
     @Override

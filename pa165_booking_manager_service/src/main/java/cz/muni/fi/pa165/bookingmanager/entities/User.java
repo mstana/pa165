@@ -5,12 +5,10 @@
  */
 package cz.muni.fi.pa165.bookingmanager.entities;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  *
@@ -34,7 +32,10 @@ public class User {
     
     @Column
     private Boolean isAdmin;
-    //to do: booking list
+
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
+    private List<Reservation> reservations = new ArrayList<>();
+
 
     public Boolean getIsAdmin() {
         return isAdmin;
@@ -75,9 +76,18 @@ public class User {
     public void setLastName(String lastName) {
         this.lastName = lastName;
     }
-    
-    
-    
+
+    public List<Reservation> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<Reservation> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void addReservation (Reservation reservation) {
+        this.reservations.add(reservation);
+    }
 
     @Override
     public int hashCode() {
