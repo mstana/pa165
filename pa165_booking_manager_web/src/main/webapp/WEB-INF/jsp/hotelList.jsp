@@ -11,7 +11,7 @@
     <a href="newhotel" class="btn btn-success"><fmt:message key="hotel.create"/></a>
 
     <div class="panel panel-default">
-        <div class="panel-heading"><fmt:message key="hotel.list"/></div>
+        <div class="panel-heading"><b><fmt:message key="hotel.list"/></b></div>
 
         <table class="table">
             <tr>

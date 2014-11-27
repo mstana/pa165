@@ -25,7 +25,7 @@
     <div class="form-group">
       <label for="beginDate"><fmt:message key="reservation.begin"/></label>
       <div class="input-append date">
-        <input class="datepicker" data-provide="datepicker" name="beginDate" id="beginDate" value="<fmt:formatDate value="${reservation.beginDate}" pattern="MM/dd/yyyy" />" readonly>
+        <input class="datepicker-input" data-provide="datepicker" name="beginDate" id="beginDate" value="<fmt:formatDate value="${reservation.beginDate}" pattern="MM/dd/yyyy" />" readonly>
         <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
       </div>
     </div>
@@ -33,7 +33,7 @@
     <div class="form-group">
       <label for="beginDate"><fmt:message key="reservation.end"/></label>
       <div class="input-append date">
-        <input class="datepicker" data-provide="datepicker" name="endDate" id="endDate" value="<fmt:formatDate value="${reservation.endDate}" pattern="MM/dd/yyyy" />" readonly>
+        <input class="datepicker-input" data-provide="datepicker" name="endDate" id="endDate" value="<fmt:formatDate value="${reservation.endDate}" pattern="MM/dd/yyyy" />" readonly>
         <span class="add-on"><i class="glyphicon glyphicon-calendar"></i></span>
       </div>
     </div>
