@@ -1,3 +1,4 @@
+<%@page pageEncoding="UTF-8"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
@@ -5,28 +6,36 @@
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 
+
 <div class="panel panel-default">
   <!-- Default panel contents -->
-  <div class="panel-heading">User edit</div>
+  <div class="panel-heading"><fmt:message key="user.edit"/></div>
 
 
-  <form action="#" method="post" role="form">
+  <form action="#" method="post" role="form" accept-charset="UTF-8">
     <input type="hidden" value="${user.id}" />
 
     <div class="form-group">
-      <label for="numberInput">First Name</label>
-      <input type="text" name="firstName" id="numberInput" value="${user.firstName}" class="form-control" placeholder="Enter first name"/>
+      <label for="firstNameInput"><fmt:message key="user.firstName"/></label>
+      <input type="text" name="firstName" id="firstNameInput" value="${user.firstName}" class="form-control" placeholder="<fmt:message key="user.firstName.enter"/>"/>
     </div>
 
     <div class="form-group">
-      <label for="priceInput">Last Name</label>
-      <input type="text" name="lastName" id="priceInput" value="${user.lastName}" class="form-control" placeholder="Enter last name"/>
+      <label for="lastNameInput"><fmt:message key="user.lastName"/></label>
+      <input type="text" name="lastName" id="lastNameInput" value="${user.lastName}" class="form-control" placeholder="<fmt:message key="user.lastName.enter"/>"/>
     </div>
 
     <div class="form-group">
-      <label for="bedsInput">Email</label>
-      <input type="text" name="email" id="bedsInput" value="${user.email}" class="form-control" placeholder="Enter email"/>
+      <label for="emailInput"><fmt:message key="user.email"/></label>
+      <input type="text" name="email" id="emailInput" value="${user.email}" class="form-control" placeholder="<fmt:message key="user.email.enter"/>"/>
     </div>
-    <button type="submit" class="btn btn-default">Submit</button>
+    <div class="form-group">
+      <label for="isAdmin"><fmt:message key="user.isAdmin"/></label>
+      <input type="checkbox" name="isAdmin" id="isAdmin"value="True" ${user.isAdmin == 'True' ? 'checked':''}>
+      
+    </div>
+    <button type="submit" class="btn btn-default"><fmt:message key="general.submit"/></button>
+    <a href="/pa165/userList"><input type="button" class="btn btn-default" value="<fmt:message key="general.back"/>" name="back"/></a>
+
   </form>
 </div>

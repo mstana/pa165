@@ -11,7 +11,7 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1>Welcome</h1>
+                <h1><fmt:message key="general.welcome.welcome"/></h1>
                 <p class="lead"><fmt:message key="general.welcome"/></p>
             </div>
         </div>

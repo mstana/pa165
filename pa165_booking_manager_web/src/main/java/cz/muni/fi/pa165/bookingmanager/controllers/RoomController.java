@@ -202,6 +202,6 @@ public class RoomController {
         modelAndView.setViewName("roomList");
         modelAndView.addObject("hotel", hotel);
 
-        return "redirect:" + req.getContextPath() + "/rooms/" + hotelId;
+        return "redirect:/" + req.getContextPath() + "/rooms/" + hotelId;
     }
 }
