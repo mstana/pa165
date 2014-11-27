@@ -101,7 +101,7 @@ public class ReservationController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/reservation/{reservationId}")
-    public ModelAndView editReservationSubmit(@PathVariable("reservationId") long reservationId, @Valid ReservationTO reservation, BindingResult result) throws ServletException, IOException {
+    public ModelAndView editReservationSubmit(@PathVariable("reservationId") long reservationId, @Valid ReservationTO reservation, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
         ModelAndView modelAndView = new ModelAndView("index");
 
         ReservationTO resFromDB = reservationService.find(reservationId);
@@ -113,9 +113,12 @@ public class ReservationController {
         modelAndView.setViewName("reservationEdit");
 
         try {
+            Long userId = Long.parseLong(req.getParameter("user"));
+            UserTO user = userService.find(userId);
+
             resFromDB.setBeginDate(reservation.getBeginDate());
             resFromDB.setEndDate(reservation.getEndDate());
-            resFromDB.setUser(reservation.getUser());
+            resFromDB.setUser(user);
 
             reservationService.update(resFromDB);
 
