@@ -132,6 +132,14 @@ public class HomeController {
         u3.setEmail("adam.studenic@as.com");
         u3.setIsAdmin(Boolean.FALSE);
         userService.create(u3);
+        
+        
+        UserTO u4 = new UserTO();
+        u4.setFirstName("Ondrej");
+        u4.setLastName("Pavelka");
+        u4.setEmail("ondrej.pavelka@op.com");
+        u4.setIsAdmin(Boolean.FALSE);
+        userService.create(u4);
 
         ReservationTO res = new ReservationTO();
         res.setRoom(room1);

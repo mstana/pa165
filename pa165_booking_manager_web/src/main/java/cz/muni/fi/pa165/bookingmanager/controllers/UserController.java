@@ -104,7 +104,7 @@ public class UserController {
         ModelAndView modelAndView = new ModelAndView("userEdit");
         modelAndView.addObject("user", user);
          if (result.hasErrors()) {
-            modelAndView.addObject("error", messageSource.getMessage("user.error.edit", null, LocaleContextHolder.getLocale()));
+            modelAndView.addObject("error", messageSource.getMessage("user.error.edit" , null, LocaleContextHolder.getLocale()));
             
             return modelAndView;
         } else {
