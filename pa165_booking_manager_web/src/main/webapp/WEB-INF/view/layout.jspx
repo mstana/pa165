@@ -89,7 +89,6 @@
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"><jsp:text/></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"><jsp:text/></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"><jsp:text/></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.cs.js"><jsp:text/></script>
 <script type="text/javascript">
     $(document).ready(function() {
         if ($('.datepicker')) {
