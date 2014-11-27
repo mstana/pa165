@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.api.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -21,6 +23,8 @@ public class UserTO {
     public Boolean getIsAdmin() {
         return isAdmin;
     }
+
+    private List<ReservationTO> reservations = new ArrayList<>();
 
     public void setIsAdmin(Boolean isAdmin) {
         this.isAdmin = isAdmin;
@@ -58,6 +62,18 @@ public class UserTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public List<ReservationTO> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<ReservationTO> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void addReservation (ReservationTO reservation) {
+        this.reservations.add(reservation);
     }
 
     @Override

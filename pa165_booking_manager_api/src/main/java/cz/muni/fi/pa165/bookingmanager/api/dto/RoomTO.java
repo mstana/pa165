@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.api.dto;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -17,6 +19,8 @@ public class RoomTO {
     private int bedsCount;
     
     private HotelTO hotel;
+
+    private List<ReservationTO> reservations = new ArrayList<>();
 
     public HotelTO getHotel() {
         return hotel;
@@ -65,6 +69,18 @@ public class RoomTO {
         }
         
         this.bedsCount = bedsCount;
+    }
+
+    public List<ReservationTO> getReservations() {
+        return reservations;
+    }
+
+    public void setReservations(List<ReservationTO> reservations) {
+        this.reservations = reservations;
+    }
+
+    public void addReservation (ReservationTO reservation) {
+        this.reservations.add(reservation);
     }
 
     @Override

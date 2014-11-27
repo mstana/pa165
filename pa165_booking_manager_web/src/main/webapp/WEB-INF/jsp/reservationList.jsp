@@ -11,6 +11,10 @@
     <h3>${room.number} <fmt:message key="reservation.list.title"/> </h3>
   </c:if>
 
+<c:if test="${room != null}">
+  <a class="btn btn-success" href="${pageContext.request.contextPath}/newreservation/${room.id}"><fmt:message key="reservation.new"/></a>
+</c:if>
+
 <div class="panel panel-default">
 
   <div class="panel-heading">

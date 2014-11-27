@@ -26,7 +26,7 @@
     <!-- Bootstrap Core CSS -->
     <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" />
     <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet" />
-
+    <link href="${pageContext.request.contextPath}/css/datepicker.css" rel="stylesheet" />
 </head>
 
 <body>
@@ -82,22 +82,21 @@
             </c:if>
             <tiles:insertAttribute name="main" />
         </div>
-
-
-
-
-
-
     </div>
     <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
 </div>
 
-<!-- jQuery Version 1.11.1 -->
-<script src="${pageContext.request.contextPath}/js/jquery.js"></script>
-
-<!-- Bootstrap Core JavaScript -->
-<script src="${pageContext.request.contextPath}/js/bootstrap.min.js"></script>
-
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"><jsp:text/></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"><jsp:text/></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"><jsp:text/></script>
+<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.cs.js"><jsp:text/></script>
+<script type="text/javascript">
+    $(document).ready(function() {
+        if ($('.datepicker')) {
+            $('.datepicker').datepicker();
+        }
+    })
+</script>
 </body>
 </html>
 </jsp:root>

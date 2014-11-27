@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
+import cz.muni.fi.pa165.bookingmanager.entities.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -103,5 +104,43 @@ public class ReservationController {
         }
 
         return "redirect:/roomreservations/" + room.getId();
+    }
+
+    @RequestMapping(method= RequestMethod.GET, value="/newreservation/{roomId}")
+    public ModelAndView createReservationForm(@PathVariable("roomId") long roomId) throws ServletException, IOException
+    {
+        RoomTO room = roomService.find(roomId);
+        ModelAndView modelAndView = new ModelAndView("index");
+
+        if (room == null) {
+            modelAndView.addObject("error",  messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+        }
+
+        modelAndView.setViewName("reservationEdit");
+        modelAndView.addObject("reservation", new ReservationTO());
+        modelAndView.addObject("room", room);
+        modelAndView.addObject("users", userService.findAll());
+
+        return modelAndView;
+    }
+
+
+    @RequestMapping(method= RequestMethod.POST, value="/newreservation/{roomId}")
+    public String createReservationSubmit(@PathVariable("roomId") long roomId,  @Valid ReservationTO reservation, BindingResult result) throws ServletException, IOException
+    {
+        RoomTO room = roomService.find(roomId);
+        if (room == null)
+        {
+            return "redirect:/";
+        }
+
+        room.addReservation(reservation);
+        reservation.setRoom(room);
+        reservation.setUser(userService.findAll().get(0));
+
+        reservationService.create(reservation);
+
+        return "redirect:/reservation/" + reservation.getId();
     }
 }
