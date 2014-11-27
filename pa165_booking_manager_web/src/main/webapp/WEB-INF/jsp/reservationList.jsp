@@ -39,8 +39,8 @@
         <td>${reservation.room.number}</td>
         <td>${reservation.room.hotel.name}</td>
         <td>${reservation.user.firstName} ${reservation.user.lastName}</td>
-        <td>${reservation.beginDate}</td>
-        <td>${reservation.endDate}</td>
+        <td><fmt:formatDate type="date" value="${reservation.beginDate}" /></td>
+        <td><fmt:formatDate type="date" value="${reservation.endDate}" /></td>
         <td>
           <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/reservation/${reservation.id}"><span class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
           <a onclick="return confirm('<fmt:message key="reservation.confirm.delete"/>');" class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/deletereservation/${reservation.id}"><span class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
