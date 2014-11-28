@@ -58,15 +58,17 @@ public class UserController {
 
 
     @RequestMapping(method= RequestMethod.POST, value="/userCreate")
-    public ModelAndView createUserSubmit(@ModelAttribute("UserTO") @Valid UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException
+    public ModelAndView createUserSubmit(@Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException
     {
-        UserValidator userValidator = new UserValidator();
-        userValidator.validate(user, result);
+   
         ModelAndView modelAndView = new ModelAndView("userEdit");
-        if (result.hasErrors()) {
-            modelAndView.addObject("error", messageSource.getMessage("user.error", null, LocaleContextHolder.getLocale()));
-                
+        UserValidator userValidator = new UserValidator();        
+        userValidator.validate(user, result);
+        
+         if (result.hasErrors()) {
+            modelAndView.addObject("error", messageSource.getMessage("user.error.create" , null, LocaleContextHolder.getLocale()));
             return modelAndView;
+            
         } else {
             if (req.getParameter("isAdmin")!= null && req.getParameter("isAdmin").equals("True")) 
             {
@@ -75,7 +77,7 @@ public class UserController {
             {
                 user.setIsAdmin(Boolean.FALSE);
             }
-
+            modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
             userService.create(user);
             return modelAndView;
         }
@@ -97,23 +99,25 @@ public class UserController {
     }
 
     @RequestMapping(method= RequestMethod.POST, value="/userEdit/{userId}")
-    public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @ModelAttribute("UserTO") @Valid UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException
+    public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException
     {   
-        UserValidator userValidator = new UserValidator();
-        userValidator.validate(user, result);
         ModelAndView modelAndView = new ModelAndView("userEdit");
-        modelAndView.addObject("user", user);
+        UserValidator userValidator = new UserValidator();
+        
+        UserTO userFromDB = userService.find(userId);
+        if (userFromDB == null) {
+            modelAndView.addObject("error", messageSource.getMessage("user.error.edit", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+        }
+        
+        userValidator.validate(user, result);
+        modelAndView.addObject("user", userFromDB);
+        
          if (result.hasErrors()) {
             modelAndView.addObject("error", messageSource.getMessage("user.error.edit" , null, LocaleContextHolder.getLocale()));
-            
             return modelAndView;
+            
         } else {
-            UserTO userFromDB = userService.find(userId);
-            if (userFromDB == null) {
-                modelAndView.addObject("error", messageSource.getMessage("user.error.edit", null, LocaleContextHolder.getLocale()));
-                return modelAndView;
-            }
-
             userFromDB.setFirstName(user.getFirstName());
             userFromDB.setLastName(user.getLastName());
             userFromDB.setEmail(user.getEmail());

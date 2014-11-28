@@ -2,14 +2,17 @@ package cz.muni.fi.pa165.bookingmanager.controllers;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
+import cz.muni.fi.pa165.bookingmanager.validators.HotelValidator;
 import java.io.IOException;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
+import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -53,23 +56,32 @@ public class HotelController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/hotel/{hotelId}")
-    public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @ModelAttribute("HotelTO") HotelTO hotel) throws ServletException, IOException {
-
+    public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result) throws ServletException, IOException { 
+        
+        HotelValidator hotelValidator = new HotelValidator();
         HotelTO hotelFromDB = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
         if (hotelFromDB == null) {
             modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
-
-        hotelFromDB.setName(hotel.getName());
-        hotelFromDB.setAddress(hotel.getAddress());
-        hotelService.update(hotelFromDB);
-
+        hotelValidator.validate(hotel, result);
         modelAndView.addObject("hotel", hotelFromDB);
-        modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
+        if (result.hasErrors()) {
+            modelAndView.addObject("error", messageSource.getMessage("hotel.error.edit" , null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+            
+        } else {
+            hotelFromDB.setName(hotel.getName());
+            hotelFromDB.setAddress(hotel.getAddress());
+            hotelService.update(hotelFromDB);
 
-        return modelAndView;
+            modelAndView.addObject("hotel", hotelFromDB);
+            modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
+
+            return modelAndView;
+    
+          }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/newhotel")
@@ -77,16 +89,24 @@ public class HotelController {
 
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
         modelAndView.addObject("hotel", new HotelTO());
-
+        
         return modelAndView;
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/newhotel")
-    public String createHotelSubmit(@ModelAttribute("HotelTO") HotelTO hotel, HttpServletRequest req) throws ServletException, IOException {
-
-        hotelService.create(hotel);
-
-        return "redirect:/hotel/" + hotel.getId();
+    public ModelAndView createHotelSubmit(@Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result,HttpServletRequest req) throws ServletException, IOException {
+        
+        HotelValidator hotelValidator = new HotelValidator();
+        ModelAndView modelAndView = new ModelAndView("hotelEdit");
+        hotelValidator.validate(hotel, result);
+        if (result.hasErrors()) {
+            modelAndView.addObject("error", messageSource.getMessage("hotel.error.create" , null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+        } else {
+            hotelService.create(hotel);
+            modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+        }
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/deletehotel/{hotelId}")

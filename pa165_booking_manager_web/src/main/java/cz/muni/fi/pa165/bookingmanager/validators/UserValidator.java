@@ -23,8 +23,11 @@ public class UserValidator implements Validator {
     @Override
     public void validate(Object o, Errors errors) {
         UserTO user = (UserTO) o;
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "First name can't be blank");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "Last name can't be blank");
-        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "Email can't be blank");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "user.validation.error.firstName");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "user.validation.error.lastName");
+        ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "user.validation.error.email");
+    
+    
+    
     }
 }
