@@ -5,17 +5,47 @@
  */
 package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop;
 
+import com.sun.jersey.api.client.ClientHandlerException;
+import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
+import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.UserRESTManager;
+import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.UserTableModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mstana
  */
 public class UserDialog extends javax.swing.JFrame {
 
+    private boolean createUser = true;
+    private UserTO user;
+    private UserRESTManager userRESTManager = new UserRESTManager();
+    private UserTableModel userTableModel;
     /**
      * Creates new form UserDialog
      */
-    public UserDialog() {
+    public UserDialog(UserTableModel userTableModel) {
         initComponents();
+        this.userTableModel = userTableModel;
+
+        user = new UserTO();
+    }
+    
+    public UserDialog(UserTO user, UserTableModel userTableModel) {
+        initComponents();
+        this.userTableModel = userTableModel;
+
+        this.user = user;
+
+        jTextFieldFirstName.setText(user.getFirstName());
+        jTextFieldLastName.setText(user.getLastName());
+        jTextFieldEmail.setText(user.getEmail());
+        jCheckBoxIsAdmin.setSelected(user.getIsAdmin());    
+        
+        jButtonCreate.setText("Save");
+        jLabelMainLabel.setText("Edit User");
+    
+         createUser = false;
     }
 
     /**
@@ -37,7 +67,7 @@ public class UserDialog extends javax.swing.JFrame {
         jTextFieldEmail = new javax.swing.JTextField();
         jCheckBoxIsAdmin = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
-        jLabel5 = new javax.swing.JLabel();
+        jLabelMainLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -75,7 +105,7 @@ public class UserDialog extends javax.swing.JFrame {
 
         jLabel4.setText("Is Admin");
 
-        jLabel5.setText("User Create");
+        jLabelMainLabel.setText("User Create");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -109,14 +139,14 @@ public class UserDialog extends javax.swing.JFrame {
                                 .addComponent(jTextFieldLastName))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(154, 154, 154)
-                        .addComponent(jLabel5)))
+                        .addComponent(jLabelMainLabel)))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(28, 28, 28)
-                .addComponent(jLabel5)
+                .addComponent(jLabelMainLabel)
                 .addGap(40, 40, 40)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel1)
@@ -152,47 +182,38 @@ public class UserDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldLastNameActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-        // TODO add your handling code here:
+        
+        // TODO add some validation and bool:
+        user.setFirstName(jTextFieldFirstName.getText());
+        user.setLastName(jTextFieldLastName.getText());
+        user.setEmail(jTextFieldEmail.getText());
+        user.setIsAdmin(jCheckBoxIsAdmin.isSelected());
+        
+        
+        try {
+            int status = createUser ? userRESTManager.createUser(user).getStatus() : userRESTManager.updateUser(user).getStatus();
+            switch(status) {
+                case 400:
+                    JOptionPane.showMessageDialog(this, "An invalid client was sent to the server. Please check the information and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 500:
+                    JOptionPane.showMessageDialog(this, "An error occured on the server side. Please contact the administrator for more information.", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    userTableModel.setUsers(userRESTManager.findAllUsers());
+            }
+        } catch (ClientHandlerException che) {
+            JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
+        dispose();
+        
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(UserDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(UserDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(UserDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(UserDialog.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new UserDialog().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
@@ -202,7 +223,7 @@ public class UserDialog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabelMainLabel;
     private javax.swing.JTextField jTextFieldEmail;
     private javax.swing.JTextField jTextFieldFirstName;
     private javax.swing.JTextField jTextFieldLastName;

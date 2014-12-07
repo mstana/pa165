@@ -5,19 +5,49 @@
  */
 package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop;
 
+import com.sun.jersey.api.client.ClientHandlerException;
+import com.sun.jersey.api.client.UniformInterfaceException;
+import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.UserRESTManager;
+import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.HotelTableModel;
+import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.UserTableModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mstana
  */
 public class Main extends javax.swing.JFrame {
 
+    
+    private UserTableModel userTableModel = new UserTableModel();
+    private HotelTableModel hotelTableModel= new HotelTableModel();
+    private static UserRESTManager userRESTManager = new UserRESTManager();
+    
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
     }
-
+    private void initTableModels() {
+        userTable.setModel(userTableModel);
+        hotelTable.setModel(hotelTableModel);
+    }
+    
+    public void refreshHotelTable() {
+        try {
+            userTableModel.setUsers(userRESTManager.findAllUsers());
+        } catch (ClientHandlerException ex) {
+            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        } catch (UniformInterfaceException uie) {
+            if (uie.getResponse().getStatus() == 500) {
+                JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+    
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -38,12 +68,12 @@ public class Main extends javax.swing.JFrame {
         jButtonDeleteUser = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        userTable = new javax.swing.JTable();
         jButtonDeleteUser1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         jLabel2 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        hotelTable = new javax.swing.JTable();
         jButtonCreateHotel = new javax.swing.JButton();
         jButtonUpdateHotel = new javax.swing.JButton();
         jButtonDeleteHotel = new javax.swing.JButton();
@@ -69,12 +99,17 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButtonUpdateUser.setText("Update");
+        jButtonUpdateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateUserActionPerformed(evt);
+            }
+        });
 
         jButtonDeleteUser.setText("Delete");
 
         jLabel1.setText("List Of Users");
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null},
                 {null, null, null, null},
@@ -93,9 +128,9 @@ public class Main extends javax.swing.JFrame {
                 return types [columnIndex];
             }
         });
-        jScrollPane2.setViewportView(jTable1);
-        if (jTable1.getColumnModel().getColumnCount() > 0) {
-            jTable1.getColumnModel().getColumn(1).setResizable(false);
+        jScrollPane2.setViewportView(userTable);
+        if (userTable.getColumnModel().getColumnCount() > 0) {
+            userTable.getColumnModel().getColumn(1).setResizable(false);
         }
 
         jButtonDeleteUser1.setText("Delete");
@@ -142,7 +177,7 @@ public class Main extends javax.swing.JFrame {
 
         jLabel2.setText("List Of Hotels");
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+        hotelTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null},
                 {null, null, null},
@@ -153,7 +188,7 @@ public class Main extends javax.swing.JFrame {
                 "ID", "Name", "Address"
             }
         ));
-        jScrollPane3.setViewportView(jTable2);
+        jScrollPane3.setViewportView(hotelTable);
 
         jButtonCreateHotel.setText("Create");
         jButtonCreateHotel.addActionListener(new java.awt.event.ActionListener() {
@@ -262,6 +297,14 @@ public class Main extends javax.swing.JFrame {
        new HotelDialog().setVisible(true);
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
+    private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
+        if (userTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Select a user to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            new UserDialog(getSelectedUser(userTable.getSelectedRow()), userTableModel).setVisible(true);
+        }
+    }//GEN-LAST:event_jButtonUpdateUserActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -299,6 +342,7 @@ public class Main extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JMenuItem MenuItemExit;
+    private javax.swing.JTable hotelTable;
     private javax.swing.JButton jButtonCreateHotel;
     private javax.swing.JButton jButtonCreateUser;
     private javax.swing.JButton jButtonDeleteHotel;
@@ -321,7 +365,6 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable1;
-    private javax.swing.JTable jTable2;
+    private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

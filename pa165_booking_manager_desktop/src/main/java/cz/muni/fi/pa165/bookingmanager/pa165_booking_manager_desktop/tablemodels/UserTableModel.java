@@ -26,7 +26,7 @@ public class UserTableModel extends AbstractTableModel{
 
     @Override
     public int getColumnCount() {
-        return 4;
+        return 5;
     }
     @Override
     public String getColumnName(int columnIndex) {
@@ -38,7 +38,9 @@ public class UserTableModel extends AbstractTableModel{
             case 2:
                 return "Last name";
             case 3:
-                return "Email";
+                return "Email";     
+            case 4:
+                return "Is Admin";
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
@@ -55,6 +57,8 @@ public class UserTableModel extends AbstractTableModel{
                 return user.getLastName();
             case 3:
                 return user.getEmail();
+            case 4:
+                return user.getIsAdmin().toString();
             default:
                 throw new IllegalArgumentException("columnIndex");
         } 
