@@ -42,7 +42,7 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/"><fmt:message key="general.bookingManager"/></a>
+                <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><fmt:message key="general.bookingManager"/></a>
             </div>
             <tiles:importAttribute name="hotels" />
             <!-- Collect the nav links, forms, and other content for toggling -->

@@ -21,6 +21,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Locale;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import org.springframework.util.StringUtils;
@@ -55,8 +56,34 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(method=RequestMethod.GET, value="")
-    public String Home() throws ServletException, IOException {
+    @RequestMapping(value = "", method = RequestMethod.GET)
+    public String changeLocaleDefault(HttpServletRequest request, HttpServletResponse response) {
+
+        Locale locale = request.getLocale();
+        String language = locale.getLanguage();
+        LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
+
+        if(language.equals("cs")) {
+            localeResolver.setLocale(request, response, StringUtils.parseLocaleString("cs"));
+        } else {
+            localeResolver.setLocale(request, response, StringUtils.parseLocaleString("en"));
+        }
+
+        setDefaultValues();
+
+        return "index";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "home")
+    public String Home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        setDefaultValues();
+
+        return "index";
+    }
+
+
+    public void setDefaultValues () {
         for (HotelTO hotel : hotelService.findAll()) {
             hotelService.delete(hotel);
         }
@@ -107,7 +134,6 @@ public class HomeController {
         hotelTO3.setName("Hotel Continental");
         hotelService.create(hotelTO3);
 
-
         for (UserTO user : userService.findAll()) {
             userService.delete(user);
         }
@@ -132,6 +158,14 @@ public class HomeController {
         u3.setEmail("adam.studenic@as.com");
         u3.setIsAdmin(Boolean.FALSE);
         userService.create(u3);
+        
+        
+        UserTO u4 = new UserTO();
+        u4.setFirstName("Ondrej");
+        u4.setLastName("Pavelka");
+        u4.setEmail("ondrej.pavelka@op.com");
+        u4.setIsAdmin(Boolean.FALSE);
+        userService.create(u4);
 
         ReservationTO res = new ReservationTO();
         res.setRoom(room1);
@@ -148,6 +182,5 @@ public class HomeController {
 
         reservationService.create(res);
 
-        return "index";
     }
 }

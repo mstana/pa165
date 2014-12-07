@@ -22,11 +22,11 @@
         </b>
     </div>
 
-    <form action="#" method="post" role="form">
+    <form:form action="#" method="POST" accept-charset="UTF-8" role="form" commandName="hotelTo">
         <input type="hidden" name="id" value="${hotel.id}" />
 
         <%@include file="hotelForm.jsp"%>
 
         <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
-    </form>
+    </form:form>
 </div>

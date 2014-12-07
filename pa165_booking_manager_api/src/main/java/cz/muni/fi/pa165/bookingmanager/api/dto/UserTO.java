@@ -15,9 +15,9 @@ public class UserTO {
     private String firstName;
 
     private String lastName;
-
+    
     private String email;
-
+    
     private Boolean isAdmin;
 
     public Boolean getIsAdmin() {
