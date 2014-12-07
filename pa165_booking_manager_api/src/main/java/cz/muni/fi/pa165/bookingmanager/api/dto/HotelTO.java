@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.api.dto;
 
+import com.fasterxml.jackson.annotation.*;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -10,12 +12,14 @@ import java.util.Objects;
  */
 
 public class HotelTO {
-      private Long id;
+
+    private Long id;
 
     private String name;
 
     private String address;
 
+    @JsonIgnore
     private List<RoomTO> rooms = new ArrayList<>();
 
     public Long getId() {
@@ -42,10 +46,12 @@ public class HotelTO {
         this.address = address;
     }
 
+    @JsonIgnore
     public List<RoomTO> getRooms() {
         return rooms;
     }
 
+    @JsonIgnore
     public void setRooms(List<RoomTO> rooms) {
         this.rooms = rooms;
     }
