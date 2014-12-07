@@ -65,21 +65,21 @@ public class HotelTableModel extends AbstractTableModel {
         }
     }
     
-    public void updateUser(HotelTO hotel, int row) {
+    public void updateHotel(HotelTO hotel, int row) {
         if (hotel != null) {
             hotels.set(row, hotel);
             fireTableRowsUpdated(row, row);
         }
     }
 
-    public void setUsers(List<HotelTO> hotel) {
+    public void setHotels(List<HotelTO> hotel) {
         if (hotels != null) {
             this.hotels = new ArrayList<>(hotels);
             fireTableDataChanged();
         }
     }
 
-    public void removeUser(HotelTO hotel, int row) {
+    public void removeHotel(HotelTO hotel, int row) {
         if (hotel != null) {
             hotels.remove(hotel);
             fireTableRowsDeleted(row, row);
