@@ -8,6 +8,14 @@
     </parent>
     <artifactId>pa165_booking_manager_desktop</artifactId>
     <packaging>jar</packaging>
+    <dependencies>
+        <dependency>
+            <groupId>cz.muni.fi.pa165.bookingmanager</groupId>
+            <artifactId>pa165_booking_manager_api</artifactId>
+            <version>1.0-SNAPSHOT</version>
+            <type>jar</type>
+        </dependency>
+    </dependencies>
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>

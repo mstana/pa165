@@ -156,6 +156,11 @@ public class Main extends javax.swing.JFrame {
         jScrollPane3.setViewportView(jTable2);
 
         jButtonCreateHotel.setText("Create");
+        jButtonCreateHotel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateHotelActionPerformed(evt);
+            }
+        });
 
         jButtonUpdateHotel.setText("Update");
 
@@ -246,12 +251,16 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void MenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemExitActionPerformed
-        // TODO add your handling code here:
+        new AboutDialog().setVisible(true);
     }//GEN-LAST:event_MenuItemExitActionPerformed
 
     private void jButtonCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateUserActionPerformed
         new UserDialog().setVisible(true);
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
+
+    private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
+       new HotelDialog().setVisible(true);
+    }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     /**
      * @param args the command line arguments
