@@ -62,6 +62,11 @@ public class Main extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jButtonCreateUser.setText("Create");
+        jButtonCreateUser.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateUserActionPerformed(evt);
+            }
+        });
 
         jButtonUpdateUser.setText("Update");
 
@@ -243,6 +248,10 @@ public class Main extends javax.swing.JFrame {
     private void MenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemExitActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_MenuItemExitActionPerformed
+
+    private void jButtonCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateUserActionPerformed
+        new UserDialog().setVisible(true);
+    }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     /**
      * @param args the command line arguments
