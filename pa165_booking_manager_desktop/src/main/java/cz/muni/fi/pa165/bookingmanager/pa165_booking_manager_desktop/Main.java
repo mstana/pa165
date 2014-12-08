@@ -7,7 +7,9 @@ package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop;
 
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
+import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
+import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.HotelRESTManager;
 import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.UserRESTManager;
 import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.HotelTableModel;
 import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.UserTableModel;
@@ -19,11 +21,12 @@ import javax.swing.JOptionPane;
  */
 public class Main extends javax.swing.JFrame {
 
-    
-//    private UserTableModel userTableModel = new UserTableModel();
-//    private HotelTableModel hotelTableModel= new HotelTableModel();
-//    private static UserRESTManager userRESTManager = new UserRESTManager();
-//    
+
+    private UserTableModel userTableModel = new UserTableModel();
+    private HotelTableModel hotelTableModel= new HotelTableModel();
+    private static UserRESTManager userRESTManager = new UserRESTManager();
+    private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
+//
     /**
      * Creates new form Main
      */
@@ -31,16 +34,16 @@ public class Main extends javax.swing.JFrame {
         initComponents();
     }
     private void initTableModels() {
-//        userTable.setModel(userTableModel);
-//        hotelTable.setModel(hotelTableModel);
+        userTable.setModel(userTableModel);
+        hotelTable.setModel(hotelTableModel);
     }
-    
+
 //    public void refreshHotelTable() {
 //        try {
 //            userTableModel.setUsers(userRESTManager.findAllUsers());
-//          
+//
 //        } catch (ClientHandlerException ex) {
-//            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);    
+//            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
 ////            System.exit(1);
 //        } catch (UniformInterfaceException uie) {
 //            if (uie.getResponse().getStatus() == 500) {
@@ -63,8 +66,28 @@ public class Main extends javax.swing.JFrame {
 //        }
 //        return null;
 //    }
-    
-    
+
+
+
+    private HotelTO getSelectedHotel(int row) {
+        try {
+            return hotelRESTManager.findHotel((Long) hotelTable.getValueAt(row, 0));
+        } catch (ClientHandlerException ex) {
+            JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        } catch (UniformInterfaceException uie) {
+            int status = uie.getResponse().getStatus();
+            switch(status) {
+                case 500:
+                    JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 404:
+                    JOptionPane.showMessageDialog(this, "Hotel does not exist anymore. The hotel might have been deleted already.", "Error while getting hotel info.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return null;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -299,7 +322,7 @@ public class Main extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jMenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMenuItemExitActionPerformed
-        System.exit(0);        
+        System.exit(0);
     }//GEN-LAST:event_jMenuItemExitActionPerformed
 
     private void MenuItemExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_MenuItemExitActionPerformed
@@ -329,7 +352,7 @@ public class Main extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
