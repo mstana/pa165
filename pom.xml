@@ -14,7 +14,6 @@ http://maven.apache.org/maven-v4_0_0.xsd">
         <module>pa165_booking_manager_api</module>
         <module>pa165_booking_manager_service</module>
         <module>pa165_booking_manager_web</module>
-        <module>../NetBeansProjects/pa165_booking_manager_desktop</module>
         <module>pa165_booking_manager_desktop</module>
     </modules>
 
