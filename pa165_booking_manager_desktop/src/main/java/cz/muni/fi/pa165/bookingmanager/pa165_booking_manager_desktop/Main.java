@@ -20,10 +20,10 @@ import javax.swing.JOptionPane;
 public class Main extends javax.swing.JFrame {
 
     
-    private UserTableModel userTableModel = new UserTableModel();
-    private HotelTableModel hotelTableModel= new HotelTableModel();
-    private static UserRESTManager userRESTManager = new UserRESTManager();
-    
+//    private UserTableModel userTableModel = new UserTableModel();
+//    private HotelTableModel hotelTableModel= new HotelTableModel();
+//    private static UserRESTManager userRESTManager = new UserRESTManager();
+//    
     /**
      * Creates new form Main
      */
@@ -31,38 +31,38 @@ public class Main extends javax.swing.JFrame {
         initComponents();
     }
     private void initTableModels() {
-        userTable.setModel(userTableModel);
-        hotelTable.setModel(hotelTableModel);
+//        userTable.setModel(userTableModel);
+//        hotelTable.setModel(hotelTableModel);
     }
     
-    public void refreshHotelTable() {
-        try {
-            userTableModel.setUsers(userRESTManager.findAllUsers());
-          
-        } catch (ClientHandlerException ex) {
-            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);    
-//            System.exit(1);
-        } catch (UniformInterfaceException uie) {
-            if (uie.getResponse().getStatus() == 500) {
-                JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-    }
-    private UserTO getSelectedUser(int row) {
-        try {
-            return userRESTManager.findUser((Long) userTable.getValueAt(row, 0));
-        } catch (UniformInterfaceException uie) {
-            int status = uie.getResponse().getStatus();
-            switch(status) {
-                case 500:
-                    JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting client list.", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 404:
-                    JOptionPane.showMessageDialog(this, "Client does not exist anymore. The client might have been deleted already.", "Error while getting client info.", JOptionPane.ERROR_MESSAGE);
-            }
-        }
-        return null;
-    }
+//    public void refreshHotelTable() {
+//        try {
+//            userTableModel.setUsers(userRESTManager.findAllUsers());
+//          
+//        } catch (ClientHandlerException ex) {
+//            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);    
+////            System.exit(1);
+//        } catch (UniformInterfaceException uie) {
+//            if (uie.getResponse().getStatus() == 500) {
+//                JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+//    }
+//    private UserTO getSelectedUser(int row) {
+//        try {
+//            return userRESTManager.findUser((Long) userTable.getValueAt(row, 0));
+//        } catch (UniformInterfaceException uie) {
+//            int status = uie.getResponse().getStatus();
+//            switch(status) {
+//                case 500:
+//                    JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting client list.", JOptionPane.ERROR_MESSAGE);
+//                    break;
+//                case 404:
+//                    JOptionPane.showMessageDialog(this, "Client does not exist anymore. The client might have been deleted already.", "Error while getting client info.", JOptionPane.ERROR_MESSAGE);
+//            }
+//        }
+//        return null;
+//    }
     
     
     /**
@@ -307,7 +307,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemExitActionPerformed
 
     private void jButtonCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateUserActionPerformed
-        new UserDialog(userTableModel).setVisible(true);
+        //new UserDialog(userTableModel).setVisible(true);
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
@@ -315,11 +315,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
-        if (userTable.getSelectedRowCount() == 0) {
-            JOptionPane.showMessageDialog(this, "Select a user to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
-        } else {
-            new UserDialog(getSelectedUser(userTable.getSelectedRow()), userTableModel).setVisible(true);
-        }
+//        if (userTable.getSelectedRowCount() == 0) {
+//            JOptionPane.showMessageDialog(this, "Select a user to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+//        } else {
+//            new UserDialog(getSelectedUser(userTable.getSelectedRow()), userTableModel).setVisible(true);
+//        }
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
 
     /**
