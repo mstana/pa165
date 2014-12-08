@@ -21,18 +21,19 @@ import javax.swing.JOptionPane;
  */
 public class Main extends javax.swing.JFrame {
 
-
     private UserTableModel userTableModel = new UserTableModel();
-    private HotelTableModel hotelTableModel= new HotelTableModel();
-    private static UserRESTManager userRESTManager = new UserRESTManager();
+    private HotelTableModel hotelTableModel = new HotelTableModel();
+//    private static UserRESTManager userRESTManager = new UserRESTManager();
     private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
 //
+
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
     }
+
     private void initTableModels() {
         userTable.setModel(userTableModel);
         hotelTable.setModel(hotelTableModel);
@@ -66,23 +67,33 @@ public class Main extends javax.swing.JFrame {
 //        }
 //        return null;
 //    }
-
-
+    public void refreshHotelTable() {
+        try {
+            hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
+        } catch (ClientHandlerException ex) {
+            JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        } catch (UniformInterfaceException uie) {
+            if (uie.getResponse().getStatus() == 500) {
+                JOptionPane.showMessageDialog(this, "Error", "Error in getting hotel list", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
 
     private HotelTO getSelectedHotel(int row) {
         try {
             return hotelRESTManager.findHotel((Long) hotelTable.getValueAt(row, 0));
         } catch (ClientHandlerException ex) {
-            JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         } catch (UniformInterfaceException uie) {
             int status = uie.getResponse().getStatus();
-            switch(status) {
+            switch (status) {
                 case 500:
-                    JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error", "Error in getting hotel list", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 404:
-                    JOptionPane.showMessageDialog(this, "Hotel does not exist anymore. The hotel might have been deleted already.", "Error while getting hotel info.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Hotel does not exist.", "Error in getting hotel detail", JOptionPane.ERROR_MESSAGE);
             }
         }
         return null;
@@ -334,7 +345,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
-       new HotelDialog().setVisible(true);
+        new HotelDialog().setVisible(true);
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
