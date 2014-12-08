@@ -7,6 +7,7 @@ package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop;
 
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
+import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.UserRESTManager;
 import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.HotelTableModel;
 import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.UserTableModel;
@@ -37,14 +38,30 @@ public class Main extends javax.swing.JFrame {
     public void refreshHotelTable() {
         try {
             userTableModel.setUsers(userRESTManager.findAllUsers());
+          
         } catch (ClientHandlerException ex) {
-            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
-            System.exit(1);
+            JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);    
+//            System.exit(1);
         } catch (UniformInterfaceException uie) {
             if (uie.getResponse().getStatus() == 500) {
                 JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
             }
         }
+    }
+    private UserTO getSelectedUser(int row) {
+        try {
+            return userRESTManager.findUser((Long) userTable.getValueAt(row, 0));
+        } catch (UniformInterfaceException uie) {
+            int status = uie.getResponse().getStatus();
+            switch(status) {
+                case 500:
+                    JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting client list.", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case 404:
+                    JOptionPane.showMessageDialog(this, "Client does not exist anymore. The client might have been deleted already.", "Error while getting client info.", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+        return null;
     }
     
     
@@ -290,7 +307,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemExitActionPerformed
 
     private void jButtonCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateUserActionPerformed
-        new UserDialog().setVisible(true);
+        new UserDialog(userTableModel).setVisible(true);
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
