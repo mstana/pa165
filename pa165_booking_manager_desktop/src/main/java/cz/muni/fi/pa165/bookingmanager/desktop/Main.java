@@ -22,7 +22,7 @@ public class Main extends javax.swing.JFrame {
     private UserTableModel userTableModel = new UserTableModel();
     private HotelTableModel hotelTableModel = new HotelTableModel();
 //    private static UserRESTManager userRESTManager = new UserRESTManager();
-//    private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
+    private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
 //
 
     /**
@@ -30,6 +30,7 @@ public class Main extends javax.swing.JFrame {
      */
     public Main() {
         initComponents();
+        setLocationRelativeTo(null);
     }
 
     private void initTableModels() {
@@ -67,7 +68,7 @@ public class Main extends javax.swing.JFrame {
 //    }
     public void refreshHotelTable() {
         try {
-            //hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
+            hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -80,7 +81,7 @@ public class Main extends javax.swing.JFrame {
 
     private HotelTO getSelectedHotel(int row) {
         try {
-            //return hotelRESTManager.findHotel((Long) hotelTable.getValueAt(row, 0));
+            return hotelRESTManager.findHotel((Long) hotelTable.getValueAt(row, 0));
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -343,7 +344,8 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
-        new HotelDialog().setVisible(true);
+//        new HotelDialog().setVisible(true);
+        refreshHotelTable();
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
