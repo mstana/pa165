@@ -3,16 +3,14 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop;
+package cz.muni.fi.pa165.bookingmanager.desktop;
 
 import com.sun.jersey.api.client.ClientHandlerException;
 import com.sun.jersey.api.client.UniformInterfaceException;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
-import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
-import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.HotelRESTManager;
-import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.UserRESTManager;
-import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.HotelTableModel;
-import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.UserTableModel;
+import cz.muni.fi.pa165.bookingmanager.desktop.rest.HotelRESTManager;
+import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.HotelTableModel;
+import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.UserTableModel;
 import javax.swing.JOptionPane;
 
 /**
@@ -24,7 +22,7 @@ public class Main extends javax.swing.JFrame {
     private UserTableModel userTableModel = new UserTableModel();
     private HotelTableModel hotelTableModel = new HotelTableModel();
 //    private static UserRESTManager userRESTManager = new UserRESTManager();
-    private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
+//    private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
 //
 
     /**
@@ -69,7 +67,7 @@ public class Main extends javax.swing.JFrame {
 //    }
     public void refreshHotelTable() {
         try {
-            hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
+            //hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -82,7 +80,7 @@ public class Main extends javax.swing.JFrame {
 
     private HotelTO getSelectedHotel(int row) {
         try {
-            return hotelRESTManager.findHotel((Long) hotelTable.getValueAt(row, 0));
+            //return hotelRESTManager.findHotel((Long) hotelTable.getValueAt(row, 0));
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);

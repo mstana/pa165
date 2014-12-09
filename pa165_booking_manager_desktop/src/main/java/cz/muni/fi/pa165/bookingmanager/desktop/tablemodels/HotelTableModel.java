@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels;
+package cz.muni.fi.pa165.bookingmanager.desktop.tablemodels;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import java.util.ArrayList;

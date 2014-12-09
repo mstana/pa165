@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop;
+package cz.muni.fi.pa165.bookingmanager.desktop;
 
 import com.sun.jersey.api.client.ClientHandlerException;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
-import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest.UserRESTManager;
-import cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.tablemodels.UserTableModel;
+import cz.muni.fi.pa165.bookingmanager.desktop.rest.UserRESTManager;
+import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.UserTableModel;
 import javax.swing.JOptionPane;
 
 /**

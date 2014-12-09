@@ -1,4 +1,4 @@
-package cz.muni.fi.pa165.bookingmanager.pa165_booking_manager_desktop.rest;
+package cz.muni.fi.pa165.bookingmanager.desktop.rest;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
