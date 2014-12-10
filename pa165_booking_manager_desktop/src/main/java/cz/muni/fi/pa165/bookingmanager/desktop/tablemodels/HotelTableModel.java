@@ -57,7 +57,7 @@ public class HotelTableModel extends AbstractTableModel {
         } 
     }
     
-    public void addClient(HotelTO hotel) {
+    public void addHotel(HotelTO hotel) {
         if (hotel != null) {
             hotels.add(hotel);
             int lastRow = getRowCount() - 1;
@@ -72,7 +72,7 @@ public class HotelTableModel extends AbstractTableModel {
         }
     }
 
-    public void setHotels(List<HotelTO> hotel) {
+    public void setHotels(List<HotelTO> hotels) {
         if (hotels != null) {
             this.hotels = new ArrayList<>(hotels);
             fireTableDataChanged();

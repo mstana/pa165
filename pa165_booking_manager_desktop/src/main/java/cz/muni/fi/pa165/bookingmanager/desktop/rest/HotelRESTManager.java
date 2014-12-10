@@ -34,19 +34,18 @@ public class HotelRESTManager {
         url = ServerURIHelper.loadURLForHotel();
         client = Client.create(clientConfig);
         webResource = client.resource(url);
-        webResource.addFilter(new HTTPBasicAuthFilter("rest", "rest"));
     }
 
     public HotelTO findHotel(Long id) {
-        return webResource.path("hotel")
-                .queryParam("id", id.toString())
+        HotelTO hotel  = webResource.path("hotels/"+ id)
                 .accept(MediaType.APPLICATION_JSON)
                 .get(HotelTO.class);
+        return hotel;
     }
 
     public List<HotelTO> findAllHotels() {
         List<HotelTO> hotels = new ArrayList<>();
-        String json = webResource.path("hotels")
+        String json = webResource.path("hotels/")
                 .accept(MediaType.APPLICATION_JSON)
                 .get(String.class);
         try {
@@ -74,22 +73,21 @@ public class HotelRESTManager {
     }
 
     public ClientResponse createHotel(HotelTO hotel) {
-        return webResource.path("hotel")
+        return webResource.path("hotels/")
                 .type(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .put(ClientResponse.class, hotel);
     }
 
     public ClientResponse updateHotel(HotelTO hotel) {
-        return webResource.path("hotel")
+        return webResource.path("hotels/")
                 .type(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .post(ClientResponse.class, hotel);
     }
 
     public ClientResponse deleteHotel(HotelTO hotel) {
-        return webResource.path("hotel")
-                .queryParam("id", hotel.getId().toString())
+        return webResource.path("hotels/"+hotel.getId())
                 .type(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .delete(ClientResponse.class);

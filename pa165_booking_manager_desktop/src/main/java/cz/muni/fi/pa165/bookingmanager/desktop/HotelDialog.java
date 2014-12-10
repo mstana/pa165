@@ -5,19 +5,53 @@
  */
 package cz.muni.fi.pa165.bookingmanager.desktop;
 
+import com.sun.jersey.api.client.ClientHandlerException;
+import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
+import cz.muni.fi.pa165.bookingmanager.desktop.rest.HotelRESTManager;
+import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.HotelTableModel;
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author mstana
  */
 public class HotelDialog extends javax.swing.JFrame {
 
+    private static final long serialVersionUID = 1L;
+    private boolean createHotel = true;
+    private HotelRESTManager hotelRESTManager = new HotelRESTManager();
+    private HotelTableModel hotelTableModel;
+    private HotelTO hotel;
+
+    
+    
     /**
-     * Creates new form HotelDialog
+     * Create new form HotelDialog
+     * @param hotelTableModel
      */
-    public HotelDialog() {
+    public HotelDialog(HotelTableModel hotelTableModel) {
+        this.hotelTableModel = hotelTableModel;
+        hotel = new HotelTO();
         initComponents();
     }
-
+    /**
+     * Update new form HotelDialog
+     * @param hotelTableModel
+     * @param hotel
+     */
+    public HotelDialog(HotelTableModel hotelTableModel, HotelTO hotel) {
+    
+        initComponents();
+        setLocationRelativeTo(null);
+        this.hotel = hotel;
+        createHotel = false;
+        this.hotelTableModel = hotelTableModel;
+        jTextFieldAddress.setText(hotel.getAddress());
+        jTextFieldName.setText(hotel.getName());
+        jButtonCreate.setText("Update");
+        jLabelMainTitle.setText("Update Hotel");
+        
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -33,7 +67,7 @@ public class HotelDialog extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         jTextFieldName = new javax.swing.JTextField();
         jTextFieldAddress = new javax.swing.JTextField();
-        jLabel3 = new javax.swing.JLabel();
+        jLabelMainTitle = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
         addWindowListener(new java.awt.event.WindowAdapter() {
@@ -43,6 +77,11 @@ public class HotelDialog extends javax.swing.JFrame {
         });
 
         jButtonCreate.setText("Create");
+        jButtonCreate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonCreateActionPerformed(evt);
+            }
+        });
 
         jButtonCancel.setText("Cancel");
         jButtonCancel.addActionListener(new java.awt.event.ActionListener() {
@@ -61,7 +100,7 @@ public class HotelDialog extends javax.swing.JFrame {
             }
         });
 
-        jLabel3.setText("Create Hotel");
+        jLabelMainTitle.setText("Create Hotel");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -86,14 +125,14 @@ public class HotelDialog extends javax.swing.JFrame {
                                 .addComponent(jButtonCancel))))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(139, 139, 139)
-                        .addComponent(jLabel3)))
+                        .addComponent(jLabelMainTitle)))
                 .addContainerGap(72, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addGap(44, 44, 44)
-                .addComponent(jLabel3)
+                .addComponent(jLabelMainTitle)
                 .addGap(47, 47, 47)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jTextFieldName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
@@ -124,13 +163,36 @@ public class HotelDialog extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_formWindowClosed
 
+    private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
+        hotel.setName(jTextFieldName.getText());
+        hotel.setAddress(jTextFieldAddress.getText());
+        
+        try {
+                int status = createHotel ? hotelRESTManager.createHotel(hotel).getStatus() : hotelRESTManager.updateHotel(hotel).getStatus();
+                switch(status) {
+                    case 400:
+                        JOptionPane.showMessageDialog(this, "An invalid hotel was sent to the server. Please check the information and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    case 500:
+                        JOptionPane.showMessageDialog(this, "An error occured on the server side. Please contact the administrator for more information.", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    default:
+                        hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
+                }
+                dispose();
+            } catch (ClientHandlerException che) {
+                JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+                System.exit(1);
+            }
+    }//GEN-LAST:event_jButtonCreateActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonCreate;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabelMainTitle;
     private javax.swing.JTextField jTextFieldAddress;
     private javax.swing.JTextField jTextFieldName;
     // End of variables declaration//GEN-END:variables
