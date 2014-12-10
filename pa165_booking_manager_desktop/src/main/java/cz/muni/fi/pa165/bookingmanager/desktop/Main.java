@@ -11,6 +11,7 @@ import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.desktop.rest.HotelRESTManager;
 import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.HotelTableModel;
 import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.UserTableModel;
+import java.util.List;
 import javax.swing.JOptionPane;
 
 /**
@@ -23,7 +24,7 @@ public class Main extends javax.swing.JFrame {
     private HotelTableModel hotelTableModel = new HotelTableModel();
 //    private static UserRESTManager userRESTManager = new UserRESTManager();
     private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
-//
+
 
     /**
      * Creates new form Main
@@ -34,11 +35,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     private void initTableModels() {
-        userTable.setModel(userTableModel);
+    //    userTable.setModel(userTableModel);
         hotelTable.setModel(hotelTableModel);
     }
 
-//    public void refreshHotelTable() {
+//    public void refreshUserTable() {
 //        try {
 //            userTableModel.setUsers(userRESTManager.findAllUsers());
 //
@@ -68,7 +69,10 @@ public class Main extends javax.swing.JFrame {
 //    }
     public void refreshHotelTable() {
         try {
+            
             hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
+            hotelTableModel.fireTableDataChanged();
+
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
@@ -140,6 +144,17 @@ public class Main extends javax.swing.JFrame {
         jMenuBar2.add(jMenu4);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jTabbedPane1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jTabbedPane1MouseClicked(evt);
+            }
+        });
+        jTabbedPane1.addChangeListener(new javax.swing.event.ChangeListener() {
+            public void stateChanged(javax.swing.event.ChangeEvent evt) {
+                jTabbedPane1StateChanged(evt);
+            }
+        });
 
         jButtonCreateUser.setText("Create");
         jButtonCreateUser.addActionListener(new java.awt.event.ActionListener() {
@@ -248,8 +263,18 @@ public class Main extends javax.swing.JFrame {
         });
 
         jButtonUpdateHotel.setText("Update");
+        jButtonUpdateHotel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonUpdateHotelActionPerformed(evt);
+            }
+        });
 
         jButtonDeleteHotel.setText("Delete");
+        jButtonDeleteHotel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteHotelActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -344,8 +369,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
-//        new HotelDialog().setVisible(true);
-        refreshHotelTable();
+        new HotelDialog(hotelTableModel).setVisible(true);          
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
@@ -355,6 +379,61 @@ public class Main extends javax.swing.JFrame {
 //            new UserDialog(getSelectedUser(userTable.getSelectedRow()), userTableModel).setVisible(true);
 //        }
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
+
+    private void jButtonDeleteHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteHotelActionPerformed
+        if (hotelTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a hotel you to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this hotel?", "Confirm deletion", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    int status = hotelRESTManager.deleteHotel(getSelectedHotel(hotelTable.getSelectedRow())).getStatus();
+                    switch(status) {
+                        case 404:
+                            JOptionPane.showMessageDialog(this, "Selected hotel cannot be deleted. The hotel is not present in the databse anymore - The record might have been deleted by someone else.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        case 417:
+                            JOptionPane.showMessageDialog(this, "Selected hotel cannot be deleted. The hotel still has an existing room.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        case 500:
+                            JOptionPane.showMessageDialog(this, "There was an error on the server side. Please contact the administrator for furhter information.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
+                    }
+                    refreshHotelTable();
+                } catch (ClientHandlerException che){
+                    JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
+                } catch (IllegalArgumentException iae) {
+                    JOptionPane.showMessageDialog(this, "Cannot delete a nonexistent hotel.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonDeleteHotelActionPerformed
+
+    private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTabbedPane1MouseClicked
+
+    private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
+            switch(jTabbedPane1.getSelectedIndex()) {
+            case 0:
+//                if (!clientTable.getModel().equals(clientTableModel)) {
+//                    initTableModels();
+//                }
+//                refreshClientTable();
+                break;
+            case 1:
+                 if (!hotelTable.getModel().equals(hotelTableModel)) {
+                    initTableModels();
+                }
+                refreshHotelTable();
+                break;
+        }
+    }//GEN-LAST:event_jTabbedPane1StateChanged
+
+    private void jButtonUpdateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateHotelActionPerformed
+        new HotelDialog(hotelTableModel, getSelectedHotel(hotelTable.getSelectedRow())).setVisible(true);
+    }//GEN-LAST:event_jButtonUpdateHotelActionPerformed
 
     /**
      * @param args the command line arguments
