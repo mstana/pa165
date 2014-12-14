@@ -44,10 +44,11 @@ public class Main extends javax.swing.JFrame {
     public void refreshUserTable() {
         try {
             userTableModel.setUsers(userRESTManager.findAllUsers());
+            userTableModel.fireTableDataChanged();
 
         } catch (ClientHandlerException ex) {
             JOptionPane.showMessageDialog(this, "Server connection is unavailable. Please contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
-//            System.exit(1);
+            System.exit(1);
         } catch (UniformInterfaceException uie) {
             if (uie.getResponse().getStatus() == 500) {
                 JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting hotel list.", JOptionPane.ERROR_MESSAGE);
@@ -367,7 +368,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_MenuItemExitActionPerformed
 
     private void jButtonCreateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateUserActionPerformed
-        //new UserDialog(userTableModel).setVisible(true);
+        new UserDialog(userTableModel).setVisible(true);
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
@@ -375,11 +376,11 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed
-//        if (userTable.getSelectedRowCount() == 0) {
-//            JOptionPane.showMessageDialog(this, "Select a user to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
-//        } else {
-//            new UserDialog(getSelectedUser(userTable.getSelectedRow()), userTableModel).setVisible(true);
-//        }
+        if (userTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Select a user to edit.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            new UserDialog(getSelectedUser(userTable.getSelectedRow()), userTableModel).setVisible(true);
+        }
     }//GEN-LAST:event_jButtonUpdateUserActionPerformed
 
     private void jButtonDeleteHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteHotelActionPerformed
@@ -419,10 +420,10 @@ public class Main extends javax.swing.JFrame {
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
             switch(jTabbedPane1.getSelectedIndex()) {
             case 0:
-//                if (!clientTable.getModel().equals(clientTableModel)) {
-//                    initTableModels();
-//                }
-//                refreshClientTable();
+                if (!userTable.getModel().equals(userTableModel)) {
+                    initTableModels();
+                }
+                refreshUserTable();
                 break;
             case 1:
                  if (!hotelTable.getModel().equals(hotelTableModel)) {

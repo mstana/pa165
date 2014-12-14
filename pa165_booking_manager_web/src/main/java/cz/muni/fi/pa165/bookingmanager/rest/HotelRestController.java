@@ -17,7 +17,7 @@ import java.util.List;
 public class HotelRestController {
 
     @Autowired
-    HotelService hotelService;
+    private HotelService hotelService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
     public List<HotelTO> findAll() {
