@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.bookingmanager.desktop;
 
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -21,31 +16,33 @@ public class UserDialog extends javax.swing.JFrame {
     private UserTO user;
     private UserRESTManager userRESTManager = new UserRESTManager();
     private UserTableModel userTableModel;
+
     /**
      * Creates new form UserDialog
      */
     public UserDialog(UserTableModel userTableModel) {
-        initComponents();
         this.userTableModel = userTableModel;
-
         user = new UserTO();
-    }
-    
-    public UserDialog(UserTO user, UserTableModel userTableModel) {
         initComponents();
-        this.userTableModel = userTableModel;
+    }
 
+    public UserDialog(UserTO user, UserTableModel userTableModel) {
+
+        initComponents();
+        setLocationRelativeTo(null);
         this.user = user;
+        createUser = false;
+        this.userTableModel = userTableModel;
 
         jTextFieldFirstName.setText(user.getFirstName());
         jTextFieldLastName.setText(user.getLastName());
         jTextFieldEmail.setText(user.getEmail());
-        jCheckBoxIsAdmin.setSelected(user.getIsAdmin());    
-        
-        jButtonCreate.setText("Save");
-        jLabelMainLabel.setText("Edit User");
-    
-         createUser = false;
+        jCheckBoxIsAdmin.setSelected(user.getIsAdmin());
+
+        jButtonCreate.setText("Update");
+        jLabelMainLabel.setText("Update User");
+
+
     }
 
     /**
@@ -182,32 +179,32 @@ public class UserDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_jTextFieldLastNameActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
-        
+
         // TODO add some validation and bool:
         user.setFirstName(jTextFieldFirstName.getText());
         user.setLastName(jTextFieldLastName.getText());
         user.setEmail(jTextFieldEmail.getText());
         user.setIsAdmin(jCheckBoxIsAdmin.isSelected());
-        
-        
+
+
         try {
             int status = createUser ? userRESTManager.createUser(user).getStatus() : userRESTManager.updateUser(user).getStatus();
             switch(status) {
                 case 400:
-                    JOptionPane.showMessageDialog(this, "An invalid client was sent to the server. Please check the information and try again.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Invalid user was sent to the server", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
                 case 500:
-                    JOptionPane.showMessageDialog(this, "An error occured on the server side. Please contact the administrator for more information.", "Error", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Error occured on server", "Error", JOptionPane.ERROR_MESSAGE);
                     break;
                 default:
                     userTableModel.setUsers(userRESTManager.findAllUsers());
             }
         } catch (ClientHandlerException che) {
-            JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
         dispose();
-        
+
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed

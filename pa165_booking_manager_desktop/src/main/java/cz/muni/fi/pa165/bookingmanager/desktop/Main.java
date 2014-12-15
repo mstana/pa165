@@ -72,7 +72,7 @@ public class Main extends javax.swing.JFrame {
     }
     public void refreshHotelTable() {
         try {
-            
+
             hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
             hotelTableModel.fireTableDataChanged();
 
@@ -372,7 +372,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCreateUserActionPerformed
 
     private void jButtonCreateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateHotelActionPerformed
-        new HotelDialog(hotelTableModel).setVisible(true);          
+        new HotelDialog(hotelTableModel).setVisible(true);
     }//GEN-LAST:event_jButtonCreateHotelActionPerformed
 
     private void jButtonUpdateUserActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateUserActionPerformed

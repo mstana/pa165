@@ -16,7 +16,7 @@ import javax.swing.table.AbstractTableModel;
  */
 public class UserTableModel extends AbstractTableModel{
     private static final long serialVersionUID = 1L;
-    
+
     private List<UserTO> users = new ArrayList<>();
 
     @Override
@@ -38,7 +38,7 @@ public class UserTableModel extends AbstractTableModel{
             case 2:
                 return "Last name";
             case 3:
-                return "Email";     
+                return "Email";
             case 4:
                 return "Is Admin";
             default:
@@ -61,17 +61,17 @@ public class UserTableModel extends AbstractTableModel{
                 return user.getIsAdmin().toString();
             default:
                 throw new IllegalArgumentException("columnIndex");
-        } 
+        }
     }
-    
-    public void addClient(UserTO user) {
+
+    public void addUser(UserTO user) {
         if (user != null) {
             users.add(user);
             int lastRow = getRowCount() - 1;
             fireTableRowsInserted(lastRow, lastRow);
         }
     }
-    
+
     public void updateUser(UserTO user, int row) {
         if (user != null) {
             users.set(row, user);
@@ -92,6 +92,6 @@ public class UserTableModel extends AbstractTableModel{
             fireTableRowsDeleted(row, row);
         }
     }
-    
-    
+
+
 }

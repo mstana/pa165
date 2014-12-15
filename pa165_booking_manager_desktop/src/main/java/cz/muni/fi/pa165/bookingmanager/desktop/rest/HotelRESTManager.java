@@ -19,7 +19,7 @@ import javax.ws.rs.core.MediaType;
 
 /**
  *
- * @author Adams
+ * @author mstana
  */
 public class HotelRESTManager {
 
