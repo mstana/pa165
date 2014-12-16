@@ -18,9 +18,11 @@ Project for pa165.
 ## Installation
 Use maven 3.x, for running desktop and web application see other README.MD
 
-...
+```
 mvn clean package install
-...
+```
 
 ## Repository
-https://github.com/mstana/pa165.git
+```
+git clone https://github.com/mstana/pa165.git
+```
