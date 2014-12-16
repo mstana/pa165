@@ -79,7 +79,7 @@ public class UserTableModel extends AbstractTableModel{
         }
     }
 
-    public void setUsers(List<UserTO> user) {
+    public void setUsers(List<UserTO> users) {
         if (users != null) {
             this.users = new ArrayList<>(users);
             fireTableDataChanged();

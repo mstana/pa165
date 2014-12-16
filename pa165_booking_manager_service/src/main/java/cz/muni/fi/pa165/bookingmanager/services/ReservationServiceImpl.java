@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.bookingmanager.services;
 
 
-import cz.muni.fi.pa165.bookingmanager.api.BookingDataAccessException;
 import cz.muni.fi.pa165.bookingmanager.api.dto.ReservationTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;

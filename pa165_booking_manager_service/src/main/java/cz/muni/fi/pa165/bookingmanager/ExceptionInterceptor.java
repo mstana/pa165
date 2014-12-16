@@ -1,7 +1,6 @@
 package cz.muni.fi.pa165.bookingmanager;
 
 
-import cz.muni.fi.pa165.bookingmanager.api.BookingDataAccessException;
 import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.AfterThrowing;
 import org.springframework.stereotype.Service;
