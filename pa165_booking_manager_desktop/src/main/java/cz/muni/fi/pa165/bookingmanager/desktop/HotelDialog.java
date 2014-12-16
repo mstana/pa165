@@ -23,10 +23,9 @@ public class HotelDialog extends javax.swing.JFrame {
     private HotelTableModel hotelTableModel;
     private HotelTO hotel;
 
-    
-    
     /**
      * Create new form HotelDialog
+     *
      * @param hotelTableModel
      */
     public HotelDialog(HotelTableModel hotelTableModel) {
@@ -34,13 +33,15 @@ public class HotelDialog extends javax.swing.JFrame {
         hotel = new HotelTO();
         initComponents();
     }
+
     /**
      * Update new form HotelDialog
+     *
      * @param hotelTableModel
      * @param hotel
      */
     public HotelDialog(HotelTableModel hotelTableModel, HotelTO hotel) {
-    
+
         initComponents();
         setLocationRelativeTo(null);
         this.hotel = hotel;
@@ -50,8 +51,17 @@ public class HotelDialog extends javax.swing.JFrame {
         jTextFieldName.setText(hotel.getName());
         jButtonCreate.setText("Update");
         jLabelMainTitle.setText("Update Hotel");
-        
+
     }
+
+    private boolean validate(HotelTO hotel) {
+        if (hotel.getName() == null || "".equals(hotel.getName())
+                || hotel.getAddress() == null || "".equals(hotel.getAddress())) {
+            return false;
+        }
+        return true;
+    }
+
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -166,10 +176,14 @@ public class HotelDialog extends javax.swing.JFrame {
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
         hotel.setName(jTextFieldName.getText());
         hotel.setAddress(jTextFieldAddress.getText());
-        
+
         try {
+
+            if (!validate(hotel)) {
+                JOptionPane.showMessageDialog(this, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
                 int status = createHotel ? hotelRESTManager.createHotel(hotel).getStatus() : hotelRESTManager.updateHotel(hotel).getStatus();
-                switch(status) {
+                switch (status) {
                     case 400:
                         JOptionPane.showMessageDialog(this, "An invalid hotel was sent to the server. Please check the information and try again.", "Error", JOptionPane.ERROR_MESSAGE);
                         break;
@@ -178,12 +192,15 @@ public class HotelDialog extends javax.swing.JFrame {
                         break;
                     default:
                         hotelTableModel.setHotels(hotelRESTManager.findAllHotels());
+
                 }
                 dispose();
-            } catch (ClientHandlerException che) {
-                JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
-                System.exit(1);
             }
+
+        } catch (ClientHandlerException che) {
+            JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+            System.exit(1);
+        }
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
 

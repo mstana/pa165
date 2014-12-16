@@ -40,11 +40,30 @@ public class UserTableModel extends AbstractTableModel{
             case 3:
                 return "Email";
             case 4:
-                return "Is Admin";
+                return "Admin";
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
     }
+
+    @Override
+    public Class getColumnClass(int columnIndex) {
+        switch (columnIndex) {
+            case 0:
+                return String.class;
+            case 1:
+                return String.class;
+            case 2:
+                return String.class;
+            case 3:
+                return String.class;
+            case 4:
+                return Boolean.class;
+            default:
+                throw new IllegalArgumentException("columnIndex");
+        }
+    }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         UserTO user = users.get(rowIndex);

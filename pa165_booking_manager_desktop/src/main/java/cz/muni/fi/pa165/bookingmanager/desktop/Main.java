@@ -179,29 +179,42 @@ public class Main extends javax.swing.JFrame {
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "ID", "First Name", "Last Name", "Email"
+                "ID", "First Name", "Last Name", "Email", "Admin"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            };
+            boolean[] canEdit = new boolean [] {
+                true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
                 return types [columnIndex];
             }
+
+            public boolean isCellEditable(int rowIndex, int columnIndex) {
+                return canEdit [columnIndex];
+            }
         });
         jScrollPane2.setViewportView(userTable);
         if (userTable.getColumnModel().getColumnCount() > 0) {
             userTable.getColumnModel().getColumn(1).setResizable(false);
+            userTable.getColumnModel().getColumn(4).setResizable(false);
         }
 
         jButtonDeleteUser1.setText("Delete");
+        jButtonDeleteUser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteUser1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -221,18 +234,18 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGap(37, 37, 37)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel1)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
+                .addGap(14, 14, 14)
                 .addComponent(jLabel1)
-                .addGap(26, 26, 26)
+                .addGap(18, 18, 18)
                 .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 140, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jButtonCreateUser)
                     .addComponent(jButtonUpdateUser)
@@ -437,6 +450,33 @@ public class Main extends javax.swing.JFrame {
     private void jButtonUpdateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateHotelActionPerformed
         new HotelDialog(hotelTableModel, getSelectedHotel(hotelTable.getSelectedRow())).setVisible(true);
     }//GEN-LAST:event_jButtonUpdateHotelActionPerformed
+
+    private void jButtonDeleteUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUser1ActionPerformed
+        if (userTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Select a user to delete", "Warning", JOptionPane.WARNING_MESSAGE);
+        }else{
+            int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    int status = userRESTManager.deleteUser(getSelectedUser(userTable.getSelectedRow())).getStatus();
+                    switch(status) {
+                        case 404:
+                        JOptionPane.showMessageDialog(this, "User cannot be deleted. ", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
+                        break;
+                        case 500:
+                        JOptionPane.showMessageDialog(this, "There was a server error", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    }
+                    refreshUserTable();
+                } catch (ClientHandlerException che){
+                    JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is now closing", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
+                } catch (IllegalArgumentException iae) {
+                    JOptionPane.showMessageDialog(this, "User cannot be deleted.", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonDeleteUser1ActionPerformed
 
     /**
      * @param args the command line arguments

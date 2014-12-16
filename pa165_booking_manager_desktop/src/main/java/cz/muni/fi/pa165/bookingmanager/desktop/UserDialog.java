@@ -42,7 +42,15 @@ public class UserDialog extends javax.swing.JFrame {
         jButtonCreate.setText("Update");
         jLabelMainLabel.setText("Update User");
 
+    }
 
+    private boolean validate(UserTO user) {
+        if (user.getFirstName() == null || "".equals(user.getFirstName())
+                || user.getLastName() == null || "".equals(user.getLastName())
+                || user.getEmail() == null || "".equals(user.getEmail())) {
+            return false;
+        }
+        return true;
     }
 
     /**
@@ -180,30 +188,33 @@ public class UserDialog extends javax.swing.JFrame {
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
 
-        // TODO add some validation and bool:
         user.setFirstName(jTextFieldFirstName.getText());
         user.setLastName(jTextFieldLastName.getText());
         user.setEmail(jTextFieldEmail.getText());
         user.setAdmin(jCheckBoxIsAdmin.isSelected());
 
-
         try {
-            int status = createUser ? userRESTManager.createUser(user).getStatus() : userRESTManager.updateUser(user).getStatus();
-            switch(status) {
-                case 400:
-                    JOptionPane.showMessageDialog(this, "Invalid user was sent to the server", "Error", JOptionPane.ERROR_MESSAGE);
-                    break;
-                case 500:
-                    JOptionPane.showMessageDialog(this, "Error occured on server", "Error", JOptionPane.ERROR_MESSAGE);
-                    break;
-                default:
-                    userTableModel.setUsers(userRESTManager.findAllUsers());
+            if (!validate(user)) {
+                JOptionPane.showMessageDialog(this, "All fields are required", "Error", JOptionPane.ERROR_MESSAGE);
+            } else {
+                int status = createUser ? userRESTManager.createUser(user).getStatus() : userRESTManager.updateUser(user).getStatus();
+                switch (status) {
+                    case 400:
+                        JOptionPane.showMessageDialog(this, "Invalid user was sent to the server", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    case 500:
+                        JOptionPane.showMessageDialog(this, "Error occured on server", "Error", JOptionPane.ERROR_MESSAGE);
+                        break;
+                    default:
+                        userTableModel.setUsers(userRESTManager.findAllUsers());
+                }
+                dispose();
             }
         } catch (ClientHandlerException che) {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-        dispose();
+
 
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
