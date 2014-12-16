@@ -68,7 +68,7 @@ public class UserRESTManager {
         return webResource.path("users/")
                 .type(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
-                .post(ClientResponse.class, user);
+                .put(ClientResponse.class, user);
     }
 
 
