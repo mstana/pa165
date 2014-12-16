@@ -43,7 +43,7 @@
     </div>
     <div class="form-group">
       <label for="isAdmin"><fmt:message key="user.isAdmin"/></label>
-      <input type="checkbox" name="isAdmin" id="isAdmin" value="True" ${user.isAdmin == 'true' ? 'checked':''}>
+      <input type="checkbox" name="isAdmin" id="isAdmin" value="True" ${user.admin == 'true' ? 'checked':''}>
     </div>
     <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
 

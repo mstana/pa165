@@ -37,7 +37,7 @@ public class UserDialog extends javax.swing.JFrame {
         jTextFieldFirstName.setText(user.getFirstName());
         jTextFieldLastName.setText(user.getLastName());
         jTextFieldEmail.setText(user.getEmail());
-        jCheckBoxIsAdmin.setSelected(user.getIsAdmin());
+        jCheckBoxIsAdmin.setSelected(user.isAdmin());
 
         jButtonCreate.setText("Update");
         jLabelMainLabel.setText("Update User");
@@ -184,7 +184,7 @@ public class UserDialog extends javax.swing.JFrame {
         user.setFirstName(jTextFieldFirstName.getText());
         user.setLastName(jTextFieldLastName.getText());
         user.setEmail(jTextFieldEmail.getText());
-        user.setIsAdmin(jCheckBoxIsAdmin.isSelected());
+        user.setAdmin(jCheckBoxIsAdmin.isSelected());
 
 
         try {

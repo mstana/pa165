@@ -56,8 +56,7 @@ public class UserRESTManager {
                         .accept(MediaType.APPLICATION_JSON)
                         .get(String.class);
         try {
-            System.out.println("Hello! " + json);
-            users = mapper.readValue(json, new TypeReference<List<UserTO>>() {});
+           users = mapper.readValue(json, new TypeReference<List<UserTO>>() {});
         } catch (IOException e) {
             Logger.getLogger(UserRESTManager.class.getName()).log(Level.SEVERE, null, e);
         }

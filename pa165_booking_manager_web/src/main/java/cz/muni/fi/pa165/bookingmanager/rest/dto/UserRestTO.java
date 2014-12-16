@@ -14,16 +14,14 @@ public class UserRestTO {
 
     private String email;
 
-    private Boolean isAdmin;
+    private boolean admin;
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
+    public boolean isAdmin() {
+        return admin;
     }
 
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
-    public UserRestTO() {
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public Long getId() {
@@ -82,7 +80,7 @@ public class UserRestTO {
                 ", firstName='" + firstName + '\'' +
                 ", lastName='" + lastName + '\'' +
                 ", email='" + email + '\'' +
-                ", isAdmin=" + isAdmin +
+                ", isAdmin=" + admin +
                 '}';
     }
 }

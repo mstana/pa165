@@ -74,7 +74,7 @@ public class UserServiceImplTest {
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
         userTO.setEmail("rstanamarek@gmail.com");
-        userTO.setIsAdmin(Boolean.FALSE);
+        userTO.setAdmin(Boolean.FALSE);
 
         userService.create(userTO);
         Mockito.verify(userDAO).create(mapper.map(userTO, User.class));
@@ -103,7 +103,7 @@ public class UserServiceImplTest {
         userTO.setFirstName("Marek");
         userTO.setLastName("Stana");
         userTO.setEmail("rstanamarek@gmail.com");
-        userTO.setIsAdmin(Boolean.FALSE);
+        userTO.setAdmin(Boolean.FALSE);
         
 
         userService.create(userTO);

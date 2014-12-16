@@ -31,20 +31,19 @@ public class User {
     private String email;
     
     @Column
-    private Boolean isAdmin;
+    private boolean admin;
 
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
-
-    public Boolean getIsAdmin() {
-        return isAdmin;
+    public boolean isAdmin() {
+        return admin;
     }
 
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
-    
+
     public String getEmail() {
         return email;
     }

@@ -49,8 +49,8 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
             <b>email</b>
         </field>
         <field>
-            <a>isAdmin</a>
-            <b>isAdmin</b>
+            <a>admin</a>
+            <b>admin</b>
         </field>
         <field>
             <a>reservations</a>

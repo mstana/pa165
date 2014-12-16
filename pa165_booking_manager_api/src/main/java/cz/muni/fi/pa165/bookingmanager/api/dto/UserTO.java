@@ -1,5 +1,7 @@
 package cz.muni.fi.pa165.bookingmanager.api.dto;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -18,17 +20,12 @@ public class UserTO {
     
     private String email;
     
-    private Boolean isAdmin;
+    private boolean admin;
 
-    public Boolean getIsAdmin() {
-        return isAdmin;
-    }
 
+    @JsonIgnore
     private List<ReservationTO> reservations = new ArrayList<>();
 
-    public void setIsAdmin(Boolean isAdmin) {
-        this.isAdmin = isAdmin;
-    }
     public UserTO() {
     }
 
@@ -38,6 +35,14 @@ public class UserTO {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public boolean isAdmin() {
+        return admin;
+    }
+
+    public void setAdmin(boolean admin) {
+        this.admin = admin;
     }
 
     public String getFirstName() {
@@ -64,10 +69,12 @@ public class UserTO {
         this.email = email;
     }
 
+    @JsonIgnore
     public List<ReservationTO> getReservations() {
         return reservations;
     }
 
+    @JsonIgnore
     public void setReservations(List<ReservationTO> reservations) {
         this.reservations = reservations;
     }
@@ -100,8 +107,13 @@ public class UserTO {
 
     @Override
     public String toString() {
-        return "UserTO{" + "id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email + '}';
+        return "UserTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", email='" + email + '\'' +
+                ", admin=" + admin +
+                ", reservations=" + reservations +
+                '}';
     }
-
-
 }

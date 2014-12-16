@@ -35,7 +35,7 @@
             <td>${user.firstName}</td>
             <td>${user.lastName}</td>
             <td>${user.email}</td>
-            <td><tags:yesno value="${user.isAdmin}"/></td>
+            <td><tags:yesno value="${user.admin}"/></td>
             <td><a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/userreservations/${user.id}"><fmt:message key="user.reservations"/></a></td>
             <td>
                 <a class="btn btn-default btn-xs" aria-label="Left Align" href="${pageContext.request.contextPath}/userEdit/${user.id}"><span class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>

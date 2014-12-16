@@ -72,10 +72,10 @@ public class UserController {
         } else {
             if (req.getParameter("isAdmin")!= null && req.getParameter("isAdmin").equals("True")) 
             {
-                user.setIsAdmin(Boolean.TRUE);
+                user.setAdmin(Boolean.TRUE);
             } else 
             {
-                user.setIsAdmin(Boolean.FALSE);
+                user.setAdmin(Boolean.FALSE);
             }
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
             userService.create(user);
@@ -124,10 +124,10 @@ public class UserController {
 
             if (req.getParameter("isAdmin")!= null && req.getParameter("isAdmin").equals("True")) 
             {
-                userFromDB.setIsAdmin(Boolean.TRUE);
+                userFromDB.setAdmin(Boolean.TRUE);
             } else 
             {
-                userFromDB.setIsAdmin(Boolean.FALSE);
+                userFromDB.setAdmin(Boolean.FALSE);
             }
 
             userService.update(userFromDB);

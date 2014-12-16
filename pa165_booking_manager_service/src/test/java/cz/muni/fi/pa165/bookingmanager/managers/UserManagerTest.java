@@ -53,9 +53,9 @@ public class UserManagerTest {
     @Transactional
     public void testCreate() {
         User guest = new User();
-        guest.setIsAdmin(Boolean.FALSE);
+        guest.setAdmin(Boolean.FALSE);
         User administrator = new User();
-        administrator.setIsAdmin(Boolean.TRUE);
+        administrator.setAdmin(Boolean.TRUE);
 
         assertNull("ID must be null before persist", guest.getId());
         userDAO.create(guest);
@@ -85,7 +85,7 @@ public class UserManagerTest {
 
         guest.setFirstName("Thomas");
         guest.setLastName("Podolski");
-        guest.setIsAdmin(Boolean.FALSE);
+        guest.setAdmin(Boolean.FALSE);
         userDAO.update(guest);
 
         assertNotNull(guest.getFirstName());
@@ -99,7 +99,7 @@ public class UserManagerTest {
 
         administrator.setFirstName("Miroslav");
         administrator.setLastName("Stoch");
-        administrator.setIsAdmin(Boolean.TRUE);
+        administrator.setAdmin(Boolean.TRUE);
         userDAO.update(administrator);
 
         assertNotNull(administrator.getFirstName());
@@ -112,9 +112,9 @@ public class UserManagerTest {
     @Transactional
     public void testDelete() {
         User guest = new User();
-        guest.setIsAdmin(Boolean.FALSE);
+        guest.setAdmin(Boolean.FALSE);
         User administrator = new User();
-        administrator.setIsAdmin(Boolean.TRUE);
+        administrator.setAdmin(Boolean.TRUE);
 
         userDAO.create(guest);
         userDAO.delete(guest);
@@ -130,9 +130,9 @@ public class UserManagerTest {
     @Transactional
     public void testFind() {
         User guest = new User();
-        guest.setIsAdmin(Boolean.FALSE);
+        guest.setAdmin(Boolean.FALSE);
         User administrator = new User();
-        administrator.setIsAdmin(Boolean.TRUE);
+        administrator.setAdmin(Boolean.TRUE);
 
         assertNull(guest.getId());
         userDAO.create(guest);
@@ -153,17 +153,17 @@ public class UserManagerTest {
     @Transactional
     public void testFindAll() {
         User guest1 = new User();
-        guest1.setIsAdmin(Boolean.FALSE);
+        guest1.setAdmin(Boolean.FALSE);
         User guest2 = new User();
-        guest2.setIsAdmin(Boolean.FALSE);
+        guest2.setAdmin(Boolean.FALSE);
         User guest3 = new User();
-        guest3.setIsAdmin(Boolean.FALSE);
+        guest3.setAdmin(Boolean.FALSE);
         User administrator1 = new User();
-        administrator1.setIsAdmin(Boolean.TRUE);
+        administrator1.setAdmin(Boolean.TRUE);
         User administrator2 = new User();
-        administrator2.setIsAdmin(Boolean.TRUE);
+        administrator2.setAdmin(Boolean.TRUE);
         User administrator3 = new User();
-        administrator3.setIsAdmin(Boolean.TRUE);
+        administrator3.setAdmin(Boolean.TRUE);
         assertNull(guest1.getId());
         assertNull(guest2.getId());
         assertNull(guest3.getId());

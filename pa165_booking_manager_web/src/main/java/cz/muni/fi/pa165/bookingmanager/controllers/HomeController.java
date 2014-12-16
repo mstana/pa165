@@ -142,21 +142,21 @@ public class HomeController {
         u1.setFirstName("Marek");
         u1.setLastName("Stana");
         u1.setEmail("marek.stana@ms.com");
-        u1.setIsAdmin(Boolean.TRUE);
+        u1.setAdmin(Boolean.TRUE);
         userService.create(u1);
 
         UserTO u2 = new UserTO();
         u2.setFirstName("David");
         u2.setLastName("Kadlec");
         u2.setEmail("david.kadlec@dk.com");
-        u2.setIsAdmin(Boolean.FALSE);
+        u2.setAdmin(Boolean.FALSE);
         userService.create(u2);
 
         UserTO u3 = new UserTO();
         u3.setFirstName("Adam");
         u3.setLastName("Studenic");
         u3.setEmail("adam.studenic@as.com");
-        u3.setIsAdmin(Boolean.FALSE);
+        u3.setAdmin(Boolean.FALSE);
         userService.create(u3);
         
         
@@ -164,7 +164,7 @@ public class HomeController {
         u4.setFirstName("Ondrej");
         u4.setLastName("Pavelka");
         u4.setEmail("ondrej.pavelka@op.com");
-        u4.setIsAdmin(Boolean.FALSE);
+        u4.setAdmin(Boolean.FALSE);
         userService.create(u4);
 
         ReservationTO res = new ReservationTO();

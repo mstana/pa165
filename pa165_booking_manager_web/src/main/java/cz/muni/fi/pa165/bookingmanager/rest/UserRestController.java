@@ -25,20 +25,8 @@ public class UserRestController {
     private UserService userService;
 
     @RequestMapping(value = "/", method = RequestMethod.GET)
-    public List<UserRestTO> findAll() {
-        List<UserRestTO> users = new ArrayList<UserRestTO>();
-
-        for (UserTO userTO : userService.findAll()) {
-            UserRestTO userRestTO = new UserRestTO();
-            try {
-                BeanUtils.copyProperties(userRestTO, userTO);
-            } catch (Exception e) {
-                throw new BadRequestException();
-            }
-            users.add(userRestTO);
-        }
-
-        return users;
+    public List<UserTO> findAll() {
+        return userService.findAll();
     }
 
     @RequestMapping(value = "/{userId}", method = RequestMethod.GET)
@@ -58,34 +46,20 @@ public class UserRestController {
     }
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
-    public String create(@RequestBody UserRestTO user) {
+    public String create(@RequestBody UserTO user) {
         try {
-            UserTO userTO = new UserTO();
-            BeanUtils.copyProperties(user, userTO);
-
-            userService.create(userTO);
+            userService.create(user);
         } catch (IllegalArgumentException ex) {
-            throw new BadRequestException();
-        } catch (InvocationTargetException e) {
-            throw new BadRequestException();
-        } catch (IllegalAccessException e) {
             throw new BadRequestException();
         }
         return "created";
     }
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
-    public String update(@RequestBody UserRestTO user) {
+    public String update(@RequestBody UserTO user) {
         try {
-            UserTO userTO = new UserTO();
-            BeanUtils.copyProperties(user, userTO);
-
-            userService.update(userTO);
+            userService.update(user);
         } catch (IllegalArgumentException ex) {
-            throw new BadRequestException();
-        } catch (InvocationTargetException e) {
-            throw new BadRequestException();
-        } catch (IllegalAccessException e) {
             throw new BadRequestException();
         }
 

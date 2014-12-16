@@ -130,7 +130,7 @@ public class ReservationManagerTest extends TestCase {
     
     private Reservation createReservationInMemory() {
         User administrator = new User();
-        administrator.setIsAdmin(true);
+        administrator.setAdmin(true);
         userDAO.create(administrator);
         
         Hotel hotel = new Hotel();
