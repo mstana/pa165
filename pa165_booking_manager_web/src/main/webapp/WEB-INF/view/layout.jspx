@@ -23,7 +23,6 @@
 
         <title><c:out value="${title}"/></title>
 
-        <!-- Bootstrap Core CSS -->
         <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/css/datepicker.css" rel="stylesheet"/>
@@ -31,11 +30,9 @@
 
     <body>
     <div class="container" style="padding-top: 50px;">
-        <!-- Navigation -->
         <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
              xmlns:spring="http://java.sun.com/jsf/html">
             <div class="container">
-                <!-- Brand and toggle get grouped for better mobile display -->
                 <div class="navbar-header">
                     <button type="button" class="navbar-toggle" data-toggle="collapse"
                             data-target="#bs-example-navbar-collapse-1">
@@ -48,7 +45,6 @@
                             key="general.bookingManager"/></a>
                 </div>
                 <tiles:importAttribute name="hotels"/>
-                <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <ul class="nav navbar-nav">
@@ -71,11 +67,8 @@
                         </li>
                     </ul>
                 </div>
-                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.container -->
         </nav>
-        <!--jsp:include page="/WEB-INF/view/menu.jspx"/-->
         <div class="container">
             <div class="content">
                 <c:if test="${ok != null}">
@@ -87,17 +80,16 @@
                 <tiles:insertAttribute name="main"/>
             </div>
         </div>
-        <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
     </div>
 
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js">
         <jsp:text/>
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js">
-        <jsp:text/>
+        <jsp:text />
     </script>
     <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js">
-        <jsp:text/>
+        <jsp:text />
     </script>
     <script type="text/javascript">
         $(document).ready(function () {
