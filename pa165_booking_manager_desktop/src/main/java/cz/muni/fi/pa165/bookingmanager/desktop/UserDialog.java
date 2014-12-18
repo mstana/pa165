@@ -16,7 +16,7 @@ public class UserDialog extends javax.swing.JFrame {
     private UserTO user;
     private UserRESTManager userRESTManager = new UserRESTManager();
     private UserTableModel userTableModel;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonCreate;
     private javax.swing.JCheckBox jCheckBoxIsAdmin;
@@ -189,11 +189,11 @@ public class UserDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBoxIsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxIsAdminActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jCheckBoxIsAdminActionPerformed
 
     private void jTextFieldLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLastNameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldLastNameActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
@@ -231,5 +231,5 @@ public class UserDialog extends javax.swing.JFrame {
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }

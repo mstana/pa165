@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package cz.muni.fi.pa165.bookingmanager.desktop;
 
 import com.sun.jersey.api.client.ClientHandlerException;
@@ -22,7 +17,7 @@ public class HotelDialog extends javax.swing.JFrame {
     private HotelRESTManager hotelRESTManager = new HotelRESTManager();
     private HotelTableModel hotelTableModel;
     private HotelTO hotel;
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JButton jButtonCancel;
     private javax.swing.JButton jButtonCreate;
     private javax.swing.JLabel jLabel1;
@@ -171,7 +166,7 @@ public class HotelDialog extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void jTextFieldNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldNameActionPerformed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTextFieldNameActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
@@ -179,7 +174,7 @@ public class HotelDialog extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonCancelActionPerformed
 
     private void formWindowClosed(java.awt.event.WindowEvent evt) {//GEN-FIRST:event_formWindowClosed
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_formWindowClosed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
@@ -211,5 +206,5 @@ public class HotelDialog extends javax.swing.JFrame {
             System.exit(1);
         }
     }//GEN-LAST:event_jButtonCreateActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }

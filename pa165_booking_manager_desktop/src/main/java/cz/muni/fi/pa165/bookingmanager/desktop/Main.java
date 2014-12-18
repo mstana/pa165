@@ -25,7 +25,7 @@ public class Main extends javax.swing.JFrame {
     private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
     private UserTableModel userTableModel = new UserTableModel();
     private HotelTableModel hotelTableModel = new HotelTableModel();
-    // Variables declaration - do not modify//GEN-BEGIN:variables
+    // Variables declaration - do not modify
     private javax.swing.JMenuItem MenuItemExit;
     private javax.swing.JTable hotelTable;
     private javax.swing.JButton jButtonCreateHotel;
@@ -487,7 +487,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jButtonDeleteHotelActionPerformed
 
     private void jTabbedPane1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jTabbedPane1MouseClicked
-        // TODO add your handling code here:
+
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
@@ -537,5 +537,5 @@ public class Main extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonDeleteUser1ActionPerformed
-    // End of variables declaration//GEN-END:variables
+    // End of variables declaration
 }
