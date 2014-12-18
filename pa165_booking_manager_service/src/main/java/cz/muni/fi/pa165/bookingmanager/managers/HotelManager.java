@@ -2,14 +2,13 @@ package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
-import java.util.List;
-import javax.persistence.EntityManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
+
+import javax.persistence.EntityManager;
+import java.util.List;
 
 /**
- *
  * @author Adam Studenic
  */
 @Repository
@@ -31,7 +30,7 @@ public class HotelManager implements HotelDAO {
         if (hotel.getId() != null) {
             throw new IllegalArgumentException("The hotel is already created, should have null id (has " + hotel.getId() + ")");
         }
-        if(! validate(hotel)) {
+        if (!validate(hotel)) {
             throw new IllegalArgumentException("The hotel name is not valid");
         }
         entityManager.persist(hotel);
@@ -43,7 +42,7 @@ public class HotelManager implements HotelDAO {
         if (hotel.getId() == null) {
             throw new IllegalArgumentException("The hotel dto be update cannot have null id");
         }
-        if(! validate(hotel)) {
+        if (!validate(hotel)) {
             throw new IllegalArgumentException("The hotel name is not valid");
         }
         entityManager.merge(hotel);

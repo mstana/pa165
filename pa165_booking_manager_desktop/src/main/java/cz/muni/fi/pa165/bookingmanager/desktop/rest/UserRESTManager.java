@@ -14,16 +14,16 @@ import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
 import com.sun.jersey.api.json.JSONConfiguration;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
+
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ws.rs.core.MediaType;
 
 
 /**
- *
  * @author Adam Studenic
  */
 public class UserRESTManager {
@@ -44,7 +44,7 @@ public class UserRESTManager {
 
 
     public UserTO findUser(Long id) {
-        UserTO user  = webResource.path("users/"+ id)
+        UserTO user = webResource.path("users/" + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .get(UserTO.class);
         return user;
@@ -53,10 +53,11 @@ public class UserRESTManager {
     public List<UserTO> findAllUsers() {
         List<UserTO> users = new ArrayList<>();
         String json = webResource.path("users/")
-                        .accept(MediaType.APPLICATION_JSON)
-                        .get(String.class);
+                .accept(MediaType.APPLICATION_JSON)
+                .get(String.class);
         try {
-           users = mapper.readValue(json, new TypeReference<List<UserTO>>() {});
+            users = mapper.readValue(json, new TypeReference<List<UserTO>>() {
+            });
         } catch (IOException e) {
             Logger.getLogger(UserRESTManager.class.getName()).log(Level.SEVERE, null, e);
         }

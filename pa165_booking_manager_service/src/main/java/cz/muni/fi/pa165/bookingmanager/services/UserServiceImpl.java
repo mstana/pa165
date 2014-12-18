@@ -4,16 +4,15 @@ import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.User;
-import java.util.ArrayList;
+import org.dozer.Mapper;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
 import java.util.List;
-import org.dozer.Mapper;
-import org.springframework.beans.factory.annotation.Autowired;
 
 /**
- *
  * @author Adam Studenic
  */
 @Service

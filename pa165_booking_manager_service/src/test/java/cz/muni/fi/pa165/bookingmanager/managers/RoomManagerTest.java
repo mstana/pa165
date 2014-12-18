@@ -5,11 +5,7 @@ import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import junit.framework.TestCase;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -20,7 +16,6 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 /**
- *
  * @author Ondrej Pavelka <106752@mail.muni.cz>
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -31,7 +26,7 @@ public class RoomManagerTest extends TestCase {
 
     @Autowired
     RoomDAO roomDAO;
-    
+
     @Autowired
     HotelDAO hotelDAO;
 
@@ -59,8 +54,7 @@ public class RoomManagerTest extends TestCase {
     public void testCreate() {
         try {
             roomDAO.create(null);
-        }
-        catch (DataAccessException exception) {
+        } catch (DataAccessException exception) {
             //OK
         }
 
@@ -69,7 +63,7 @@ public class RoomManagerTest extends TestCase {
         hotel.setAddress("Botanicka");
 
         hotelDAO.create(hotel);
-        
+
         Room room1 = new Room();
         room1.setHotel(hotel);
         room1.setNumber("A01");
@@ -99,7 +93,7 @@ public class RoomManagerTest extends TestCase {
         hotel.setAddress("Tankodrom");
 
         hotelDAO.create(hotel);
-        
+
         room.setHotel(hotel);
         room.setNumber("100");
         room.setBedsCount(6);
@@ -117,6 +111,7 @@ public class RoomManagerTest extends TestCase {
         assertEquals(room.getPrice(), 1);
         assertEquals(room.getNumber(), "100");
     }
+
     @Test
     @Transactional
     public void testDelete() {
@@ -124,10 +119,10 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("SKM");
         hotel.setAddress("Botanicka");
-        
+
         hotelDAO.create(hotel);
-        
-        room.setHotel(hotel); 
+
+        room.setHotel(hotel);
         room.setNumber("100");
         room.setBedsCount(100);
         room.setPrice(100);
@@ -145,9 +140,9 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("FI MU");
         hotel.setAddress("Sumavska");
-        
-         hotelDAO.create(hotel);
-        
+
+        hotelDAO.create(hotel);
+
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("100");
@@ -167,9 +162,9 @@ public class RoomManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("Molin rouge");
         hotel.setAddress("Opavska");
-        
+
         hotelDAO.create(hotel);
-        
+
         Room room = new Room();
         room.setHotel(hotel);
         room.setNumber("A01");
@@ -181,12 +176,12 @@ public class RoomManagerTest extends TestCase {
         List<Room> rooms = roomDAO.findAll();
 
         assertTrue(rooms.contains(room));
-        assertEquals("The db should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
+        assertEquals("The db should contain one room (contains " + rooms.size() + " rooms)", 1, rooms.size());
 
         rooms = roomDAO.findAll(hotel);
 
         assertTrue(rooms.contains(room));
-        assertEquals("The hotel should contain one room (contains "+rooms.size()+" rooms)", 1, rooms.size());
+        assertEquals("The hotel should contain one room (contains " + rooms.size() + " rooms)", 1, rooms.size());
     }
 
 }

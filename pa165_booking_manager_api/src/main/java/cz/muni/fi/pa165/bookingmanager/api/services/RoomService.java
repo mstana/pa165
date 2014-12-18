@@ -6,10 +6,9 @@ import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import java.util.List;
 
 /**
- *
  * @author David Kadlec
  */
-public interface RoomService  {
+public interface RoomService {
     /**
      * Creates room.
      *
@@ -36,13 +35,13 @@ public interface RoomService  {
      *
      * @param id
      */
-    public RoomTO find(Long id);    
-    
+    public RoomTO find(Long id);
+
     /**
      * Returns all rooms.
      */
-    public List<RoomTO> findAll();    
-    
+    public List<RoomTO> findAll();
+
     /**
      * Returns all rooms in the specified hotel.
      *

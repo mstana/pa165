@@ -1,6 +1,5 @@
 package cz.muni.fi.pa165.bookingmanager.controllers;
 
-import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.ReservationTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
@@ -8,7 +7,6 @@ import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
-import cz.muni.fi.pa165.bookingmanager.entities.Reservation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
@@ -188,9 +186,7 @@ public class ReservationController {
             reservation.setUser(user);
 
             reservationService.create(reservation);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return "redirect:/";
         }
 

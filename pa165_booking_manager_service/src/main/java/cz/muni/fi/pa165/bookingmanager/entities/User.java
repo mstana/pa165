@@ -5,35 +5,34 @@
  */
 package cz.muni.fi.pa165.bookingmanager.entities;
 
+import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
-import javax.persistence.*;
 
 /**
- *
  * @author mstana
  */
 @Entity(name = "booking_user")
 public class User {
-    
+
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
-    
+
     @Column
     private String firstName;
 
     @Column
     private String lastName;
-    
+
     @Column
     private String email;
-    
+
     @Column
     private boolean admin;
 
-    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE,CascadeType.REFRESH}, orphanRemoval = true)
+    @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 
     public boolean isAdmin() {
@@ -51,7 +50,7 @@ public class User {
     public void setEmail(String email) {
         this.email = email;
     }
-    
+
     public Long getId() {
         return id;
     }
@@ -84,7 +83,7 @@ public class User {
         this.reservations = reservations;
     }
 
-    public void addReservation (Reservation reservation) {
+    public void addReservation(Reservation reservation) {
         this.reservations.add(reservation);
     }
 
@@ -109,5 +108,5 @@ public class User {
         }
         return true;
     }
-    
+
 }

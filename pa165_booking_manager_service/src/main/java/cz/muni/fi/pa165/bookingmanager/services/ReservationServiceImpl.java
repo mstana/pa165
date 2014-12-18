@@ -108,7 +108,8 @@ public class ReservationServiceImpl implements ReservationService {
             reservationTOs.add(mapper.map(reservationDO, ReservationTO.class));
         }
 
-        return reservationTOs;    }
+        return reservationTOs;
+    }
 
     @Override
     public List<ReservationTO> findAll(UserTO user) {
@@ -118,6 +119,7 @@ public class ReservationServiceImpl implements ReservationService {
             reservationTOs.add(mapper.map(reservationDO, ReservationTO.class));
         }
 
-        return reservationTOs;    }
+        return reservationTOs;
+    }
 }
 

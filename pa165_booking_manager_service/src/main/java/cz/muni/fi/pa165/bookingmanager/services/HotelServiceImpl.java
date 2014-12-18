@@ -5,16 +5,18 @@
  */
 package cz.muni.fi.pa165.bookingmanager.services;
 
+import antlr.StringUtils;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
-import java.util.ArrayList;
-import java.util.List;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+
+import java.util.ArrayList;
+import java.util.List;
 
 @Service
 @Transactional
@@ -50,7 +52,7 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void update(HotelTO hotel) {
-            if (hotel == null) {
+        if (hotel == null) {
             throw new IllegalArgumentException("Hotel cannot be null");
         }
         if (hotel.getId() == null || hotelDAO.find(hotel.getId()) == null) {
@@ -63,17 +65,17 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public void delete(HotelTO hotel) {
-            if (hotel == null) {
+        if (hotel == null) {
             throw new IllegalArgumentException("Hotel cannot be null");
         }
         Hotel hotelDO = mapper.map(hotel, Hotel.class);
 
-        hotelDAO.delete(hotelDO); 
+        hotelDAO.delete(hotelDO);
     }
 
     @Override
     public HotelTO find(Long id) {
-            if (id == null) {
+        if (id == null) {
             throw new IllegalArgumentException("ID cannot be null");
         }
 
@@ -87,12 +89,11 @@ public class HotelServiceImpl implements HotelService {
 
     @Override
     public List<HotelTO> findAll() {
-            List<Hotel> hotels = hotelDAO.findAll();
+        List<Hotel> hotels = hotelDAO.findAll();
         List<HotelTO> hotelsTO = new ArrayList<>();
         for (Hotel hotelDO : hotels) {
             hotelsTO.add(mapper.map(hotelDO, HotelTO.class));
         }
         return hotelsTO;
     }
-    
 }

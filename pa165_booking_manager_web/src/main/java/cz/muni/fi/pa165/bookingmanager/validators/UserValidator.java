@@ -11,13 +11,12 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- *
  * @author mstana
  */
 public class UserValidator implements Validator {
     @Override
     public boolean supports(Class aClass) {
-      return UserTO.class.isAssignableFrom(aClass);
+        return UserTO.class.isAssignableFrom(aClass);
     }
 
     @Override
@@ -26,8 +25,7 @@ public class UserValidator implements Validator {
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "firstName", "user.validation.error.firstName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "lastName", "user.validation.error.lastName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "email", "user.validation.error.email");
-    
-    
-    
+
+
     }
 }

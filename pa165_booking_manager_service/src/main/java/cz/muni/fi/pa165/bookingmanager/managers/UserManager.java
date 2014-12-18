@@ -7,22 +7,21 @@ package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.User;
-import java.util.List;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Repository;
+
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
-
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Repository;
+import java.util.List;
 
 /**
- *
  * @author mstana
  */
 @Repository
-public class UserManager implements UserDAO{
+public class UserManager implements UserDAO {
 
     @Autowired
     private EntityManager entityManager;
@@ -33,6 +32,7 @@ public class UserManager implements UserDAO{
     public EntityManager getEntityManager() {
         return entityManager;
     }
+
     public void setEntityManager(EntityManager em) {
         entityManager = em;
     }

@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<beans xmlns="http://www.springframework.org/schema/beans"
-       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<beans xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns="http://www.springframework.org/schema/beans"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
        http://www.springframework.org/schema/tx
@@ -16,7 +16,7 @@
     <tx:annotation-driven transaction-manager="transactionManager"/>
     <context:component-scan base-package="cz.muni.fi.pa165.bookingmanager"/>
     <context:annotation-config/>
-    <aop:aspectj-autoproxy />
+    <aop:aspectj-autoproxy/>
 
     <bean class="org.springframework.beans.factory.annotation.RequiredAnnotationBeanPostProcessor"/>
 
@@ -34,7 +34,7 @@
 
     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
         <property name="persistenceUnitName" value="unit-testPU"/>
-        <property name="dataSource" ref="dataSource" />
+        <property name="dataSource" ref="dataSource"/>
     </bean>
 
     <bean id="entityManager" class="org.springframework.orm.jpa.support.SharedEntityManagerBean">
@@ -42,10 +42,10 @@
     </bean>
 
     <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
-        <property name="driverClassName" value="${jdbc.driver}" />
-        <property name="url" value="${jdbc.url}" />
-        <property name="username" value="${jdbc.username}" />
-        <property name="password" value="${jdbc.password}" />
+        <property name="driverClassName" value="${jdbc.driver}"/>
+        <property name="url" value="${jdbc.url}"/>
+        <property name="username" value="${jdbc.username}"/>
+        <property name="password" value="${jdbc.password}"/>
     </bean>
 
     <bean id="mapper" class="org.dozer.DozerBeanMapper">
@@ -56,6 +56,6 @@
         </property>
     </bean>
 
-    <bean id="exceptionInterceptorAspect" class="cz.muni.fi.pa165.bookingmanager.ExceptionInterceptor" />
+    <bean id="exceptionInterceptorAspect" class="cz.muni.fi.pa165.bookingmanager.ExceptionInterceptor"/>
 
 </beans>

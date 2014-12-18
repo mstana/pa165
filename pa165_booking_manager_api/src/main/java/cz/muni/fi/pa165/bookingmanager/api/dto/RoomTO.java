@@ -5,7 +5,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author David Kadlec
  */
 public class RoomTO {
@@ -17,7 +16,7 @@ public class RoomTO {
     private int price;
 
     private int bedsCount;
-    
+
     private HotelTO hotel;
 
     private List<ReservationTO> reservations = new ArrayList<>();
@@ -55,7 +54,7 @@ public class RoomTO {
         if (price < 0) {
             throw new IllegalArgumentException("Price cannot be negative.");
         }
-        
+
         this.price = price;
     }
 
@@ -67,7 +66,7 @@ public class RoomTO {
         if (bedsCount <= 0) {
             throw new IllegalArgumentException("Room must have at least one bed.");
         }
-        
+
         this.bedsCount = bedsCount;
     }
 
@@ -79,7 +78,7 @@ public class RoomTO {
         this.reservations = reservations;
     }
 
-    public void addReservation (ReservationTO reservation) {
+    public void addReservation(ReservationTO reservation) {
         this.reservations.add(reservation);
     }
 
@@ -89,7 +88,7 @@ public class RoomTO {
         hash = 9187 * hash + Objects.hashCode(this.id);
         hash = 9187 * hash + Objects.hashCode(this.bedsCount);
         hash = 9187 * hash + Objects.hashCode(this.number);
-        hash = 9187 * hash + Objects.hashCode(this.price); 
+        hash = 9187 * hash + Objects.hashCode(this.price);
         hash = 9187 * hash + Objects.hashCode(this.hotel);
         return hash;
     }

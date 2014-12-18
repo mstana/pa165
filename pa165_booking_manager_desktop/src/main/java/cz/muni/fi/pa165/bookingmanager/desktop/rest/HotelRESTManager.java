@@ -7,18 +7,17 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
-import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
+
+import javax.ws.rs.core.MediaType;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javax.ws.rs.core.MediaType;
 
 /**
- *
  * @author mstana
  */
 public class HotelRESTManager {
@@ -37,7 +36,7 @@ public class HotelRESTManager {
     }
 
     public HotelTO findHotel(Long id) {
-        HotelTO hotel  = webResource.path("hotels/"+ id)
+        HotelTO hotel = webResource.path("hotels/" + id)
                 .accept(MediaType.APPLICATION_JSON)
                 .get(HotelTO.class);
         return hotel;
@@ -87,7 +86,7 @@ public class HotelRESTManager {
     }
 
     public ClientResponse deleteHotel(HotelTO hotel) {
-        return webResource.path("hotels/"+hotel.getId())
+        return webResource.path("hotels/" + hotel.getId())
                 .type(MediaType.APPLICATION_JSON)
                 .accept(MediaType.APPLICATION_JSON)
                 .delete(ClientResponse.class);

@@ -1,23 +1,19 @@
 package cz.muni.fi.pa165.bookingmanager.managers;
 
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
-
 import cz.muni.fi.pa165.bookingmanager.entities.User;
-import java.util.List;
-import javax.transaction.Transactional;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import static org.junit.Assert.*;
+import org.junit.*;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import javax.transaction.Transactional;
+import java.util.List;
+
+import static org.junit.Assert.*;
+
 /**
- *
  * @author Adam Studenic
  */
 @RunWith(SpringJUnit4ClassRunner.class)

@@ -1,13 +1,12 @@
 package cz.muni.fi.pa165.bookingmanager.api.dto;
 
-import com.fasterxml.jackson.annotation.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author mstana
  */
 
@@ -79,8 +78,8 @@ public class HotelTO {
     }
 
 
-    public void addRoom (RoomTO rooom) {
+    public void addRoom(RoomTO rooom) {
         this.rooms.add(rooom);
     }
-  
+
 }

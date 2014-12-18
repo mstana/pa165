@@ -2,31 +2,29 @@ package cz.muni.fi.pa165.bookingmanager.services;
 
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
-import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO;
+import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.TestCase;
 import org.dozer.Mapper;
-import org.junit.*;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.runner.RunWith;
-import org.mockito.*;
+import org.mockito.Mock;
+import org.mockito.Mockito;
+import org.mockito.MockitoAnnotations;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
+import java.util.List;
 
 
 /**
- *
  * @author Ondrej Pavelka <106752@mail.muni.cz>
  */
 
@@ -52,7 +50,7 @@ public class RoomServiceImplTest extends TestCase {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        roomService = new RoomServiceImpl(roomDAO,mapper);
+        roomService = new RoomServiceImpl(roomDAO, mapper);
     }
 
     @After
@@ -79,7 +77,7 @@ public class RoomServiceImplTest extends TestCase {
         room.setPrice(500);
 
         roomService.create(room);
-        Mockito.verify(roomDAO).create(mapper.map(room,Room.class));
+        Mockito.verify(roomDAO).create(mapper.map(room, Room.class));
         room.setId(1L);
 
         try {
@@ -121,7 +119,7 @@ public class RoomServiceImplTest extends TestCase {
         }
 
         roomService.create(room);
-        Mockito.verify(roomDAO).create(mapper.map(room,Room.class));
+        Mockito.verify(roomDAO).create(mapper.map(room, Room.class));
         room.setId(1L);
 
         room.setPrice(0);
@@ -154,7 +152,7 @@ public class RoomServiceImplTest extends TestCase {
         room.setHotel(hotelTO);
 
         roomService.create(room);
-        Mockito.verify(roomDAO).create(mapper.map(room,Room.class));
+        Mockito.verify(roomDAO).create(mapper.map(room, Room.class));
         room.setId(1L);
 
         Mockito.when(roomDAO.find(room.getId())).thenReturn(mapper.map(room, Room.class));

@@ -4,9 +4,11 @@ import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.exceptions.BadRequestException;
 import cz.muni.fi.pa165.bookingmanager.exceptions.NotFoundException;
+import cz.muni.fi.pa165.bookingmanager.managers.HotelManager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.IllegalFormatException;
 import java.util.List;
 
 /**
@@ -43,6 +45,9 @@ public class HotelRestController {
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     public String create(@RequestBody HotelTO hotel) {
+        if (!validate(hotel)) {
+            throw new BadRequestException();
+        }
         try {
             hotelService.create(hotel);
         } catch (IllegalArgumentException ex) {
@@ -54,6 +59,9 @@ public class HotelRestController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String update(@RequestBody HotelTO hotel) {
+        if (!validate(hotel)) {
+            throw new BadRequestException();
+        }
         try {
             hotelService.update(hotel);
         } catch (IllegalArgumentException ex) {
@@ -84,5 +92,16 @@ public class HotelRestController {
         }
 
         return "deleted";
+    }
+
+    private boolean validate(HotelTO hotel)
+    {
+        if (hotel == null) {
+            return false;
+        }
+        if (hotel.getName() == null || "".equals(hotel.getName())) {
+            return false;
+        }
+        return true;
     }
 }

@@ -7,7 +7,6 @@ import java.util.List;
 import java.util.Objects;
 
 /**
- *
  * @author Adam Studenic
  */
 public class UserTO {
@@ -17,9 +16,9 @@ public class UserTO {
     private String firstName;
 
     private String lastName;
-    
+
     private String email;
-    
+
     private boolean admin;
 
 
@@ -79,7 +78,7 @@ public class UserTO {
         this.reservations = reservations;
     }
 
-    public void addReservation (ReservationTO reservation) {
+    public void addReservation(ReservationTO reservation) {
         this.reservations.add(reservation);
     }
 

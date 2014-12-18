@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<mappings xmlns="http://dozer.sourceforge.net"
-          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+<mappings xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+          xmlns="http://dozer.sourceforge.net"
           xsi:schemaLocation="http://dozer.sourceforge.net
 
 http://dozer.sourceforge.net/schema/beanmapping.xsd">
@@ -32,7 +32,7 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
     <mapping>
         <class-a>cz.muni.fi.pa165.bookingmanager.entities.User</class-a>
         <class-b>cz.muni.fi.pa165.bookingmanager.api.dto.UserTO</class-b>
-         <field>
+        <field>
             <a>id</a>
             <b>id</b>
         </field>
@@ -62,19 +62,19 @@ http://dozer.sourceforge.net/schema/beanmapping.xsd">
     <mapping>
         <class-a>cz.muni.fi.pa165.bookingmanager.entities.Room</class-a>
         <class-b>cz.muni.fi.pa165.bookingmanager.api.dto.RoomTO</class-b>
-         <field>
+        <field>
             <a>id</a>
             <b>id</b>
         </field>
-         <field>
+        <field>
             <a>number</a>
             <b>number</b>
         </field>
-         <field>
+        <field>
             <a>price</a>
             <b>price</b>
         </field>
-         <field>
+        <field>
             <a>bedsCount</a>
             <b>bedsCount</b>
         </field>

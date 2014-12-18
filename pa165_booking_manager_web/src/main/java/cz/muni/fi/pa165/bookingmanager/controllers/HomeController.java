@@ -8,25 +8,23 @@ import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
-import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.stereotype.Controller;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.support.RequestContextUtils;
+
 import javax.servlet.ServletException;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import org.springframework.util.StringUtils;
-import org.springframework.web.servlet.LocaleResolver;
-import org.springframework.web.servlet.support.RequestContextUtils;
 
 @Controller
 public class HomeController {
@@ -63,7 +61,7 @@ public class HomeController {
         String language = locale.getLanguage();
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
 
-        if(language.equals("cs")) {
+        if (language.equals("cs")) {
             localeResolver.setLocale(request, response, StringUtils.parseLocaleString("cs"));
         } else {
             localeResolver.setLocale(request, response, StringUtils.parseLocaleString("en"));
@@ -83,7 +81,7 @@ public class HomeController {
     }
 
 
-    public void setDefaultValues () {
+    public void setDefaultValues() {
         for (HotelTO hotel : hotelService.findAll()) {
             hotelService.delete(hotel);
         }
@@ -158,8 +156,8 @@ public class HomeController {
         u3.setEmail("adam.studenic@as.com");
         u3.setAdmin(Boolean.FALSE);
         userService.create(u3);
-        
-        
+
+
         UserTO u4 = new UserTO();
         u4.setFirstName("Ondrej");
         u4.setLastName("Pavelka");

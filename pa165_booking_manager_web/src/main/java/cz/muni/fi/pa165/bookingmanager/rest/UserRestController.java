@@ -1,18 +1,12 @@
 package cz.muni.fi.pa165.bookingmanager.rest;
 
-import cz.muni.fi.pa165.bookingmanager.rest.dto.UserRestTO;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
 import cz.muni.fi.pa165.bookingmanager.exceptions.BadRequestException;
 import cz.muni.fi.pa165.bookingmanager.exceptions.NotFoundException;
-import org.apache.commons.beanutils.BeanUtils;
-import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
-import javax.enterprise.deploy.spi.exceptions.TargetException;
-import java.lang.reflect.InvocationTargetException;
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -47,6 +41,9 @@ public class UserRestController {
 
     @RequestMapping(value = "/", method = RequestMethod.PUT)
     public String create(@RequestBody UserTO user) {
+        if (!validate(user)) {
+            throw new BadRequestException();
+        }
         try {
             userService.create(user);
         } catch (IllegalArgumentException ex) {
@@ -57,6 +54,9 @@ public class UserRestController {
 
     @RequestMapping(value = "/", method = RequestMethod.POST)
     public String update(@RequestBody UserTO user) {
+        if (!validate(user)) {
+            throw new BadRequestException();
+        }
         try {
             userService.update(user);
         } catch (IllegalArgumentException ex) {
@@ -87,5 +87,19 @@ public class UserRestController {
         }
 
         return "deleted";
+    }
+
+    private boolean validate(UserTO user)
+    {
+        if (user == null) {
+            return false;
+        }
+        if (user.getFirstName() == null || "".equals(user.getFirstName())) {
+            return false;
+        }
+        if (user.getLastName() == null || "".equals(user.getLastName())) {
+            return false;
+        }
+        return true;
     }
 }

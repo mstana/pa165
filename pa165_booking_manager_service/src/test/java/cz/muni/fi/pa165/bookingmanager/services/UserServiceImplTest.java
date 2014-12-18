@@ -3,8 +3,6 @@ package cz.muni.fi.pa165.bookingmanager.services;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.dao.UserDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.User;
-import java.util.List;
-import static junit.framework.Assert.fail;
 import org.dozer.Mapper;
 import org.junit.After;
 import org.junit.Before;
@@ -19,8 +17,11 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
+import static junit.framework.Assert.fail;
+
 /**
- *
  * @author mstana
  */
 @Transactional
@@ -42,7 +43,7 @@ public class UserServiceImplTest {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        userService = new UserServiceImpl(userDAO,mapper);
+        userService = new UserServiceImpl(userDAO, mapper);
     }
 
     @After
@@ -51,6 +52,7 @@ public class UserServiceImplTest {
         mapper = null;
         userDAO = null;
     }
+
     @Test
     public void testCreateUser() {
         UserTO userTO = new UserTO();
@@ -61,6 +63,7 @@ public class UserServiceImplTest {
         userService.create(userTO);
         Mockito.verify(userDAO).create(mapper.map(userTO, User.class));
     }
+
     @Test
     public void testFindUser() {
         try {
@@ -86,8 +89,8 @@ public class UserServiceImplTest {
         Mockito.verify(userDAO).find(userTO.getId());
 
     }
-    
-   
+
+
     @Test
     public void testDeleteUser() {
         try {
@@ -104,7 +107,7 @@ public class UserServiceImplTest {
         userTO.setLastName("Stana");
         userTO.setEmail("rstanamarek@gmail.com");
         userTO.setAdmin(Boolean.FALSE);
-        
+
 
         userService.create(userTO);
         userTO.setId(1L);
@@ -113,10 +116,11 @@ public class UserServiceImplTest {
         userService.delete(userTO);
 
     }
+
     @Test
     public void testFindAllUsers() {
         List<UserTO> users = userService.findAll();
         Mockito.verify(userDAO).findAll();
     }
-    
+
 }

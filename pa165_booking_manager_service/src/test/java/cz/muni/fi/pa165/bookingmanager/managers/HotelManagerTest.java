@@ -4,29 +4,23 @@ package cz.muni.fi.pa165.bookingmanager.managers;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
+
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
-import java.util.ArrayList;
-import java.util.List;
-import javax.transaction.Transactional;
 import junit.framework.TestCase;
-import org.junit.After;
-import org.junit.AfterClass;
-import org.junit.Assert;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import static org.junit.Assert.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.transaction.Transactional;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- *
  * @author mstana
  */
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -93,7 +87,7 @@ public class HotelManagerTest extends TestCase {
         assertNotNull(hotel.getName());
         assertEquals("Pekna 5, Brno", hotel.getAddress());
         assertEquals("Hilton", hotel.getName());
-}
+    }
 
     @Test
     @Transactional
@@ -152,6 +146,7 @@ public class HotelManagerTest extends TestCase {
         assertTrue(hotelList.contains(hotel2));
         assertTrue(hotelList.contains(hotel3));
     }
+
     @Test
     @Transactional
     public void testFindAllRoomsInHotel() {
@@ -160,7 +155,6 @@ public class HotelManagerTest extends TestCase {
         Hotel hotel = new Hotel();
         hotel.setName("Hotel");
         hotel.setAddress("Avenue1");
-
 
 
         assertNull(hotel.getId());
@@ -220,9 +214,9 @@ public class HotelManagerTest extends TestCase {
         assertEquals(listOfRooms.contains(hotelFromDb.getRooms().get(2)), true);
         assertEquals(listOfRooms.contains(hotelFromDb.getRooms().get(3)), true);
 
-        System.out.println("Hello"+hotelFromDb.getRooms());
+        System.out.println("Hello" + hotelFromDb.getRooms());
         System.out.println(listOfRooms);
 
 
-        }
+    }
 }

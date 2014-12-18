@@ -6,13 +6,11 @@ import cz.muni.fi.pa165.bookingmanager.entities.Room;
 import cz.muni.fi.pa165.bookingmanager.entities.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Expression;
 import javax.persistence.criteria.Root;
 import java.util.List;
 
@@ -65,7 +63,8 @@ public class ReservationManager implements ReservationDAO {
 
         TypedQuery<Reservation> typedQuery = entityManager.createQuery(query);
 
-        return typedQuery.getResultList();    }
+        return typedQuery.getResultList();
+    }
 
     @Override
     public List<Reservation> findAll(Room room) {

@@ -4,98 +4,108 @@
         xmlns:jsp="http://java.sun.com/JSP/Page"
         version="2.0">
 
-<html xmlns:c="http://java.sun.com/jsp/jstl/core"
-      xmlns:spring="http://www.springframework.org/tags"
-      xmlns:tiles="http://tiles.apache.org/tags-tiles"
-      xmlns:jsp="http://java.sun.com/JSP/Page"
-      xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
+    <html xmlns:c="http://java.sun.com/jsp/jstl/core"
+          xmlns:spring="http://www.springframework.org/tags"
+          xmlns:tiles="http://tiles.apache.org/tags-tiles"
+          xmlns:jsp="http://java.sun.com/JSP/Page"
+          xmlns:fmt="http://java.sun.com/jsp/jstl/fmt">
 
-<jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat" />
-<jsp:directive.page contentType="text/html;charset=UTF-8" />
+    <jsp:output doctype-root-element="HTML" doctype-system="about:legacy-compat"/>
+    <jsp:directive.page contentType="text/html;charset=UTF-8"/>
 
 
-<head>
-    <meta charset="utf-8" />
-    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="description" content="" />
-    <meta name="author" content="" />
+    <head>
+        <meta charset="utf-8"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1"/>
+        <meta name="description" content=""/>
+        <meta name="author" content=""/>
 
-    <title><c:out value="${title}"/></title>
+        <title><c:out value="${title}"/></title>
 
-    <!-- Bootstrap Core CSS -->
-    <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet" />
-    <link href="${pageContext.request.contextPath}/css/datepicker.css" rel="stylesheet" />
-</head>
+        <!-- Bootstrap Core CSS -->
+        <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/css/datepicker.css" rel="stylesheet"/>
+    </head>
 
-<body>
-<div class="container" style="padding-top: 50px;">
-    <!-- Navigation -->
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation" xmlns:spring="http://java.sun.com/jsf/html">
-        <div class="container">
-            <!-- Brand and toggle get grouped for better mobile display -->
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><fmt:message key="general.bookingManager"/></a>
-            </div>
-            <tiles:importAttribute name="hotels" />
-            <!-- Collect the nav links, forms, and other content for toggling -->
-            <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <body>
+    <div class="container" style="padding-top: 50px;">
+        <!-- Navigation -->
+        <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation"
+             xmlns:spring="http://java.sun.com/jsf/html">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse"
+                            data-target="#bs-example-navbar-collapse-1">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><fmt:message
+                            key="general.bookingManager"/></a>
+                </div>
+                <tiles:importAttribute name="hotels"/>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
-                <ul class="nav navbar-nav">
-                    <li>
-                        <c:set var="hotels"><tiles:getAsString name="hotels"/></c:set>
-                        <a href="${pageContext.request.contextPath}/hotels"><c:out value="${hotels}"/>
+                    <ul class="nav navbar-nav">
+                        <li>
+                            <c:set var="hotels"><tiles:getAsString name="hotels"/></c:set>
+                            <a href="${pageContext.request.contextPath}/hotels"><c:out value="${hotels}"/>
                                 <spring:message code="${hotels}"/></a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/userList"><fmt:message key="user.list.title"/></a>
-                    </li>
-                </ul>
-                <ul class="nav navbar-nav navbar-right">
-                    <li>
-                        <a href="${pageContext.request.contextPath}/en">English</a>
-                    </li>
-                    <li>
-                        <a href="${pageContext.request.contextPath}/cs">Česky</a>
-                    </li>
-                </ul>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/userList"><fmt:message
+                                    key="user.list.title"/></a>
+                        </li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li>
+                            <a href="${pageContext.request.contextPath}/en">English</a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/cs">Česky</a>
+                        </li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
             </div>
-            <!-- /.navbar-collapse -->
+            <!-- /.container -->
+        </nav>
+        <!--jsp:include page="/WEB-INF/view/menu.jspx"/-->
+        <div class="container">
+            <div class="content">
+                <c:if test="${ok != null}">
+                    <div class="alert alert-success" role="alert">${ok}</div>
+                </c:if>
+                <c:if test="${error != null}">
+                    <div class="alert alert-danger" role="alert">${error}</div>
+                </c:if>
+                <tiles:insertAttribute name="main"/>
+            </div>
         </div>
-        <!-- /.container -->
-    </nav>
-    <!--jsp:include page="/WEB-INF/view/menu.jspx"/-->
-    <div class="container">
-        <div class="content">
-            <c:if test="${ok != null}">
-                <div class="alert alert-success" role="alert">${ok}</div>
-            </c:if>
-            <c:if test="${error != null}">
-                <div class="alert alert-danger" role="alert">${error}</div>
-            </c:if>
-            <tiles:insertAttribute name="main" />
-        </div>
+        <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
     </div>
-    <!--jsp:include page="/WEB-INF/view/footer.jspx"/-->
-</div>
 
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js"><jsp:text/></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js"><jsp:text/></script>
-<script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js"><jsp:text/></script>
-<script type="text/javascript">
-    $(document).ready(function() {
-        if ($('.datepicker')) {
-            $('.datepicker').datepicker();
-        }
-    })
-</script>
-</body>
-</html>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/jquery.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap.min.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript" src="${pageContext.request.contextPath}/js/bootstrap-datepicker.js">
+        <jsp:text/>
+    </script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            if ($('.datepicker')) {
+                $('.datepicker').datepicker();
+            }
+        })
+    </script>
+    </body>
+    </html>
 </jsp:root>

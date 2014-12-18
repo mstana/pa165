@@ -13,22 +13,21 @@ import java.util.logging.Logger;
 
 
 /**
- *
  * @author mstana
  */
 
 public class ServerURIHelper {
-    
+
     public static String loadURLForUser() {
         Properties properties = PropertiesInit();
         return properties.getProperty("urlUser");
     }
-    
+
     public static String loadURLForHotel() {
         Properties properties = PropertiesInit();
         return properties.getProperty("urlHotel");
     }
-    
+
     private static Properties PropertiesInit() {
         Properties properties = new Properties();
         try {

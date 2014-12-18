@@ -6,18 +6,18 @@
 package cz.muni.fi.pa165.bookingmanager.desktop.tablemodels;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 /**
- *
  * @author mstana
  */
 public class HotelTableModel extends AbstractTableModel {
-    
-     private static final long serialVersionUID = 1L;
-    
+
+    private static final long serialVersionUID = 1L;
+
     private List<HotelTO> hotels = new ArrayList<>();
 
     @Override
@@ -29,6 +29,7 @@ public class HotelTableModel extends AbstractTableModel {
     public int getColumnCount() {
         return 3;
     }
+
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {
@@ -42,6 +43,7 @@ public class HotelTableModel extends AbstractTableModel {
                 throw new IllegalArgumentException("columnIndex");
         }
     }
+
     @Override
     public Object getValueAt(int rowIndex, int columnIndex) {
         HotelTO hotel = hotels.get(rowIndex);
@@ -54,9 +56,9 @@ public class HotelTableModel extends AbstractTableModel {
                 return hotel.getAddress();
             default:
                 throw new IllegalArgumentException("columnIndex");
-        } 
+        }
     }
-    
+
     public void addHotel(HotelTO hotel) {
         if (hotel != null) {
             hotels.add(hotel);
@@ -64,7 +66,7 @@ public class HotelTableModel extends AbstractTableModel {
             fireTableRowsInserted(lastRow, lastRow);
         }
     }
-    
+
     public void updateHotel(HotelTO hotel, int row) {
         if (hotel != null) {
             hotels.set(row, hotel);
@@ -85,6 +87,6 @@ public class HotelTableModel extends AbstractTableModel {
             fireTableRowsDeleted(row, row);
         }
     }
-    
-    
+
+
 }

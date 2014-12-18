@@ -6,9 +6,6 @@ import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.dao.HotelDAO;
 import cz.muni.fi.pa165.bookingmanager.dao.ReservationDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
-import java.util.ArrayList;
-import java.util.List;
-
 import junit.framework.TestCase;
 import org.dozer.Mapper;
 import org.junit.After;
@@ -24,8 +21,10 @@ import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 import org.springframework.test.context.transaction.TransactionConfiguration;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author Adam Studenic
  */
 @Transactional
@@ -50,7 +49,7 @@ public class HotelServiceImplTest extends TestCase {
     @Before
     public void setUp() {
         MockitoAnnotations.initMocks(this);
-        hotelService  = new HotelServiceImpl(hotelDAO,mapper);
+        hotelService = new HotelServiceImpl(hotelDAO, mapper);
     }
 
     @After

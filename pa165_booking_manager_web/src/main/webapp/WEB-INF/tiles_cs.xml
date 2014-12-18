@@ -1,13 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE tiles-definitions PUBLIC
-        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN" "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
+        "-//Apache Software Foundation//DTD Tiles Configuration 2.1//EN"
+        "http://tiles.apache.org/dtds/tiles-config_2_1.dtd">
 
 <tiles-definitions>
 
     <definition name="*" template="/WEB-INF/view/layout.jspx">
-        <put-attribute name="main" value="/WEB-INF/jsp/{1}.jsp" />
-        <put-attribute name="title" value="PA165 Booking manager" />
-        <put-attribute name="hotels" value="Hotely" />
+        <put-attribute name="main" value="/WEB-INF/jsp/{1}.jsp"/>
+        <put-attribute name="title" value="PA165 Booking manager"/>
+        <put-attribute name="hotels" value="Hotely"/>
     </definition>
 
 

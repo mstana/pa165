@@ -11,13 +11,12 @@ import org.springframework.validation.ValidationUtils;
 import org.springframework.validation.Validator;
 
 /**
- *
  * @author mstana
  */
 public class HotelValidator implements Validator {
     @Override
     public boolean supports(Class aClass) {
-      return HotelTO.class.isAssignableFrom(aClass);
+        return HotelTO.class.isAssignableFrom(aClass);
     }
 
     @Override
@@ -25,7 +24,7 @@ public class HotelValidator implements Validator {
         HotelTO user = (HotelTO) o;
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "name", "hotel.validation.error.firstName");
         ValidationUtils.rejectIfEmptyOrWhitespace(errors, "address", "hotel.validation.error.lastName");
-      
-    
+
+
     }
 }

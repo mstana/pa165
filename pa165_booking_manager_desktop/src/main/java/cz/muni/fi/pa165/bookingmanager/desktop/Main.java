@@ -13,27 +13,85 @@ import cz.muni.fi.pa165.bookingmanager.desktop.rest.HotelRESTManager;
 import cz.muni.fi.pa165.bookingmanager.desktop.rest.UserRESTManager;
 import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.HotelTableModel;
 import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.UserTableModel;
-import java.util.List;
-import javax.swing.JOptionPane;
+
+import javax.swing.*;
 
 /**
- *
  * @author mstana
  */
 public class Main extends javax.swing.JFrame {
 
-    private UserTableModel userTableModel = new UserTableModel();
-    private HotelTableModel hotelTableModel = new HotelTableModel();
     private static UserRESTManager userRESTManager = new UserRESTManager();
     private static HotelRESTManager hotelRESTManager = new HotelRESTManager();
-
-
+    private UserTableModel userTableModel = new UserTableModel();
+    private HotelTableModel hotelTableModel = new HotelTableModel();
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JMenuItem MenuItemExit;
+    private javax.swing.JTable hotelTable;
+    private javax.swing.JButton jButtonCreateHotel;
+    private javax.swing.JButton jButtonCreateUser;
+    private javax.swing.JButton jButtonDeleteHotel;
+    private javax.swing.JButton jButtonDeleteUser;
+    private javax.swing.JButton jButtonDeleteUser1;
+    private javax.swing.JButton jButtonUpdateHotel;
+    private javax.swing.JButton jButtonUpdateUser;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JMenu jMenu1;
+    private javax.swing.JMenu jMenu2;
+    private javax.swing.JMenu jMenu3;
+    private javax.swing.JMenu jMenu4;
+    private javax.swing.JMenuBar jMenuBar1;
+    private javax.swing.JMenuBar jMenuBar2;
+    private javax.swing.JMenuItem jMenuItemExit;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JTabbedPane jTabbedPane1;
+    private javax.swing.JTable userTable;
     /**
      * Creates new form Main
      */
     public Main() {
         initComponents();
         setLocationRelativeTo(null);
+    }
+
+    /**
+     * @param args the command line arguments
+     */
+    public static void main(String args[]) {
+        /* Set the Nimbus look and feel */
+        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
+        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
+         */
+        try {
+            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
+                if ("Nimbus".equals(info.getName())) {
+                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
+                    break;
+                }
+            }
+        } catch (ClassNotFoundException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (InstantiationException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (IllegalAccessException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+        }
+        //</editor-fold>
+
+        /* Create and display the form */
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                new Main().setVisible(true);
+            }
+        });
     }
 
     private void initTableModels() {
@@ -55,12 +113,13 @@ public class Main extends javax.swing.JFrame {
             }
         }
     }
+
     private UserTO getSelectedUser(int row) {
         try {
             return userRESTManager.findUser((Long) userTable.getValueAt(row, 0));
         } catch (UniformInterfaceException uie) {
             int status = uie.getResponse().getStatus();
-            switch(status) {
+            switch (status) {
                 case 500:
                     JOptionPane.showMessageDialog(this, "Error on server side. Contact administrator for more information", "Error while getting client list.", JOptionPane.ERROR_MESSAGE);
                     break;
@@ -70,6 +129,7 @@ public class Main extends javax.swing.JFrame {
         }
         return null;
     }
+
     public void refreshHotelTable() {
         try {
 
@@ -178,29 +238,29 @@ public class Main extends javax.swing.JFrame {
         jLabel1.setText("List Of Users");
 
         userTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "ID", "First Name", "Last Name", "Email", "Admin"
-            }
+                new Object[][]{
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null},
+                        {null, null, null, null, null}
+                },
+                new String[]{
+                        "ID", "First Name", "Last Name", "Email", "Admin"
+                }
         ) {
-            Class[] types = new Class [] {
-                java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
+            Class[] types = new Class[]{
+                    java.lang.Integer.class, java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.Boolean.class
             };
-            boolean[] canEdit = new boolean [] {
-                true, true, true, true, false
+            boolean[] canEdit = new boolean[]{
+                    true, true, true, true, false
             };
 
             public Class getColumnClass(int columnIndex) {
-                return types [columnIndex];
+                return types[columnIndex];
             }
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
+                return canEdit[columnIndex];
             }
         });
         jScrollPane2.setViewportView(userTable);
@@ -219,39 +279,39 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(110, 110, 110)
-                        .addComponent(jButtonCreateUser)
-                        .addGap(69, 69, 69)
-                        .addComponent(jButtonUpdateUser)
-                        .addGap(75, 75, 75)
-                        .addComponent(jButtonDeleteUser1)
-                        .addGap(283, 283, 283)
-                        .addComponent(jButtonDeleteUser))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGap(37, 37, 37)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
-                            .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(110, 110, 110)
+                                                .addComponent(jButtonCreateUser)
+                                                .addGap(69, 69, 69)
+                                                .addComponent(jButtonUpdateUser)
+                                                .addGap(75, 75, 75)
+                                                .addComponent(jButtonDeleteUser1)
+                                                .addGap(283, 283, 283)
+                                                .addComponent(jButtonDeleteUser))
+                                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                                .addGap(37, 37, 37)
+                                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                                        .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 536, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                        .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 98, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(14, 14, 14)
-                .addComponent(jLabel1)
-                .addGap(18, 18, 18)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCreateUser)
-                    .addComponent(jButtonUpdateUser)
-                    .addComponent(jButtonDeleteUser)
-                    .addComponent(jButtonDeleteUser1))
-                .addContainerGap())
+                jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGap(14, 14, 14)
+                                .addComponent(jLabel1)
+                                .addGap(18, 18, 18)
+                                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 164, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 152, Short.MAX_VALUE)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButtonCreateUser)
+                                        .addComponent(jButtonUpdateUser)
+                                        .addComponent(jButtonDeleteUser)
+                                        .addComponent(jButtonDeleteUser1))
+                                .addContainerGap())
         );
 
         jTabbedPane1.addTab("Users", jPanel1);
@@ -259,15 +319,15 @@ public class Main extends javax.swing.JFrame {
         jLabel2.setText("List Of Hotels");
 
         hotelTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "ID", "Name", "Address"
-            }
+                new Object[][]{
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null},
+                        {null, null, null}
+                },
+                new String[]{
+                        "ID", "Name", "Address"
+                }
         ));
         jScrollPane3.setViewportView(hotelTable);
 
@@ -295,37 +355,37 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(41, 41, 41)
-                        .addComponent(jLabel2))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(80, 80, 80)
-                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addGap(104, 104, 104)
-                        .addComponent(jButtonCreateHotel)
-                        .addGap(56, 56, 56)
-                        .addComponent(jButtonUpdateHotel)
-                        .addGap(77, 77, 77)
-                        .addComponent(jButtonDeleteHotel)))
-                .addContainerGap(90, Short.MAX_VALUE))
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(41, 41, 41)
+                                                .addComponent(jLabel2))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(80, 80, 80)
+                                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                                .addGap(104, 104, 104)
+                                                .addComponent(jButtonCreateHotel)
+                                                .addGap(56, 56, 56)
+                                                .addComponent(jButtonUpdateHotel)
+                                                .addGap(77, 77, 77)
+                                                .addComponent(jButtonDeleteHotel)))
+                                .addContainerGap(90, Short.MAX_VALUE))
         );
         jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
-                .addGap(20, 20, 20)
-                .addComponent(jLabel2)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(46, 46, 46)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButtonCreateHotel)
-                    .addComponent(jButtonUpdateHotel)
-                    .addComponent(jButtonDeleteHotel))
-                .addContainerGap(63, Short.MAX_VALUE))
+                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGap(20, 20, 20)
+                                .addComponent(jLabel2)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 213, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addGap(46, 46, 46)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                                        .addComponent(jButtonCreateHotel)
+                                        .addComponent(jButtonUpdateHotel)
+                                        .addComponent(jButtonDeleteHotel))
+                                .addContainerGap(63, Short.MAX_VALUE))
         );
 
         jTabbedPane1.addTab("Hotels", jPanel2);
@@ -359,14 +419,14 @@ public class Main extends javax.swing.JFrame {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addComponent(jTabbedPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 628, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jTabbedPane1)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jTabbedPane1)
         );
 
         pack();
@@ -399,12 +459,12 @@ public class Main extends javax.swing.JFrame {
     private void jButtonDeleteHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteHotelActionPerformed
         if (hotelTable.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Please select a hotel you to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
+        } else {
             int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this hotel?", "Confirm deletion", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 try {
                     int status = hotelRESTManager.deleteHotel(getSelectedHotel(hotelTable.getSelectedRow())).getStatus();
-                    switch(status) {
+                    switch (status) {
                         case 404:
                             JOptionPane.showMessageDialog(this, "Selected hotel cannot be deleted. The hotel is not present in the databse anymore - The record might have been deleted by someone else.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
                             break;
@@ -416,7 +476,7 @@ public class Main extends javax.swing.JFrame {
                             break;
                     }
                     refreshHotelTable();
-                } catch (ClientHandlerException che){
+                } catch (ClientHandlerException che) {
                     JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
                     System.exit(1);
                 } catch (IllegalArgumentException iae) {
@@ -431,7 +491,7 @@ public class Main extends javax.swing.JFrame {
     }//GEN-LAST:event_jTabbedPane1MouseClicked
 
     private void jTabbedPane1StateChanged(javax.swing.event.ChangeEvent evt) {//GEN-FIRST:event_jTabbedPane1StateChanged
-            switch(jTabbedPane1.getSelectedIndex()) {
+        switch (jTabbedPane1.getSelectedIndex()) {
             case 0:
                 if (!userTable.getModel().equals(userTableModel)) {
                     initTableModels();
@@ -439,7 +499,7 @@ public class Main extends javax.swing.JFrame {
                 refreshUserTable();
                 break;
             case 1:
-                 if (!hotelTable.getModel().equals(hotelTableModel)) {
+                if (!hotelTable.getModel().equals(hotelTableModel)) {
                     initTableModels();
                 }
                 refreshHotelTable();
@@ -454,21 +514,21 @@ public class Main extends javax.swing.JFrame {
     private void jButtonDeleteUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUser1ActionPerformed
         if (userTable.getSelectedRowCount() == 0) {
             JOptionPane.showMessageDialog(this, "Select a user to delete", "Warning", JOptionPane.WARNING_MESSAGE);
-        }else{
+        } else {
             int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm", JOptionPane.YES_NO_OPTION);
             if (reply == JOptionPane.YES_OPTION) {
                 try {
                     int status = userRESTManager.deleteUser(getSelectedUser(userTable.getSelectedRow())).getStatus();
-                    switch(status) {
+                    switch (status) {
                         case 404:
-                        JOptionPane.showMessageDialog(this, "User cannot be deleted. ", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
-                        break;
+                            JOptionPane.showMessageDialog(this, "User cannot be deleted. ", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
                         case 500:
-                        JOptionPane.showMessageDialog(this, "There was a server error", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
-                        break;
+                            JOptionPane.showMessageDialog(this, "There was a server error", "Error when deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
                     }
                     refreshUserTable();
-                } catch (ClientHandlerException che){
+                } catch (ClientHandlerException che) {
                     JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is now closing", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
                     System.exit(1);
                 } catch (IllegalArgumentException iae) {
@@ -477,67 +537,5 @@ public class Main extends javax.swing.JFrame {
             }
         }
     }//GEN-LAST:event_jButtonDeleteUser1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Main().setVisible(true);
-            }
-        });
-    }
-
-    // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JMenuItem MenuItemExit;
-    private javax.swing.JTable hotelTable;
-    private javax.swing.JButton jButtonCreateHotel;
-    private javax.swing.JButton jButtonCreateUser;
-    private javax.swing.JButton jButtonDeleteHotel;
-    private javax.swing.JButton jButtonDeleteUser;
-    private javax.swing.JButton jButtonDeleteUser1;
-    private javax.swing.JButton jButtonUpdateHotel;
-    private javax.swing.JButton jButtonUpdateUser;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JMenu jMenu1;
-    private javax.swing.JMenu jMenu2;
-    private javax.swing.JMenu jMenu3;
-    private javax.swing.JMenu jMenu4;
-    private javax.swing.JMenuBar jMenuBar1;
-    private javax.swing.JMenuBar jMenuBar2;
-    private javax.swing.JMenuItem jMenuItemExit;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable userTable;
     // End of variables declaration//GEN-END:variables
 }

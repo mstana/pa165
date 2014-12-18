@@ -1,8 +1,8 @@
 package cz.muni.fi.pa165.bookingmanager;
 
 
-import org.aspectj.lang.annotation.Aspect;
 import org.aspectj.lang.annotation.AfterThrowing;
+import org.aspectj.lang.annotation.Aspect;
 import org.springframework.stereotype.Service;
 
 /**
@@ -17,7 +17,6 @@ public class ExceptionInterceptor {
         if (ex instanceof RuntimeException) {
             throw new BookingDataAccessException("Runtime exception thrown on data layer: ", ex);
         } else {
-            //TODO: handle somehow
             throw new BookingDataAccessException("Exception on data layer:", ex);
         }
     }

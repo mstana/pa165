@@ -6,15 +6,15 @@
 package cz.muni.fi.pa165.bookingmanager.desktop.tablemodels;
 
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
+
+import javax.swing.table.AbstractTableModel;
 import java.util.ArrayList;
 import java.util.List;
-import javax.swing.table.AbstractTableModel;
 
 /**
- *
  * @author mstana
  */
-public class UserTableModel extends AbstractTableModel{
+public class UserTableModel extends AbstractTableModel {
     private static final long serialVersionUID = 1L;
 
     private List<UserTO> users = new ArrayList<>();
@@ -28,6 +28,7 @@ public class UserTableModel extends AbstractTableModel{
     public int getColumnCount() {
         return 5;
     }
+
     @Override
     public String getColumnName(int columnIndex) {
         switch (columnIndex) {

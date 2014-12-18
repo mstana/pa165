@@ -6,15 +6,15 @@ import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.dao.RoomDAO;
 import cz.muni.fi.pa165.bookingmanager.entities.Hotel;
 import cz.muni.fi.pa165.bookingmanager.entities.Room;
-import java.util.ArrayList;
-import java.util.List;
 import org.dozer.Mapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
- *
  * @author David Kadlec
  */
 @Service
@@ -42,8 +42,8 @@ public class RoomServiceImpl implements RoomService {
         }
         if (room.getId() != null) {
             throw new IllegalArgumentException("The room cannot have an id defined (current id is: " + room.getId() + ").");
-        } 
-        
+        }
+
         Room roomDO = mapper.map(room, Room.class);
         roomDAO.create(roomDO);
         room.setId(roomDO.getId());
@@ -51,13 +51,13 @@ public class RoomServiceImpl implements RoomService {
 
     @Override
     public void update(RoomTO room) {
-         if (room == null) {
+        if (room == null) {
             throw new IllegalArgumentException("Room cannot be null");
         }
         if (room.getId() == null || roomDAO.find(room.getId()) == null) {
             throw new IllegalArgumentException("Room not exist");
         }
-        
+
         Room roomDO = mapper.map(room, Room.class);
         roomDAO.update(roomDO);
     }
@@ -67,7 +67,7 @@ public class RoomServiceImpl implements RoomService {
         if (room == null) {
             throw new IllegalArgumentException("Room cannot be null");
         }
-        
+
         Room roomDO = mapper.map(room, Room.class);
         roomDAO.delete(roomDO);
     }
@@ -96,14 +96,14 @@ public class RoomServiceImpl implements RoomService {
 
         return roomTransferObjects;
     }
-       
+
     @Override
     public List<RoomTO> findAll(HotelTO hotel) {
-        if (hotel == null){
+        if (hotel == null) {
             throw new IllegalArgumentException("Hotel cannot be null");
         }
-        
-        Hotel hotelDO = mapper.map(hotel, Hotel.class);      
+
+        Hotel hotelDO = mapper.map(hotel, Hotel.class);
         List<Room> roomsFromDB = roomDAO.findAll(hotelDO);
         List<RoomTO> roomTransferObjects = new ArrayList<>();
         for (Room roomDO : roomsFromDB) {

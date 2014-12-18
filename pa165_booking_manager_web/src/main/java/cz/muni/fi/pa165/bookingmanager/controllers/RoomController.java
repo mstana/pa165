@@ -34,14 +34,13 @@ public class RoomController {
     @Autowired
     MessageSource messageSource;
 
-    @RequestMapping(method= RequestMethod.GET, value="/rooms/{hotelId}")
-    public ModelAndView getAllRoomsOfSpecifiedHotel(@PathVariable("hotelId") long hotelId) throws ServletException, IOException
-    {
+    @RequestMapping(method = RequestMethod.GET, value = "/rooms/{hotelId}")
+    public ModelAndView getAllRoomsOfSpecifiedHotel(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
 
         if (hotel == null) {
-            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+            modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
@@ -54,21 +53,19 @@ public class RoomController {
     }
 
 
-    @RequestMapping(method= RequestMethod.GET, value="/room/{hotelId}/{roomId}")
-    public ModelAndView editSpecifiedRoomForm(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
-    {
+    @RequestMapping(method = RequestMethod.GET, value = "/room/{hotelId}/{roomId}")
+    public ModelAndView editSpecifiedRoomForm(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
 
-        if (hotel == null)
-        {
-            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+        if (hotel == null) {
+            modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
         RoomTO room = roomService.find(roomId);
         if (room == null) {
-            modelAndView.addObject("error",  messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
+            modelAndView.addObject("error", messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
@@ -80,28 +77,24 @@ public class RoomController {
     }
 
 
-    @RequestMapping(method= RequestMethod.POST, value="/room/{hotelId}/{roomId}")
-    public ModelAndView editSpecifiedRoomSubmit(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, @Valid RoomTO room, BindingResult result) throws ServletException, IOException
-    {
+    @RequestMapping(method = RequestMethod.POST, value = "/room/{hotelId}/{roomId}")
+    public ModelAndView editSpecifiedRoomSubmit(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, @Valid RoomTO room, BindingResult result) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
 
-        if (hotel == null)
-        {
-            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+        if (hotel == null) {
+            modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
         RoomTO roomFromDB = roomService.find(roomId);
-        if (roomFromDB == null)
-        {
-            modelAndView.addObject("error",  messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
+        if (roomFromDB == null) {
+            modelAndView.addObject("error", messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
         modelAndView.setViewName("roomEdit");
-        try
-        {
+        try {
             roomFromDB.setPrice(room.getPrice());
             roomFromDB.setNumber(room.getNumber());
             roomFromDB.setBedsCount(room.getBedsCount());
@@ -110,9 +103,7 @@ public class RoomController {
 
             modelAndView.addObject("room", roomFromDB);
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             modelAndView.addObject("room", room);
             modelAndView.addObject("error", messageSource.getMessage("general.error", null, LocaleContextHolder.getLocale()));
         }
@@ -121,15 +112,13 @@ public class RoomController {
     }
 
 
-    @RequestMapping(method= RequestMethod.GET, value="/newroom/{hotelId}")
-    public ModelAndView createRoomForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException
-    {
+    @RequestMapping(method = RequestMethod.GET, value = "/newroom/{hotelId}")
+    public ModelAndView createRoomForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         ModelAndView modelAndView = new ModelAndView("index");
 
-        if (hotel == null)
-        {
-            modelAndView.addObject("error",  messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
+        if (hotel == null) {
+            modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
@@ -141,12 +130,10 @@ public class RoomController {
     }
 
 
-    @RequestMapping(method= RequestMethod.POST, value="/newroom/{hotelId}")
-    public String createRoomSubmit(@PathVariable("hotelId") long hotelId,  @Valid RoomTO room, BindingResult result) throws ServletException, IOException
-    {
+    @RequestMapping(method = RequestMethod.POST, value = "/newroom/{hotelId}")
+    public String createRoomSubmit(@PathVariable("hotelId") long hotelId, @Valid RoomTO room, BindingResult result) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
-        if (hotel == null)
-        {
+        if (hotel == null) {
             return "redirect:/";
         }
 
@@ -158,12 +145,10 @@ public class RoomController {
         return "redirect:/room/" + hotelId + "/" + room.getId();
     }
 
-    @RequestMapping(method= RequestMethod.GET, value="/deleteroom/{hotelId}/{roomId}")
-    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException
-    {
+    @RequestMapping(method = RequestMethod.GET, value = "/deleteroom/{hotelId}/{roomId}")
+    public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
-        if (hotel == null)
-        {
+        if (hotel == null) {
             return "redirect:/";
         }
 
@@ -172,12 +157,9 @@ public class RoomController {
             return "redirect:/";
         }
 
-        try
-        {
+        try {
             roomService.delete(room);
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             return "redirect:/";
         }
 
