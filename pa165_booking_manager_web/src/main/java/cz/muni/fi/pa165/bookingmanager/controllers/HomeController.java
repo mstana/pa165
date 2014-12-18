@@ -67,15 +67,11 @@ public class HomeController {
             localeResolver.setLocale(request, response, StringUtils.parseLocaleString("en"));
         }
 
-        setDefaultValues();
-
         return "index";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "home")
     public String Home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-
-        setDefaultValues();
 
         return "index";
     }
