@@ -15,11 +15,11 @@ Project for pa165.
 * __pa165_booking_manager_web__ - Web and REST server application
 * __pa165_booking_manager_desktop__ - Desktop application
 
-## Installation
-Use maven 3.x, for running desktop and web application see other README.MD
+## Installation and run
+Use maven 3.x. For running desktop and web application see README.MD in appropriate module.
 
 ```
-mvn clean package install
+mvn clean install
 ```
 
 ## Repository
