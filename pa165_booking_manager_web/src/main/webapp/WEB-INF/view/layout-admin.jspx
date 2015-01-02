@@ -44,16 +44,13 @@
                     <a class="navbar-brand" href="${pageContext.request.contextPath}/home"><fmt:message
                             key="general.bookingManagerAdmin"/></a>
                 </div>
-                <tiles:importAttribute name="hotels"/>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 
                     <ul class="nav navbar-nav">
                         <li>
-                            <c:set var="hotels"><tiles:getAsString name="hotels"/></c:set>
-                            <a href="${pageContext.request.contextPath}/hotels"><c:out value="${hotels}"/>
-                                <spring:message code="${hotels}"/></a>
-                        </li>
-                        <li>
+                            <a href="${pageContext.request.contextPath}/hotels"><fmt:message
+                                    key="menu.hotels"/></a>
+                        </li>                        <li>
                             <a href="${pageContext.request.contextPath}/userList"><fmt:message
                                     key="user.list.title"/></a>
                         </li>

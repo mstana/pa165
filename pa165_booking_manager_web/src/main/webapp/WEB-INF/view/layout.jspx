@@ -45,16 +45,19 @@
                             key="general.bookingManager"/></a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/hotels"><fmt:message
-                                    key="menu.hotels"/></a>
-                        </li>
-                        <li>
-                            <a href="${pageContext.request.contextPath}/userList"><fmt:message
-                                    key="user.list.title"/></a>
-                        </li>
+                        <c:choose>
+                            <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/hotels"><fmt:message
+                                            key="menu.hotels"/></a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/userList"><fmt:message
+                                            key="user.list.title"/></a>
+                                </li>
+                            </c:when>
+                        </c:choose>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -64,18 +67,28 @@
                             <a href="${pageContext.request.contextPath}/cs">Česky</a>
                         </li>
                         <li>
-                            <c:if test="${pageContext.request.remoteUser != null}">
-                                <fmt:message key="general.logout" var="generallogout" />
-                                <form class="form-inline" action="/logout" method="post">
-                                    <input type="submit" value='${generallogout}' class="btn-link" />
-                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                </form>
-                            </c:if>
+                            <c:choose>
+                                <c:when test="${pageContext.request.remoteUser != null}">
+                                    <fmt:message key="general.logout" var="generallogout" />
+                                    <a>
+                                        <form class="form-inline" action="${pageContext.request.contextPath}/logout" method="post">
+                                            <input type="submit" value='${generallogout}' class="btn-link" />
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        </form>
+                                    </a>
+                                </c:when>
+                                <c:otherwise>
+                                    <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
+                                </c:otherwise>
+                            </c:choose>
                         </li>
                     </ul>
                 </div>
             </div>
         </nav>
+        <c:if test="${pageContext.request.remoteUser != null }" >
+                <span>user: ${pageContext.request.remoteUser}</span>
+        </c:if>
         <div class="container">
             <div class="content">
                 <c:if test="${ok != null}">

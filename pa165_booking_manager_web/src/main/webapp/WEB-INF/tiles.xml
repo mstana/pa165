@@ -5,7 +5,11 @@
 
 <tiles-definitions>
 
-    <definition name="*" template="/WEB-INF/view/layout.jspx">
+    <definition name="admin/*" template="/WEB-INF/view/layout-admin.jspx">
+        <put-attribute name="main" value="/WEB-INF/jsp/{1}.jsp"/>
+    </definition>
+
+    <definition name="*" extends="admin/*"  template="/WEB-INF/view/layout.jspx">
         <put-attribute name="main" value="/WEB-INF/jsp/{1}.jsp"/>
     </definition>
 

@@ -15,6 +15,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.LocaleResolver;
+import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.support.RequestContextUtils;
 
 import javax.servlet.ServletException;
@@ -73,9 +74,15 @@ public class HomeController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "home")
-    public String Home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public String home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
         return "index";
+    }
+
+    @RequestMapping(method = RequestMethod.GET, value = "login")
+    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+
+        return new ModelAndView("login");
     }
 
     public void setDefaultValues() {
