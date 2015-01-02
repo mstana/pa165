@@ -19,7 +19,7 @@ public class UserTO {
 
     private String email;
 
-    private boolean admin;
+    private Boolean admin;
 
 
     @JsonIgnore
@@ -36,11 +36,11 @@ public class UserTO {
         this.id = id;
     }
 
-    public boolean isAdmin() {
+    public Boolean getAdmin() {
         return admin;
     }
 
-    public void setAdmin(boolean admin) {
+    public void setAdmin(Boolean admin) {
         this.admin = admin;
     }
 
