@@ -47,7 +47,7 @@ public class UserDialog extends javax.swing.JFrame {
         jTextFieldFirstName.setText(user.getFirstName());
         jTextFieldLastName.setText(user.getLastName());
         jTextFieldEmail.setText(user.getEmail());
-        jCheckBoxIsAdmin.setSelected(user.isAdmin());
+        jCheckBoxIsAdmin.setSelected(user.getAdmin());
 
         jButtonCreate.setText("Update");
         jLabelMainLabel.setText("Update User");

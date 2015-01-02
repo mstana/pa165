@@ -78,7 +78,7 @@ public class UserTableModel extends AbstractTableModel {
             case 3:
                 return user.getEmail();
             case 4:
-                return user.isAdmin();
+                return user.getAdmin();
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
