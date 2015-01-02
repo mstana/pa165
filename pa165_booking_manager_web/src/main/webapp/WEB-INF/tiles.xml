@@ -7,9 +7,6 @@
 
     <definition name="*" template="/WEB-INF/view/layout.jspx">
         <put-attribute name="main" value="/WEB-INF/jsp/{1}.jsp"/>
-        <put-attribute name="title" value="PA165 Booking manager"/>
-        <put-attribute name="hotels" value="Hotels"/>
     </definition>
-
 
 </tiles-definitions>
