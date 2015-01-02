@@ -4507,7 +4507,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     display: block;
 }
 
-.nav > li > a {
+.nav > li > a, form {
     position: relative;
     display: block;
     padding: 10px 15px;
@@ -4924,7 +4924,7 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     margin: 7.5px -15px;
 }
 
-.navbar-nav > li > a {
+.navbar-nav > li > a, form {
     padding-top: 10px;
     padding-bottom: 10px;
     line-height: 20px;

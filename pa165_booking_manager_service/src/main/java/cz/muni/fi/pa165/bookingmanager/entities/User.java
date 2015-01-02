@@ -32,6 +32,28 @@ public class User {
     @Column
     private Boolean admin;
 
+    @Column
+    private String password;
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    @Column
+    private String username;
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
     @OneToMany(mappedBy = "user", cascade = {CascadeType.MERGE, CascadeType.REFRESH}, orphanRemoval = true)
     private List<Reservation> reservations = new ArrayList<>();
 

@@ -63,6 +63,15 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/cs">Česky</a>
                         </li>
+                        <li>
+                            <c:if test="${pageContext.request.remoteUser != null}">
+                                <fmt:message key="general.logout" var="generallogout" />
+                                <form class="form-inline" action="/logout" method="post">
+                                    <input type="submit" value='${generallogout}' class="btn-link" />
+                                    <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                </form>
+                            </c:if>
+                        </li>
                     </ul>
                 </div>
             </div>

@@ -3,15 +3,19 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns="http://www.springframework.org/schema/beans"
+       xmlns:sec="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
+       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
        ">
 
+    <sec:global-method-security pre-post-annotations="enabled" />
+
     <context:component-scan
-            base-package="cz.muni.fi.pa165.bookingmanager.controllers, cz.muni.fi.pa165.bookingmanager.rest"/>
+            base-package="cz.muni.fi.pa165.bookingmanager.controllers, cz.muni.fi.pa165.bookingmanager.rest, cz.muni.fi.pa165.bookingmanager.config"/>
     <context:annotation-config/>
     <mvc:annotation-driven/>
     <!-- Web site resources -->

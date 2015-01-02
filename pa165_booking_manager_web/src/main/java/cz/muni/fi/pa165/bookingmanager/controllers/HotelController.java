@@ -6,6 +6,8 @@ import cz.muni.fi.pa165.bookingmanager.validators.HotelValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -42,6 +44,7 @@ public class HotelController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET, value = "/hotel/{hotelId}")
     public ModelAndView editHotelForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
@@ -55,6 +58,7 @@ public class HotelController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST, value = "/hotel/{hotelId}")
     public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result) throws ServletException, IOException {
 
@@ -84,6 +88,7 @@ public class HotelController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET, value = "/newhotel")
     public ModelAndView createHotelForm() throws ServletException, IOException {
 
@@ -93,6 +98,7 @@ public class HotelController {
         return modelAndView;
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.POST, value = "/newhotel")
     public ModelAndView createHotelSubmit(@Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
 
@@ -109,6 +115,7 @@ public class HotelController {
         }
     }
 
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET, value = "/deletehotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") long hotelId, HttpServletRequest req) throws ServletException, IOException {
 
@@ -125,5 +132,4 @@ public class HotelController {
 
         return "redirect:/hotels";
     }
-
 }
