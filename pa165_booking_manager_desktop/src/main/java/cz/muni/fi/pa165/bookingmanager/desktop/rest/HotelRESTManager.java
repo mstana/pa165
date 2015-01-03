@@ -7,6 +7,7 @@ import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.api.client.config.ClientConfig;
 import com.sun.jersey.api.client.config.DefaultClientConfig;
+import com.sun.jersey.api.client.filter.HTTPBasicAuthFilter;
 import com.sun.jersey.api.json.JSONConfiguration;
 import cz.muni.fi.pa165.bookingmanager.api.dto.HotelTO;
 
@@ -33,6 +34,7 @@ public class HotelRESTManager {
         url = ServerURIHelper.loadURLForHotel();
         client = Client.create(clientConfig);
         webResource = client.resource(url);
+        webResource.addFilter(new HTTPBasicAuthFilter("rest", "rest"));
     }
 
     public HotelTO findHotel(Long id) {
