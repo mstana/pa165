@@ -70,12 +70,10 @@
                             <c:choose>
                                 <c:when test="${pageContext.request.remoteUser != null}">
                                     <fmt:message key="general.logout" var="generallogout" />
-                                    <a>
-                                        <form class="form-inline" action="${pageContext.request.contextPath}/logout" method="post">
-                                            <input type="submit" value='${generallogout}' class="btn-link" />
-                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                        </form>
-                                    </a>
+                                    <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
+                                        <input type="submit" value='${generallogout}' class="btn-link" />
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    </form>
                                 </c:when>
                                 <c:otherwise>
                                     <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>

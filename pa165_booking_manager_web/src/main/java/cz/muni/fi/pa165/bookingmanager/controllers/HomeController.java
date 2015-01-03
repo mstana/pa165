@@ -79,10 +79,11 @@ public class HomeController {
         return "index";
     }
 
-    @RequestMapping(method = RequestMethod.GET, value = "login")
-    public ModelAndView login(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        return new ModelAndView("login");
+    @RequestMapping( value = "login", method = RequestMethod.GET )
+    public String login()
+    {
+        return "login";
     }
 
     public void setDefaultValues() {
@@ -137,7 +138,9 @@ public class HomeController {
         hotelService.create(hotelTO3);
 
         for (UserTO user : userService.findAll()) {
-            userService.delete(user);
+            if (user.getUsername().equals("ms") || user.getUsername().equals("dk") || user.getUsername().equals("op") || user.getUsername().equals("as")) {
+                userService.delete(user);
+            }
         }
 
         UserTO u1 = new UserTO();

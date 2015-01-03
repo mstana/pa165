@@ -3,16 +3,14 @@
        xmlns:context="http://www.springframework.org/schema/context"
        xmlns:mvc="http://www.springframework.org/schema/mvc"
        xmlns="http://www.springframework.org/schema/beans"
-       xmlns:sec="http://www.springframework.org/schema/security"
        xsi:schemaLocation="http://www.springframework.org/schema/beans
+
        http://www.springframework.org/schema/beans/spring-beans-2.5.xsd
        http://www.springframework.org/schema/context
        http://www.springframework.org/schema/context/spring-context.xsd
-       http://www.springframework.org/schema/security http://www.springframework.org/schema/security/spring-security-3.2.xsd
        http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.2.xsd
-       ">
 
-    <sec:global-method-security pre-post-annotations="enabled" />
+       ">
 
     <context:component-scan
             base-package="cz.muni.fi.pa165.bookingmanager.controllers, cz.muni.fi.pa165.bookingmanager.rest, cz.muni.fi.pa165.bookingmanager.config"/>
@@ -24,6 +22,13 @@
     <mvc:resources mapping="/img/**" location="/img/"/>
     <mvc:resources mapping="/js/**" location="/js/"/>
 
+
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="org.apache.derby.jdbc.ClientDriver"/>
+        <property name="url" value="jdbc:derby://localhost:1527/pa165"/>
+        <property name="username" value="pa165"/>
+        <property name="password" value="pa165"/>
+    </bean>
 
     <bean id="tilesViewResolver" class="org.springframework.web.servlet.view.tiles3.TilesViewResolver"/>
     <bean id="tilesConfigurer" class="org.springframework.web.servlet.view.tiles3.TilesConfigurer">
@@ -57,4 +62,8 @@
             <property name="paramName" value="lang"/>
         </bean>
     </mvc:interceptors>
+
+    <!--
+
+    -->
 </beans>

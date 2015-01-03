@@ -4,7 +4,7 @@
 <%@ taglib prefix="s" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
-<c:url value="/login" var="loginUrl"/>
+<c:url value="/j_spring_security_check" var="loginUrl"/>
 <form action="${loginUrl}" method="post">
   <c:if test="${param.error != null}">
     <p>
@@ -27,5 +27,5 @@
   <input type="hidden"
          name="${_csrf.parameterName}"
          value="${_csrf.token}"/>
-  <button type="submit" class="btn"><fmt:message key="login.loginButton"/></button>
+  <button type="submit" class="btn btn-primary"><fmt:message key="login.loginButton"/></button>
 </form>
