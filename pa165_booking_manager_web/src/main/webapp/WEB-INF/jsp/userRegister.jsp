@@ -14,14 +14,14 @@
 <form:form action="#" method="POST" role="form" accept-charset="UTF-8" commandName="userTo">
     <div class="form-group">
         <label for="usernameInput"><fmt:message key="user.username"/></label>
-        <input type="text" name="userName" id="usernameInput" value="" class="form-control"
+        <input type="text" name="username" id="usernameInput" value="" class="form-control"
                placeholder="<fmt:message key="user.username.enter"/>"/>
         <font color="red"><form:errors path="username" cssClass="error"/></font>
     </div>
 
     <div class="form-group">
         <label for="passwordInput"><fmt:message key="user.password"/></label>
-        <input type="password" name="userName" id="passwordInput" value="" class="form-control"
+        <input type="password" name="password" id="passwordInput" value="" class="form-control"
                placeholder="<fmt:message key="user.password.enter"/>"/>
         <font color="red"><form:errors path="password" cssClass="error"/></font>
     </div>

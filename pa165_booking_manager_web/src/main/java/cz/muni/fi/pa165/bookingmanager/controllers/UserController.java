@@ -45,7 +45,6 @@ public class UserController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET, value = "/register")
     public ModelAndView registerUserForm() throws ServletException, IOException {
 
@@ -53,6 +52,29 @@ public class UserController {
         modelAndView.addObject("user", new UserTO());
 
         return modelAndView;
+    }
+
+    @RequestMapping(method = RequestMethod.POST, value = "/register")
+    public ModelAndView registerUserSubmit(@Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
+
+        ModelAndView modelAndView = new ModelAndView("login");
+        UserValidator userValidator = new UserValidator();
+        userValidator.validate(user, result);
+
+        if (result.hasErrors()) {
+            modelAndView.addObject("error", messageSource.getMessage("user.error.create", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+
+        } else {
+            if (req.getParameter("isAdmin") != null && req.getParameter("isAdmin").equals("True")) {
+                user.setAdmin(Boolean.TRUE);
+            } else {
+                user.setAdmin(Boolean.FALSE);
+            }
+            modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
+            userService.create(user);
+            return modelAndView;
+        }
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")

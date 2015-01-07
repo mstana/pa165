@@ -67,21 +67,25 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/cs">Česky</a>
                         </li>
-                        <li>
                             <c:choose>
                                 <c:when test="${pageContext.request.remoteUser != null}">
                                     <fmt:message key="general.logout" var="generallogout" />
-                                    <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
-                                        <input type="submit" value='${generallogout}' class="btn-link" />
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
+                                    <li>
+                                        <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
+                                            <input type="submit" value='${generallogout}' class="btn-link" />
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        </form>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
-                                    <a href="${pageContext.request.contextPath}/register"><fmt:message key="user.registerButton" /> </a>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/register"><fmt:message key="user.registerButton" /> </a>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
-                        </li>
                     </ul>
                 </div>
             </div>
