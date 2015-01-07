@@ -71,8 +71,11 @@
                                 <c:when test="${pageContext.request.remoteUser != null}">
                                     <fmt:message key="general.logout" var="generallogout" />
                                     <li>
+                                        <span class="username"><fmt:message key="user.title" />: ${pageContext.request.remoteUser}</span>
+                                    </li>
+                                    <li>
                                         <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
-                                            <input type="submit" value='${generallogout}' class="btn-link" />
+                                            <input type="submit" value='${generallogout}' class="btn-link logout" />
                                             <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
                                         </form>
                                     </li>
@@ -90,9 +93,6 @@
                 </div>
             </div>
         </nav>
-        <c:if test="${pageContext.request.remoteUser != null }" >
-                <span>user: ${pageContext.request.remoteUser}</span>
-        </c:if>
         <div class="container">
             <div class="content">
                 <c:if test="${ok != null}">

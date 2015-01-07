@@ -57,20 +57,17 @@ public class UserController {
     @RequestMapping(method = RequestMethod.POST, value = "/register")
     public ModelAndView registerUserSubmit(@Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
 
-        ModelAndView modelAndView = new ModelAndView("login");
         UserValidator userValidator = new UserValidator();
         userValidator.validate(user, result);
 
         if (result.hasErrors()) {
+            ModelAndView modelAndView = new ModelAndView("register");
             modelAndView.addObject("error", messageSource.getMessage("user.error.create", null, LocaleContextHolder.getLocale()));
             return modelAndView;
 
         } else {
-            if (req.getParameter("isAdmin") != null && req.getParameter("isAdmin").equals("True")) {
-                user.setAdmin(Boolean.TRUE);
-            } else {
-                user.setAdmin(Boolean.FALSE);
-            }
+            ModelAndView modelAndView = new ModelAndView("login");
+            user.setAdmin(Boolean.FALSE);
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
             userService.create(user);
             return modelAndView;
@@ -150,6 +147,8 @@ public class UserController {
             userFromDB.setFirstName(user.getFirstName());
             userFromDB.setLastName(user.getLastName());
             userFromDB.setEmail(user.getEmail());
+            userFromDB.setUsername(user.getUsername());
+            userFromDB.setPassword(user.getPassword());
 
             if (req.getParameter("isAdmin") != null && req.getParameter("isAdmin").equals("True")) {
                 userFromDB.setAdmin(Boolean.TRUE);
