@@ -26,6 +26,7 @@
         <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/css/datepicker.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet"/>
     </head>
 
     <body>
@@ -77,6 +78,7 @@
                                 </c:when>
                                 <c:otherwise>
                                     <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
+                                    <a href="${pageContext.request.contextPath}/register"><fmt:message key="user.registerButton" /> </a>
                                 </c:otherwise>
                             </c:choose>
                         </li>

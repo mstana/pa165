@@ -21,7 +21,9 @@
         <intercept-url pattern="/login_process/**" access="permitAll()"/>
         <intercept-url pattern="/" access="permitAll()"/>
         <intercept-url pattern="/home/**" access="permitAll()"/>
-        <intercept-url pattern="/signup/**" access="permitAll()"/>
+        <intercept-url pattern="/register/**" access="permitAll()"/>
+        <intercept-url pattern="/en/**" access="permitAll()"/>
+        <intercept-url pattern="/cs/**" access="permitAll()"/>
         <intercept-url pattern="/**" access="hasAnyRole('ROLE_USER, ROLE_ADMIN')" />
         <form-login login-page='/login' username-parameter="username" password-parameter="password" login-processing-url="/j_spring_security_check" authentication-failure-url="/login?error" default-target-url="/" />
         <logout logout-success-url="/" />

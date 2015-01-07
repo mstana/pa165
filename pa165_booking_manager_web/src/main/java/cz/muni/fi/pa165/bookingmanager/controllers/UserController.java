@@ -46,6 +46,16 @@ public class UserController {
     }
 
     @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @RequestMapping(method = RequestMethod.GET, value = "/register")
+    public ModelAndView registerUserForm() throws ServletException, IOException {
+
+        ModelAndView modelAndView = new ModelAndView("userRegister");
+        modelAndView.addObject("user", new UserTO());
+
+        return modelAndView;
+    }
+
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @RequestMapping(method = RequestMethod.GET, value = "/userCreate")
     public ModelAndView createUserForm() throws ServletException, IOException {
 

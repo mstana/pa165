@@ -137,11 +137,11 @@ public class HomeController {
         hotelTO3.setName("Hotel Continental");
         hotelService.create(hotelTO3);
 
-        for (UserTO user : userService.findAll()) {
-            if (user.getUsername().equals("ms") || user.getUsername().equals("dk") || user.getUsername().equals("op") || user.getUsername().equals("as")) {
-                userService.delete(user);
-            }
-        }
+//        for (UserTO user : userService.findAll()) {
+//            if (user.getUsername().equals("ms") || user.getUsername().equals("dk") || user.getUsername().equals("op") || user.getUsername().equals("as")) {
+//                userService.delete(user);
+//            }
+//        }
 
         UserTO u1 = new UserTO();
         u1.setFirstName("Marek");
