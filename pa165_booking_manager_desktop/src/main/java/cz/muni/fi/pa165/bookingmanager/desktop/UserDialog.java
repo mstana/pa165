@@ -4,10 +4,10 @@ import com.sun.jersey.api.client.ClientHandlerException;
 import cz.muni.fi.pa165.bookingmanager.api.dto.UserTO;
 import cz.muni.fi.pa165.bookingmanager.desktop.rest.UserRESTManager;
 import cz.muni.fi.pa165.bookingmanager.desktop.tablemodels.UserTableModel;
-
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
+ *
  * @author mstana
  */
 public class UserDialog extends javax.swing.JFrame {
@@ -16,19 +16,8 @@ public class UserDialog extends javax.swing.JFrame {
     private UserTO user;
     private UserRESTManager userRESTManager = new UserRESTManager();
     private UserTableModel userTableModel;
-    // Variables declaration - do not modify
-    private javax.swing.JButton jButtonCancel;
-    private javax.swing.JButton jButtonCreate;
-    private javax.swing.JCheckBox jCheckBoxIsAdmin;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JLabel jLabelMainLabel;
-    private javax.swing.JTextField jTextFieldEmail;
-    private javax.swing.JTextField jTextFieldFirstName;
-    private javax.swing.JTextField jTextFieldLastName;
-    /**
+
+   /**
      * Creates new form UserDialog
      */
     public UserDialog(UserTableModel userTableModel) {
@@ -48,6 +37,8 @@ public class UserDialog extends javax.swing.JFrame {
         jTextFieldLastName.setText(user.getLastName());
         jTextFieldEmail.setText(user.getEmail());
         jCheckBoxIsAdmin.setSelected(user.getAdmin());
+        jTextFieldUserName.setText(user.getUsername());
+        jTextFieldPassword.setText(user.getPassword());
 
         jButtonCreate.setText("Update");
         jLabelMainLabel.setText("Update User");
@@ -57,11 +48,14 @@ public class UserDialog extends javax.swing.JFrame {
     private boolean validate(UserTO user) {
         if (user.getFirstName() == null || "".equals(user.getFirstName())
                 || user.getLastName() == null || "".equals(user.getLastName())
-                || user.getEmail() == null || "".equals(user.getEmail())) {
+                || user.getEmail() == null || "".equals(user.getEmail())
+                || user.getUsername()== null || "".equals(user.getUsername())
+                || user.getPassword()== null || "".equals(user.getPassword())) {
             return false;
         }
         return true;
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -83,6 +77,10 @@ public class UserDialog extends javax.swing.JFrame {
         jCheckBoxIsAdmin = new javax.swing.JCheckBox();
         jLabel4 = new javax.swing.JLabel();
         jLabelMainLabel = new javax.swing.JLabel();
+        jTextFieldUserName = new javax.swing.JTextField();
+        jTextFieldPassword = new javax.swing.JTextField();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.DISPOSE_ON_CLOSE);
 
@@ -122,78 +120,99 @@ public class UserDialog extends javax.swing.JFrame {
 
         jLabelMainLabel.setText("User Create");
 
+        jTextFieldUserName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextFieldUserNameActionPerformed(evt);
+            }
+        });
+
+        jLabel5.setText("User Name");
+
+        jLabel7.setText("Password");
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap(207, Short.MAX_VALUE)
-                                .addComponent(jButtonCreate)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                                .addComponent(jButtonCancel)
-                                .addGap(18, 18, 18))
-                        .addGroup(layout.createSequentialGroup()
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                                        .addComponent(jLabel1)
-                                                        .addComponent(jLabel2)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addGap(77, 77, 77)
-                                                                        .addComponent(jLabel4))
-                                                                .addGroup(layout.createSequentialGroup()
-                                                                        .addGap(107, 107, 107)
-                                                                        .addComponent(jLabel3))))
-                                                .addGap(45, 45, 45)
-                                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, 160, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                                                .addComponent(jCheckBoxIsAdmin)
-                                                                .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
-                                                                .addComponent(jTextFieldLastName))))
-                                        .addGroup(layout.createSequentialGroup()
-                                                .addGap(154, 154, 154)
-                                                .addComponent(jLabelMainLabel)))
-                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(layout.createSequentialGroup()
+                .addContainerGap(217, Short.MAX_VALUE)
+                .addComponent(jButtonCreate)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jButtonCancel)
+                .addGap(18, 18, 18))
+            .addGroup(layout.createSequentialGroup()
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(69, 69, 69)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                                .addComponent(jLabel2)
+                                .addComponent(jLabel3, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel4, javax.swing.GroupLayout.Alignment.LEADING)
+                                .addComponent(jLabel7, javax.swing.GroupLayout.Alignment.LEADING))
+                            .addComponent(jLabel5)
+                            .addComponent(jLabel1))
+                        .addGap(70, 70, 70)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(jTextFieldEmail, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(jCheckBoxIsAdmin)
+                            .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.DEFAULT_SIZE, 160, Short.MAX_VALUE)
+                            .addComponent(jTextFieldLastName)
+                            .addComponent(jTextFieldPassword)
+                            .addComponent(jTextFieldUserName)))
+                    .addGroup(layout.createSequentialGroup()
+                        .addGap(154, 154, 154)
+                        .addComponent(jLabelMainLabel)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                                .addGap(28, 28, 28)
-                                .addComponent(jLabelMainLabel)
-                                .addGap(40, 40, 40)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel1)
-                                        .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel2)
-                                        .addComponent(jTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jLabel3)
-                                        .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(18, 18, 18)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                        .addComponent(jLabel4)
-                                        .addComponent(jCheckBoxIsAdmin))
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 47, Short.MAX_VALUE)
-                                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(jButtonCreate)
-                                        .addComponent(jButtonCancel))
-                                .addGap(13, 13, 13))
+            layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
+                .addGap(28, 28, 28)
+                .addComponent(jLabelMainLabel)
+                .addGap(40, 40, 40)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel1)
+                    .addComponent(jTextFieldFirstName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel2)
+                    .addComponent(jTextFieldLastName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jTextFieldEmail, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(13, 13, 13)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jCheckBoxIsAdmin)
+                        .addGap(18, 18, 18)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldUserName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel5))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 11, Short.MAX_VALUE)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jTextFieldPassword, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jLabel7))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButtonCreate)
+                            .addComponent(jButtonCancel))
+                        .addGap(13, 13, 13))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jLabel4)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void jCheckBoxIsAdminActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jCheckBoxIsAdminActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jCheckBoxIsAdminActionPerformed
 
     private void jTextFieldLastNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldLastNameActionPerformed
-
+        // TODO add your handling code here:
     }//GEN-LAST:event_jTextFieldLastNameActionPerformed
 
     private void jButtonCreateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCreateActionPerformed
@@ -202,6 +221,8 @@ public class UserDialog extends javax.swing.JFrame {
         user.setLastName(jTextFieldLastName.getText());
         user.setEmail(jTextFieldEmail.getText());
         user.setAdmin(jCheckBoxIsAdmin.isSelected());
+        user.setUsername(jTextFieldUserName.getText());
+        user.setPassword(jTextFieldPassword.getText());
 
         try {
             if (!validate(user)) {
@@ -224,12 +245,32 @@ public class UserDialog extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Server connection was not established correctly. Application is closing.", "No server connection.", JOptionPane.ERROR_MESSAGE);
             System.exit(1);
         }
-
-
     }//GEN-LAST:event_jButtonCreateActionPerformed
 
     private void jButtonCancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonCancelActionPerformed
         dispose();
     }//GEN-LAST:event_jButtonCancelActionPerformed
-    // End of variables declaration
+
+    private void jTextFieldUserNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextFieldUserNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextFieldUserNameActionPerformed
+
+
+    // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButtonCancel;
+    private javax.swing.JButton jButtonCreate;
+    private javax.swing.JCheckBox jCheckBoxIsAdmin;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabelMainLabel;
+    private javax.swing.JTextField jTextFieldEmail;
+    private javax.swing.JTextField jTextFieldFirstName;
+    private javax.swing.JTextField jTextFieldLastName;
+    private javax.swing.JTextField jTextFieldPassword;
+    private javax.swing.JTextField jTextFieldUserName;
+    // End of variables declaration//GEN-END:variables
 }
