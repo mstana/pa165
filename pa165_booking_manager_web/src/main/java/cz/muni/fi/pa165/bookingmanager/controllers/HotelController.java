@@ -38,7 +38,7 @@ public class HotelController {
     public ModelAndView handleRequest() throws ServletException, IOException {
         List<HotelTO> hotels = hotelService.findAll();
 
-        ModelAndView modelAndView = new ModelAndView("hotelList");
+        ModelAndView modelAndView = new ModelAndView("admin/hotelList");
         modelAndView.addObject("hotels", hotels);
 
         return modelAndView;
@@ -49,7 +49,7 @@ public class HotelController {
     public ModelAndView editHotelForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         if (hotel == null) {
-            return new ModelAndView("hotelList");
+            return new ModelAndView("admin/hotelList");
         }
 
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
