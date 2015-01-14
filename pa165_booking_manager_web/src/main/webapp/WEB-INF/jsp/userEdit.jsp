@@ -43,10 +43,26 @@
                placeholder="<fmt:message key="user.email.enter"/>"/>
         <font color="red"><form:errors path="email" cssClass="error"/></font>
     </div>
+
+    <div class="form-group">
+        <label for="usernameInput"><fmt:message key="user.username"/></label>
+        <input type="text" name="username" id="usernameInput" value="${user.username}" class="form-control"
+               placeholder="<fmt:message key="user.username.enter"/>"/>
+        <font color="red"><form:errors path="username" cssClass="error"/></font>
+    </div>
+
+    <div class="form-group">
+        <label for="passwordInput"><fmt:message key="user.password"/></label>
+        <input type="password" name="password" id="passwordInput" value="${user.password}" class="form-control"
+               placeholder="<fmt:message key="user.password.enter"/>"/>
+        <font color="red"><form:errors path="password" cssClass="error"/></font>
+    </div>
+
     <div class="form-group">
         <label for="isAdmin"><fmt:message key="user.isAdmin"/></label>
         <input type="checkbox" name="isAdmin" id="isAdmin" value="True" ${user.admin == 'true' ? 'checked':''}>
     </div>
+
     <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
 
 </form:form>

@@ -26,6 +26,7 @@
         <link href="${pageContext.request.contextPath}/css/bootstrap.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/css/bootstrap-theme.css" rel="stylesheet"/>
         <link href="${pageContext.request.contextPath}/css/datepicker.css" rel="stylesheet"/>
+        <link href="${pageContext.request.contextPath}/css/login.css" rel="stylesheet"/>
     </head>
 
     <body>
@@ -66,27 +67,32 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/cs">Česky</a>
                         </li>
-                        <li>
                             <c:choose>
                                 <c:when test="${pageContext.request.remoteUser != null}">
                                     <fmt:message key="general.logout" var="generallogout" />
-                                    <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
-                                        <input type="submit" value='${generallogout}' class="btn-link" />
-                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
-                                    </form>
+                                    <li>
+                                        <span class="username"><fmt:message key="user.title" />: ${pageContext.request.remoteUser}</span>
+                                    </li>
+                                    <li>
+                                        <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
+                                            <input type="submit" value='${generallogout}' class="btn-link logout" />
+                                            <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                        </form>
+                                    </li>
                                 </c:when>
                                 <c:otherwise>
-                                    <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
+                                    </li>
+                                    <li>
+                                        <a href="${pageContext.request.contextPath}/register"><fmt:message key="user.registerButton" /> </a>
+                                    </li>
                                 </c:otherwise>
                             </c:choose>
-                        </li>
                     </ul>
                 </div>
             </div>
         </nav>
-        <c:if test="${pageContext.request.remoteUser != null }" >
-                <span>user: ${pageContext.request.remoteUser}</span>
-        </c:if>
         <div class="container">
             <div class="content">
                 <c:if test="${ok != null}">

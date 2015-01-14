@@ -26,7 +26,7 @@ public class UserTableModel extends AbstractTableModel {
 
     @Override
     public int getColumnCount() {
-        return 5;
+        return 7;
     }
 
     @Override
@@ -42,6 +42,10 @@ public class UserTableModel extends AbstractTableModel {
                 return "Email";
             case 4:
                 return "Admin";
+            case 5:
+                return "UserName";
+            case 6:
+                return "Password";
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
@@ -60,6 +64,10 @@ public class UserTableModel extends AbstractTableModel {
                 return String.class;
             case 4:
                 return Boolean.class;
+            case 5:
+                return String.class;
+            case 6:
+                return String.class;
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
@@ -79,6 +87,10 @@ public class UserTableModel extends AbstractTableModel {
                 return user.getEmail();
             case 4:
                 return user.getAdmin();
+            case 5:
+                return user.getUsername();
+            case 6:
+                return user.getPassword();
             default:
                 throw new IllegalArgumentException("columnIndex");
         }
