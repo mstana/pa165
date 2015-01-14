@@ -182,4 +182,10 @@ public class UserController {
 
         return "redirect:/userList";
     }
+    
+    @RequestMapping( value = "login", method = RequestMethod.GET )
+    public String login()
+    {
+        return "login";
+    }
 }

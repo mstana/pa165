@@ -79,13 +79,6 @@ public class HomeController {
         return "index";
     }
 
-
-    @RequestMapping( value = "login", method = RequestMethod.GET )
-    public String login()
-    {
-        return "login";
-    }
-
     public void setDefaultValues() {
         for (HotelTO hotel : hotelService.findAll()) {
             hotelService.delete(hotel);
