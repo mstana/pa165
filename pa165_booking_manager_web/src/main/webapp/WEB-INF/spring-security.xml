@@ -28,8 +28,6 @@
         <csrf />
     </http>
 
-    <global-method-security pre-post-annotations="enabled"/>
-
     <authentication-manager>
         <authentication-provider>
             <user-service id="userDetailsService">

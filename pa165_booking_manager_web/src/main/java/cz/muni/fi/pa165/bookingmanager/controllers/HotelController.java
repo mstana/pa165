@@ -44,7 +44,7 @@ public class HotelController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/hotel/{hotelId}")
     public ModelAndView editHotelForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
@@ -58,7 +58,7 @@ public class HotelController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/hotel/{hotelId}")
     public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result) throws ServletException, IOException {
 
@@ -88,7 +88,7 @@ public class HotelController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/newhotel")
     public ModelAndView createHotelForm() throws ServletException, IOException {
 
@@ -98,7 +98,7 @@ public class HotelController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/newhotel")
     public ModelAndView createHotelSubmit(@Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
 
@@ -115,7 +115,7 @@ public class HotelController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/deletehotel/{hotelId}")
     public String deleteHotel(@PathVariable("hotelId") long hotelId, HttpServletRequest req) throws ServletException, IOException {
 

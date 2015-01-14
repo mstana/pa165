@@ -20,6 +20,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import org.springframework.security.access.annotation.Secured;
 
 /**
  * @author mstana
@@ -32,7 +33,7 @@ public class UserController {
     @Autowired
     MessageSource messageSource;
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userList")
     public ModelAndView handleRequest() throws ServletException, IOException {
 
@@ -45,7 +46,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userCreate")
     public ModelAndView createUserForm() throws ServletException, IOException {
 
@@ -56,7 +57,7 @@ public class UserController {
     }
 
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/userCreate")
     public ModelAndView createUserSubmit(@Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
 
@@ -80,7 +81,7 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userEdit/{userId}")
     public ModelAndView editUser(@PathVariable("userId") long userId) throws ServletException, IOException {
 
@@ -95,7 +96,7 @@ public class UserController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/userEdit/{userId}")
     public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
         ModelAndView modelAndView = new ModelAndView("userEdit");
@@ -133,7 +134,7 @@ public class UserController {
         }
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userDelete/{userId}")
     public String deleteSpecifiedUser(@PathVariable("userId") long userId) throws ServletException, IOException {
 

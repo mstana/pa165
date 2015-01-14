@@ -19,6 +19,7 @@ import javax.servlet.ServletException;
 import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
+import org.springframework.security.access.annotation.Secured;
 
 /**
  * Created by David Kadlec
@@ -53,7 +54,7 @@ public class RoomController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/room/{hotelId}/{roomId}")
     public ModelAndView editSpecifiedRoomForm(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
@@ -77,7 +78,7 @@ public class RoomController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/room/{hotelId}/{roomId}")
     public ModelAndView editSpecifiedRoomSubmit(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId, @Valid RoomTO room, BindingResult result) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
@@ -112,7 +113,7 @@ public class RoomController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/newroom/{hotelId}")
     public ModelAndView createRoomForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
@@ -130,7 +131,7 @@ public class RoomController {
         return modelAndView;
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/newroom/{hotelId}")
     public String createRoomSubmit(@PathVariable("hotelId") long hotelId, @Valid RoomTO room, BindingResult result) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
@@ -146,7 +147,7 @@ public class RoomController {
         return "redirect:/room/" + hotelId + "/" + room.getId();
     }
 
-    @PreAuthorize("hasRole('ROLE_ADMIN')")
+    @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/deleteroom/{hotelId}/{roomId}")
     public String deleteSpecifiedRoom(@PathVariable("hotelId") long hotelId, @PathVariable("roomId") long roomId) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
