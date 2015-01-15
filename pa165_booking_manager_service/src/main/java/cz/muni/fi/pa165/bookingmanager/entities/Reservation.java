@@ -21,7 +21,7 @@ public class Reservation {
     @Temporal(javax.persistence.TemporalType.DATE)
     private Date endDate;
 
-    @ManyToOne(cascade = {CascadeType.MERGE, CascadeType.REFRESH})
+    @ManyToOne(cascade = { CascadeType.REFRESH})
     private User user;
 
     public Reservation() {

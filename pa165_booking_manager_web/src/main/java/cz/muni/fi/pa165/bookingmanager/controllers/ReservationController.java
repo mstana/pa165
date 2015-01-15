@@ -23,6 +23,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @Controller
@@ -95,6 +96,17 @@ public class ReservationController extends BaseController {
 
         List<ReservationTO> reservations = reservationService.findAll(room);
 
+        if (req.isUserInRole(ROLE_USER)) {
+            List<ReservationTO> reservationsTemp = new ArrayList<>();
+
+            for (ReservationTO resTO : reservations) {
+                if (resTO.getUser().getUsername().equals(req.getRemoteUser())) {
+                    reservationsTemp.add(resTO);
+                }
+            }
+            reservations = reservationsTemp;
+        }
+
         modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationList");
         modelAndView.addObject("reservations", reservations);
         modelAndView.addObject("room", room);
@@ -111,6 +123,13 @@ public class ReservationController extends BaseController {
         if (reservation == null) {
             modelAndView.addObject("error", messageSource.getMessage("reservation.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
+        }
+
+        if (req.isUserInRole(ROLE_USER)) {
+            if (!reservation.getUser().getUsername().equals(req.getRemoteUser())) {
+                ModelAndView modelAndViewNew = new ModelAndView(getLayoutUrlPrefix(req) + "roomreservations/" + reservation.getRoom().getId());
+                return modelAndViewNew;
+            }
         }
 
         modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationEdit");
@@ -133,7 +152,7 @@ public class ReservationController extends BaseController {
 
         modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationEdit");
 
-        try {
+//        try {
             Long userId = Long.parseLong(req.getParameter("user"));
             UserTO user = userService.find(userId);
 
@@ -148,10 +167,10 @@ public class ReservationController extends BaseController {
             modelAndView.addObject("users", userService.findAll());
 
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
-        } catch (Exception ex) {
-            modelAndView.addObject("reservation", reservation);
-            modelAndView.addObject("error", messageSource.getMessage("general.error", null, LocaleContextHolder.getLocale()));
-        }
+//        } catch (Exception ex) {
+//            modelAndView.addObject("reservation", reservation);
+//            modelAndView.addObject("error", messageSource.getMessage("general.error", null, LocaleContextHolder.getLocale()));
+//        }
 
         return modelAndView;
     }

@@ -65,7 +65,6 @@
                         </c:forEach>
                     </c:when>
                     <c:otherwise>
-
                         <c:forEach items="${users}" var="user">
                                 <c:choose>
 
