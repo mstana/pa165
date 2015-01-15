@@ -52,8 +52,8 @@
                                     key="menu.hotels"/></a>
                         </li>
                         <li>
-                            <a href="${pageContext.request.contextPath}/userreservations/"><fmt:message
-                                    key="user.list.title"/></a>
+                            <a href="${pageContext.request.contextPath}/myreservations/"><fmt:message
+                                    key="reservation.my"/></a>
                         </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">

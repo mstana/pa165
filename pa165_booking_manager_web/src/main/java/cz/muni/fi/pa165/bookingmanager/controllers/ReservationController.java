@@ -67,6 +67,22 @@ public class ReservationController extends BaseController {
         return modelAndView;
     }
 
+    @RequestMapping(method = RequestMethod.GET, value = "/myreservations")
+    public String getLoggedUserReservations(HttpServletRequest req) throws ServletException, IOException {
+
+        Long userId = 0L;
+        for (UserTO user : userService.findAll()) {
+            if (user.getUsername().equals(req.getRemoteUser())) {
+                userId = user.getId();
+            }
+        }
+        if (userId == 0) {
+            return "redirect:/";
+        }
+
+        return "redirect:/userreservations/" + userId;
+    }
+
     @RequestMapping(method = RequestMethod.GET, value = "/roomreservations/{roomId}")
     public ModelAndView getRoomReservations(@PathVariable("roomId") long roomId, HttpServletRequest req) throws ServletException, IOException {
         RoomTO room = roomService.find(roomId);
