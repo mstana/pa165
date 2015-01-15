@@ -46,10 +46,10 @@ public class HotelController extends BaseController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/hotel/{hotelId}")
-    public ModelAndView editHotelForm(@PathVariable("hotelId") long hotelId) throws ServletException, IOException {
+    public ModelAndView editHotelForm(@PathVariable("hotelId") long hotelId, HttpServletRequest req) throws ServletException, IOException {
         HotelTO hotel = hotelService.find(hotelId);
         if (hotel == null) {
-            return new ModelAndView("admin/hotelList");
+            return new ModelAndView(getLayoutUrlPrefix(req) + "hotelList");
         }
 
         ModelAndView modelAndView = new ModelAndView("hotelEdit");
@@ -60,11 +60,11 @@ public class HotelController extends BaseController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/hotel/{hotelId}")
-    public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result) throws ServletException, IOException {
+    public ModelAndView editHotelSubmit(@PathVariable("hotelId") long hotelId, @Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
 
         HotelValidator hotelValidator = new HotelValidator();
         HotelTO hotelFromDB = hotelService.find(hotelId);
-        ModelAndView modelAndView = new ModelAndView("hotelEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "hotelEdit");
         if (hotelFromDB == null) {
             modelAndView.addObject("error", messageSource.getMessage("hotel.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
@@ -90,9 +90,9 @@ public class HotelController extends BaseController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/newhotel")
-    public ModelAndView createHotelForm() throws ServletException, IOException {
+    public ModelAndView createHotelForm(HttpServletRequest req) throws ServletException, IOException {
 
-        ModelAndView modelAndView = new ModelAndView("hotelEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "hotelEdit");
         modelAndView.addObject("hotel", new HotelTO());
 
         return modelAndView;
@@ -103,7 +103,7 @@ public class HotelController extends BaseController {
     public ModelAndView createHotelSubmit(@Valid @ModelAttribute("hotelTo") HotelTO hotel, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
 
         HotelValidator hotelValidator = new HotelValidator();
-        ModelAndView modelAndView = new ModelAndView("hotelEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "hotelEdit");
         hotelValidator.validate(hotel, result);
         if (result.hasErrors()) {
             modelAndView.addObject("error", messageSource.getMessage("hotel.error.create", null, LocaleContextHolder.getLocale()));

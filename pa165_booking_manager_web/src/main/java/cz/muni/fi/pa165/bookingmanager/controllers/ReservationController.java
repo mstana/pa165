@@ -13,6 +13,7 @@ import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -43,18 +44,23 @@ public class ReservationController extends BaseController {
     UserService userService;
 
     @RequestMapping(method = RequestMethod.GET, value = "/userreservations/{userId}")
-    public ModelAndView getUserReservations(@PathVariable("userId") long userId) throws ServletException, IOException {
+    public ModelAndView getUserReservations(@PathVariable("userId") long userId, HttpServletRequest req) throws ServletException, IOException {
         UserTO user = userService.find(userId);
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "index");
 
         if (user == null) {
             modelAndView.addObject("error", messageSource.getMessage("user.notfound", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
+        if (!req.isUserInRole(ROLE_ADMIN) && !user.getUsername().equals(req.getRemoteUser())) {
+            modelAndView.addObject("error", messageSource.getMessage("user.notfound", null, LocaleContextHolder.getLocale()));
+            return modelAndView;
+        }
+
         List<ReservationTO> reservations = reservationService.findAll(user);
 
-        modelAndView.setViewName("reservationList");
+        modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationList");
         modelAndView.addObject("reservations", reservations);
         modelAndView.addObject("user", user);
 
@@ -62,9 +68,9 @@ public class ReservationController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/roomreservations/{roomId}")
-    public ModelAndView getRoomReservations(@PathVariable("roomId") long roomId) throws ServletException, IOException {
+    public ModelAndView getRoomReservations(@PathVariable("roomId") long roomId, HttpServletRequest req) throws ServletException, IOException {
         RoomTO room = roomService.find(roomId);
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "index");
 
         if (room == null) {
             modelAndView.addObject("error", messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
@@ -73,7 +79,7 @@ public class ReservationController extends BaseController {
 
         List<ReservationTO> reservations = reservationService.findAll(room);
 
-        modelAndView.setViewName("reservationList");
+        modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationList");
         modelAndView.addObject("reservations", reservations);
         modelAndView.addObject("room", room);
 
@@ -81,17 +87,17 @@ public class ReservationController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/reservation/{reservationId}")
-    public ModelAndView editReservation(@PathVariable("reservationId") long reservationId) throws ServletException, IOException {
+    public ModelAndView editReservation(@PathVariable("reservationId") long reservationId, HttpServletRequest req) throws ServletException, IOException {
         ReservationTO reservation = reservationService.find(reservationId);
 
-        ModelAndView modelAndView = new ModelAndView("reservationList");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "reservationList");
 
         if (reservation == null) {
             modelAndView.addObject("error", messageSource.getMessage("reservation.not.found.id", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
-        modelAndView.setViewName("reservationEdit");
+        modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationEdit");
         modelAndView.addObject("reservation", reservation);
         modelAndView.addObject("room", reservation.getRoom());
         modelAndView.addObject("users", userService.findAll());
@@ -109,7 +115,7 @@ public class ReservationController extends BaseController {
             return modelAndView;
         }
 
-        modelAndView.setViewName("reservationEdit");
+        modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationEdit");
 
         try {
             Long userId = Long.parseLong(req.getParameter("user"));
@@ -154,16 +160,16 @@ public class ReservationController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "/newreservation/{roomId}")
-    public ModelAndView createReservationForm(@PathVariable("roomId") long roomId) throws ServletException, IOException {
+    public ModelAndView createReservationForm(@PathVariable("roomId") long roomId, HttpServletRequest req) throws ServletException, IOException {
         RoomTO room = roomService.find(roomId);
-        ModelAndView modelAndView = new ModelAndView("index");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "index");
 
         if (room == null) {
             modelAndView.addObject("error", messageSource.getMessage("room.notfound", null, LocaleContextHolder.getLocale()));
             return modelAndView;
         }
 
-        modelAndView.setViewName("reservationEdit");
+        modelAndView.setViewName(getLayoutUrlPrefix(req) + "reservationEdit");
         modelAndView.addObject("reservation", new ReservationTO());
         modelAndView.addObject("room", room);
         modelAndView.addObject("users", userService.findAll());
@@ -172,7 +178,7 @@ public class ReservationController extends BaseController {
     }
 
     @RequestMapping(method = RequestMethod.POST, value = "/newreservation/{roomId}")
-    public String createReservationSubmit(@PathVariable("roomId") long roomId, @Valid ReservationTO reservation, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
+    public String createReservationSubmit(@PathVariable("roomId") long roomId, @Valid @ModelAttribute("reservationTo") ReservationTO reservation, BindingResult result, HttpServletRequest req) throws ServletException, IOException {
         RoomTO room = roomService.find(roomId);
         if (room == null) {
             return "redirect:/";

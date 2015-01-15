@@ -47,18 +47,14 @@
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <c:choose>
-                            <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/hotels"><fmt:message
-                                            key="menu.hotels"/></a>
-                                </li>
-                                <li>
-                                    <a href="${pageContext.request.contextPath}/userList"><fmt:message
-                                            key="user.list.title"/></a>
-                                </li>
-                            </c:when>
-                        </c:choose>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/hotels"><fmt:message
+                                    key="menu.hotels"/></a>
+                        </li>
+                        <li>
+                            <a href="${pageContext.request.contextPath}/userreservations/"><fmt:message
+                                    key="user.list.title"/></a>
+                        </li>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>

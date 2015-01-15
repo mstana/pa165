@@ -35,12 +35,12 @@ public class UserController extends BaseController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userList")
-    public ModelAndView handleRequest() throws ServletException, IOException {
+    public ModelAndView handleRequest(HttpServletRequest request) throws ServletException, IOException {
 
         String aMessage = new String();
         List<UserTO> users = userService.findAll();
 
-        ModelAndView modelAndView = new ModelAndView("userList");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request)+"userList");
         modelAndView.addObject("listUsers", users);
 
         return modelAndView;
@@ -77,9 +77,9 @@ public class UserController extends BaseController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userCreate")
-    public ModelAndView createUserForm() throws ServletException, IOException {
+    public ModelAndView createUserForm(HttpServletRequest request) throws ServletException, IOException {
 
-        ModelAndView modelAndView = new ModelAndView("userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request)+"userEdit");
         modelAndView.addObject("user", new UserTO());
 
         return modelAndView;
@@ -90,7 +90,7 @@ public class UserController extends BaseController {
     @RequestMapping(method = RequestMethod.POST, value = "/userCreate")
     public ModelAndView createUserSubmit(@Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
 
-        ModelAndView modelAndView = new ModelAndView("userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req)+"userEdit");
         UserValidator userValidator = new UserValidator();
         userValidator.validate(user, result);
 
@@ -112,14 +112,14 @@ public class UserController extends BaseController {
 
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.GET, value = "/userEdit/{userId}")
-    public ModelAndView editUser(@PathVariable("userId") long userId) throws ServletException, IOException {
+    public ModelAndView editUser(@PathVariable("userId") long userId, HttpServletRequest req) throws ServletException, IOException {
 
         UserTO user = userService.find(userId);
         if (user == null) {
-            return new ModelAndView("index");
+            return new ModelAndView(getLayoutUrlPrefix(req)+"index");
         }
 
-        ModelAndView modelAndView = new ModelAndView("userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req)+"userEdit");
         modelAndView.addObject("user", user);
 
         return modelAndView;
@@ -128,7 +128,7 @@ public class UserController extends BaseController {
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/userEdit/{userId}")
     public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
-        ModelAndView modelAndView = new ModelAndView("userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req)+"userEdit");
         UserValidator userValidator = new UserValidator();
 
         UserTO userFromDB = userService.find(userId);
