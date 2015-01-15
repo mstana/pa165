@@ -43,6 +43,11 @@
             <input type="text" name="bedsCount" id="bedsInput" value="${room.bedsCount}" class="form-control"
                    placeholder="<fmt:message key="room.beds.plc"/>"/>
         </div>
+
+        <input type="hidden"
+               name="${_csrf.parameterName}"
+               value="${_csrf.token}"/>
+
         <button type="submit" class="btn btn-primary"><fmt:message key="general.submit"/></button>
 
     </form>

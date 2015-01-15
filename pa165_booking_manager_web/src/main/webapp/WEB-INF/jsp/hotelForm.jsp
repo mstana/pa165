@@ -17,5 +17,8 @@
     <input type="text" name="address" id="addressInput" value="${hotel.address}" class="form-control"
            placeholder="<fmt:message key="hotel.address.enter"/>"/>
     <font color="red"><form:errors path="address" cssClass="error"/></font>
-
 </div>
+
+<input type="hidden"
+       name="${_csrf.parameterName}"
+       value="${_csrf.token}"/>
