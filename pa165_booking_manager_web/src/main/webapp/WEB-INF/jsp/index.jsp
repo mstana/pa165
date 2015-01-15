@@ -11,9 +11,16 @@
 
         <div class="row">
             <div class="col-lg-12 text-center">
-                <h1><fmt:message key="general.welcome.welcome"/></h1>
-
-                <p class="lead"><fmt:message key="general.welcome"/></p>
+                <c:choose>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                        <h1><fmt:message key="general.welcome.welcome.admin"/></h1>
+                        <p class="lead"><fmt:message key="general.welcome.admin"/></p>
+                    </c:when>
+                    <c:otherwise>
+                        <h1><fmt:message key="general.welcome.welcome.user"/></h1>
+                        <p class="lead"><fmt:message key="general.welcome.user"/></p>
+                    </c:otherwise>
+                </c:choose>
             </div>
         </div>
         <!-- /.row -->
