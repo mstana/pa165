@@ -27,6 +27,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
+import static cz.muni.fi.pa165.bookingmanager.controllers.AuthorizationHelper.getLayoutUrlPrefix;
+
 @Controller
 public class HomeController {
 
@@ -45,14 +47,14 @@ public class HomeController {
     public String changeLocaleCs(HttpServletRequest request, HttpServletResponse response) {
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
         localeResolver.setLocale(request, response, StringUtils.parseLocaleString("cs"));
-        return "index";
+        return getLayoutUrlPrefix(request)+"index";
     }
 
     @RequestMapping(value = "/en", method = RequestMethod.GET)
     public String changeLocaleEn(HttpServletRequest request, HttpServletResponse response) {
         LocaleResolver localeResolver = RequestContextUtils.getLocaleResolver(request);
         localeResolver.setLocale(request, response, StringUtils.parseLocaleString("en"));
-        return "index";
+        return getLayoutUrlPrefix(request)+"index";
     }
 
     @RequestMapping(value = "", method = RequestMethod.GET)
@@ -70,13 +72,13 @@ public class HomeController {
 
         setDefaultValues();
 
-        return "index";
+        return getLayoutUrlPrefix(request)+"index";
     }
 
     @RequestMapping(method = RequestMethod.GET, value = "home")
     public String home(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 
-        return "index";
+        return getLayoutUrlPrefix(request)+"index";
     }
 
     public void setDefaultValues() {

@@ -6,7 +6,7 @@
 <tiles-definitions>
 
     <definition name="admin/*" template="/WEB-INF/view/layout-admin.jspx">
-        <put-attribute name="main" value="/WEB-INF/jsp/admin/{1}.jsp"/>
+        <put-attribute name="main" value="/WEB-INF/jsp/{1}.jsp"/>
     </definition>
 
     <definition name="*" extends="admin/*"  template="/WEB-INF/view/layout.jspx">

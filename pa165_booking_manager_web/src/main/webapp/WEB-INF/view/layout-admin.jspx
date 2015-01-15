@@ -46,15 +46,19 @@
                             key="general.bookingManagerAdmin"/></a>
                 </div>
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
                     <ul class="nav navbar-nav">
-                        <li>
-                            <a href="${pageContext.request.contextPath}/hotels"><fmt:message
-                                    key="menu.hotels"/></a>
-                        </li>                        <li>
-                            <a href="${pageContext.request.contextPath}/userList"><fmt:message
-                                    key="user.list.title"/></a>
-                        </li>
+                        <c:choose>
+                            <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/hotels"><fmt:message
+                                            key="menu.hotels"/></a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/userList"><fmt:message
+                                            key="user.list.title"/></a>
+                                </li>
+                            </c:when>
+                        </c:choose>
                     </ul>
                     <ul class="nav navbar-nav navbar-right">
                         <li>
@@ -63,6 +67,28 @@
                         <li>
                             <a href="${pageContext.request.contextPath}/cs">Česky</a>
                         </li>
+                        <c:choose>
+                            <c:when test="${pageContext.request.remoteUser != null}">
+                                <fmt:message key="general.logout" var="generallogout" />
+                                <li>
+                                    <span class="username"><fmt:message key="user.title" />: ${pageContext.request.remoteUser}</span>
+                                </li>
+                                <li>
+                                    <form class="form-inline" action="${pageContext.request.contextPath}/j_spring_security_logout" method="post">
+                                        <input type="submit" value='${generallogout}' class="btn-link logout" />
+                                        <input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}"/>
+                                    </form>
+                                </li>
+                            </c:when>
+                            <c:otherwise>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/login"><fmt:message key="login.loginButton" /> </a>
+                                </li>
+                                <li>
+                                    <a href="${pageContext.request.contextPath}/register"><fmt:message key="user.registerButton" /> </a>
+                                </li>
+                            </c:otherwise>
+                        </c:choose>
                     </ul>
                 </div>
             </div>

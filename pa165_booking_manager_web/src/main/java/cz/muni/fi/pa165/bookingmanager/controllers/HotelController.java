@@ -22,6 +22,8 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
+import static cz.muni.fi.pa165.bookingmanager.controllers.AuthorizationHelper.getLayoutUrlPrefix;
+
 /**
  * @author Adam Studenic
  */
@@ -35,10 +37,10 @@ public class HotelController {
     MessageSource messageSource;
 
     @RequestMapping(method = RequestMethod.GET, value = "/hotels")
-    public ModelAndView handleRequest() throws ServletException, IOException {
+    public ModelAndView handleRequest(HttpServletRequest request) throws ServletException, IOException {
         List<HotelTO> hotels = hotelService.findAll();
 
-        ModelAndView modelAndView = new ModelAndView("admin/hotelList");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request) + "hotelList");
         modelAndView.addObject("hotels", hotels);
 
         return modelAndView;
