@@ -25,7 +25,7 @@ import org.springframework.security.access.annotation.Secured;
  * Created by David Kadlec
  */
 @Controller
-public class RoomController {
+public class RoomController extends BaseController {
 
     @Autowired
     RoomService roomService;

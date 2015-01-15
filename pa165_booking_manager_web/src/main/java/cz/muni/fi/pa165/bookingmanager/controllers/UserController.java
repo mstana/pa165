@@ -27,7 +27,7 @@ import org.springframework.security.access.annotation.Secured;
  */
 
 @Controller
-public class UserController {
+public class UserController extends BaseController {
     @Autowired
     UserService userService;
     @Autowired

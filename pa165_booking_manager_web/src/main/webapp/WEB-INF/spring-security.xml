@@ -12,11 +12,13 @@
     <http pattern="/fonts/**" security="none"/>
 
     <http pattern="/rest/**" create-session="stateless">
+        <access-denied-handler error-page="/403" />
         <intercept-url pattern='/**' access='ROLE_REST' />
         <http-basic />
     </http>
     <!---->
     <http auto-config='true' use-expressions="true">
+        <access-denied-handler error-page="/403" />
         <intercept-url pattern="/login/**" access="permitAll()"/>
         <intercept-url pattern="/login_process/**" access="permitAll()"/>
         <intercept-url pattern="/" access="permitAll()"/>

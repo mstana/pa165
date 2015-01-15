@@ -7,7 +7,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.context.i18n.LocaleContextHolder;
 import org.springframework.security.access.annotation.Secured;
-import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -22,13 +21,12 @@ import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
-import static cz.muni.fi.pa165.bookingmanager.controllers.AuthorizationHelper.getLayoutUrlPrefix;
 
 /**
  * @author Adam Studenic
  */
 @Controller
-public class HotelController {
+public class HotelController extends BaseController {
 
     @Autowired
     HotelService hotelService;

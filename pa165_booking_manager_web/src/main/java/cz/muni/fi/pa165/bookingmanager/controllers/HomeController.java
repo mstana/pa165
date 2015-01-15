@@ -8,6 +8,7 @@ import cz.muni.fi.pa165.bookingmanager.api.services.HotelService;
 import cz.muni.fi.pa165.bookingmanager.api.services.ReservationService;
 import cz.muni.fi.pa165.bookingmanager.api.services.RoomService;
 import cz.muni.fi.pa165.bookingmanager.api.services.UserService;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.MessageSource;
 import org.springframework.stereotype.Controller;
@@ -27,10 +28,8 @@ import java.util.Calendar;
 import java.util.List;
 import java.util.Locale;
 
-import static cz.muni.fi.pa165.bookingmanager.controllers.AuthorizationHelper.getLayoutUrlPrefix;
-
 @Controller
-public class HomeController {
+public class HomeController extends BaseController {
 
     @Autowired
     HotelService hotelService;
