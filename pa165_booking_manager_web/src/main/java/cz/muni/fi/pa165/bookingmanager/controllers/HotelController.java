@@ -52,7 +52,7 @@ public class HotelController extends BaseController {
             return new ModelAndView(getLayoutUrlPrefix(req) + "hotelList");
         }
 
-        ModelAndView modelAndView = new ModelAndView("hotelEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "hotelEdit");
         modelAndView.addObject("hotel", hotel);
 
         return modelAndView;
