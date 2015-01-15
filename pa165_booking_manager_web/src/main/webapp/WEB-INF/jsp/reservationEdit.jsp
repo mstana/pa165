@@ -45,13 +45,42 @@
 
         <div class="form-group">
             <label for="user"><fmt:message key="reservation.user"/></label>
+
+
+
+
+
+
             <select class="form-control" name="user" id="user">
-                <c:forEach items="${users}" var="user">
-                    <option
-                            <c:choose>
-                            <c:when test="${reservation.user.id == user.id}">selected="selected"</c:when>
-                    </c:choose> value="${user.id}">${user.firstName} ${user.lastName}</option>
-                </c:forEach>
+
+                <c:choose>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                        <c:forEach items="${users}" var="user">
+                            <option
+                                <c:choose>
+                                    <c:when test="${reservation.user.id == user.id}">selected="selected"</c:when>
+                                </c:choose>
+                                value="${user.id}">${user.firstName} ${user.lastName}
+                            </option>
+                        </c:forEach>
+                    </c:when>
+                    <c:otherwise>
+
+                        <c:forEach items="${users}" var="user">
+                                <c:choose>
+
+                                    <c:when test="${pageContext.request.remoteUser == user.username}">
+                                        <option selected="selected" value="${user.id}">
+                                            ${user.firstName} ${user.lastName}
+                                        </option>
+                                </c:when>
+                                </c:choose>
+                        </c:forEach>
+                    </c:otherwise>
+                </c:choose>
+
+
+
             </select>
         </div>
 

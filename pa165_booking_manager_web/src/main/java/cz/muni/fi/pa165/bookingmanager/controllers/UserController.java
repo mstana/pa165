@@ -25,9 +25,9 @@ import org.springframework.security.access.annotation.Secured;
 /**
  * @author mstana
  */
-
 @Controller
 public class UserController extends BaseController {
+
     @Autowired
     UserService userService;
     @Autowired
@@ -40,7 +40,7 @@ public class UserController extends BaseController {
         String aMessage = new String();
         List<UserTO> users = userService.findAll();
 
-        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request)+"userList");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request) + "userList");
         modelAndView.addObject("listUsers", users);
 
         return modelAndView;
@@ -69,6 +69,14 @@ public class UserController extends BaseController {
         } else {
             ModelAndView modelAndView = new ModelAndView("login");
             user.setAdmin(Boolean.FALSE);
+
+            for (UserTO userTO : userService.findAll()) {
+                if (user.getUsername().equals(userTO.getUsername())) {
+                    modelAndView.addObject("error", messageSource.getMessage("user.error.username.unique", null, LocaleContextHolder.getLocale()));
+                    return modelAndView;
+                }
+            }
+
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
             userService.create(user);
             return modelAndView;
@@ -79,18 +87,17 @@ public class UserController extends BaseController {
     @RequestMapping(method = RequestMethod.GET, value = "/userCreate")
     public ModelAndView createUserForm(HttpServletRequest request) throws ServletException, IOException {
 
-        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request)+"userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(request) + "userEdit");
         modelAndView.addObject("user", new UserTO());
 
         return modelAndView;
     }
 
-
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/userCreate")
     public ModelAndView createUserSubmit(@Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
 
-        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req)+"userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "userEdit");
         UserValidator userValidator = new UserValidator();
         userValidator.validate(user, result);
 
@@ -104,6 +111,14 @@ public class UserController extends BaseController {
             } else {
                 user.setAdmin(Boolean.FALSE);
             }
+
+            for (UserTO userTO : userService.findAll()) {
+                if (user.getUsername().equals(userTO.getUsername())) {
+                    modelAndView.addObject("error", messageSource.getMessage("user.error.username.unique", null, LocaleContextHolder.getLocale()));
+                    return modelAndView;
+                }
+            }
+
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
             userService.create(user);
             return modelAndView;
@@ -116,10 +131,10 @@ public class UserController extends BaseController {
 
         UserTO user = userService.find(userId);
         if (user == null) {
-            return new ModelAndView(getLayoutUrlPrefix(req)+"index");
+            return new ModelAndView(getLayoutUrlPrefix(req) + "index");
         }
 
-        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req)+"userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "userEdit");
         modelAndView.addObject("user", user);
 
         return modelAndView;
@@ -128,7 +143,7 @@ public class UserController extends BaseController {
     @Secured("ROLE_ADMIN")
     @RequestMapping(method = RequestMethod.POST, value = "/userEdit/{userId}")
     public ModelAndView editUserSubmit(@PathVariable("userId") long userId, @Valid @ModelAttribute("userTo") UserTO user, HttpServletRequest req, BindingResult result) throws ServletException, IOException {
-        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req)+"userEdit");
+        ModelAndView modelAndView = new ModelAndView(getLayoutUrlPrefix(req) + "userEdit");
         UserValidator userValidator = new UserValidator();
 
         UserTO userFromDB = userService.find(userId);
@@ -157,6 +172,13 @@ public class UserController extends BaseController {
                 userFromDB.setAdmin(Boolean.FALSE);
             }
 
+            for (UserTO userTO : userService.findAll()) {
+                if (userFromDB.getUsername().equals(userTO.getUsername())) {
+                    modelAndView.addObject("error", messageSource.getMessage("user.error.username.unique", null, LocaleContextHolder.getLocale()));
+                    return modelAndView;
+                }
+            }
+
             userService.update(userFromDB);
             modelAndView.addObject("user", userFromDB);
             modelAndView.addObject("ok", messageSource.getMessage("general.ok", null, LocaleContextHolder.getLocale()));
@@ -182,10 +204,9 @@ public class UserController extends BaseController {
 
         return "redirect:/userList";
     }
-    
-    @RequestMapping( value = "login", method = RequestMethod.GET )
-    public String login()
-    {
+
+    @RequestMapping(value = "login", method = RequestMethod.GET)
+    public String login() {
         return "login";
     }
 }
