@@ -10,9 +10,11 @@
 
     <h3><fmt:message key="user.list.title"/></h3>
 
-    <a href="userCreate"><input type="button" class="btn btn-success" value="<fmt:message key="user.create"/>"
-                                name="addUser"/></a>
-
+    <c:choose>
+        <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+            <a href="userCreate"><input type="button" class="btn btn-success" value="<fmt:message key="user.create"/>"name="addUser"/></a>
+        </c:when>
+    </c:choose>
     <div class="panel panel-default">
         <!-- Default panel contents -->
         <div class="panel-heading"><b><fmt:message key="user.list.title"/></b></div>
@@ -27,7 +29,11 @@
                 <th><fmt:message key="user.email"/></th>
                 <th><fmt:message key="user.isAdmin"/></th>
                 <th><fmt:message key="reservation.list.title"/></th>
-                <th><fmt:message key="general.action"/></th>
+                <c:choose>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                        <th><fmt:message key="general.action"/></th>
+                    </c:when>
+                </c:choose>
             </tr>
             </thead>
             <c:forEach items="${listUsers}" var="user">
@@ -40,15 +46,19 @@
                     <td><a class="btn btn-default btn-xs" aria-label="Left Align"
                            href="${pageContext.request.contextPath}/userreservations/${user.id}"><fmt:message
                             key="user.reservations"/></a></td>
-                    <td>
-                        <a class="btn btn-default btn-xs" aria-label="Left Align"
-                           href="${pageContext.request.contextPath}/userEdit/${user.id}"><span
-                                class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
-                        <a onclick="return confirm('<fmt:message key="user.confirm.delete"/>');"
-                           class="btn btn-default btn-xs" aria-label="Left Align"
-                           href="${pageContext.request.contextPath}/userDelete/${user.id}"><span
-                                class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
-                    </td>
+                    <c:choose>
+                        <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                            <td>
+                                <a class="btn btn-default btn-xs" aria-label="Left Align"
+                                   href="${pageContext.request.contextPath}/userEdit/${user.id}"><span
+                                        class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
+                                <a onclick="return confirm('<fmt:message key="user.confirm.delete"/>');"
+                                   class="btn btn-default btn-xs" aria-label="Left Align"
+                                   href="${pageContext.request.contextPath}/userDelete/${user.id}"><span
+                                        class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
+                            </td>
+                        </c:when>
+                    </c:choose>
                 </tr>
             </c:forEach>
 

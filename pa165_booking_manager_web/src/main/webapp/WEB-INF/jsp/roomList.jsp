@@ -13,10 +13,13 @@
     </c:otherwise>
 </c:choose>
 
-<c:if test="${hotel != null}">
-    <a class="btn btn-success" href="${pageContext.request.contextPath}/newroom/${hotel.id}"><fmt:message
-            key="room.new"/></a>
-</c:if>
+    <c:choose>
+        <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+            <c:if test="${hotel != null}">
+                <a class="btn btn-success" href="${pageContext.request.contextPath}/newroom/${hotel.id}"><fmt:message key="room.new"/></a>
+            </c:if>
+        </c:when>
+    </c:choose>
 <div class="panel panel-default">
 
     <div class="panel-heading">
@@ -31,7 +34,11 @@
             <th><fmt:message key="room.beds"/></th>
             <th><fmt:message key="room.hotel"/></th>
             <th><fmt:message key="reservation.list.title"/></th>
-            <th><fmt:message key="general.action"/></th>
+            <c:choose>
+                <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                    <th><fmt:message key="general.action"/></th>
+                </c:when>
+            </c:choose>
         </tr>
         </thead>
         <c:forEach items="${rooms}" var="room">
@@ -49,15 +56,19 @@
                        href="${pageContext.request.contextPath}/newreservation/${room.id}"><fmt:message
                             key="room.new.reservation"/></a>
                 </td>
-                <td>
-                    <a class="btn btn-default btn-xs" aria-label="Left Align"
-                       href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}"><span
-                            class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
-                    <a onclick="return confirm('<fmt:message key="room.confirm.delete"/>');"
-                       class="btn btn-default btn-xs" aria-label="Left Align"
-                       href="${pageContext.request.contextPath}/deleteroom/${room.hotel.id}/${room.id}"><span
-                            class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
-                </td>
+                <c:choose>
+                    <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                        <td>
+                            <a class="btn btn-default btn-xs" aria-label="Left Align"
+                               href="${pageContext.request.contextPath}/room/${room.hotel.id}/${room.id}"><span
+                                    class="glyphicon glyphicon-pencil" style="color: darkgreen;" aria-hidden="true"></span></a>
+                            <a onclick="return confirm('<fmt:message key="room.confirm.delete"/>');"
+                               class="btn btn-default btn-xs" aria-label="Left Align"
+                               href="${pageContext.request.contextPath}/deleteroom/${room.hotel.id}/${room.id}"><span
+                                    class="glyphicon glyphicon-remove" style="color: red;" aria-hidden="true"></span></a>
+                        </td>
+                    </c:when>
+                </c:choose>
             </tr>
         </c:forEach>
     </table>
