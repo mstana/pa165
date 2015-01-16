@@ -69,7 +69,7 @@ public class HomeController extends BaseController {
             localeResolver.setLocale(request, response, StringUtils.parseLocaleString("en"));
         }
 
-        setDefaultValues();
+//        setDefaultValues();
 
         return getLayoutUrlPrefix(request)+"index";
     }
