@@ -490,10 +490,10 @@ public class Main extends javax.swing.JFrame {
                     int status = userRESTManager.deleteUser(getSelectedUser(userTable.getSelectedRow())).getStatus();
                     switch (status) {
                         case 404:
-                            JOptionPane.showMessageDialog(this, "Selected user cannot be deleted. The hotel is not present in the databse anymore - The record might have been deleted by someone else.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Selected user cannot be deleted. The user is not present in the databse anymore - The record might have been deleted by someone else.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
                             break;
                         case 417:
-                            JOptionPane.showMessageDialog(this, "Selected user cannot be deleted. The hotel still has an existing room.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            JOptionPane.showMessageDialog(this, "Selected user cannot be deleted. The user still has an existing room.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
                             break;
                         case 500:
                             JOptionPane.showMessageDialog(this, "There was an error on the server side. Please contact the administrator for furhter information.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
@@ -504,7 +504,7 @@ public class Main extends javax.swing.JFrame {
                     JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
                     System.exit(1);
                 } catch (IllegalArgumentException iae) {
-                    JOptionPane.showMessageDialog(this, "Cannot delete a nonexistent hotel.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                    JOptionPane.showMessageDialog(this, "Cannot delete a nonexistent user.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
                 }
             }
         }
