@@ -33,7 +33,16 @@
             <c:forEach items="${hotels}" var="hotel">
                 <tr>
                     <td>${hotel.id}</td>
-                    <td><a href="hotel/${hotel.id}">${hotel.name}</a></td>
+                    <td>
+                        <c:choose>
+                            <c:when test="${pageContext.request.isUserInRole('ROLE_ADMIN')}">
+                                <a href="hotel/${hotel.id}">${hotel.name}</a>
+                            </c:when>
+                            <c:otherwise>
+                                ${hotel.name}
+                            </c:otherwise>
+                        </c:choose>
+                    </td>
                     <td>${hotel.address}</td>
                     <td><a class="btn btn-default btn-xs" href="rooms/${hotel.id}"><fmt:message
                             key="hotel.show.all.rooms"/></a></td>
