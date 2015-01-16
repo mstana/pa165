@@ -239,6 +239,11 @@ public class Main extends javax.swing.JFrame {
         }
 
         jButtonDeleteUser1.setText("Delete");
+        jButtonDeleteUser1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonDeleteUser1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -474,6 +479,36 @@ public class Main extends javax.swing.JFrame {
     private void jButtonUpdateHotelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonUpdateHotelActionPerformed
         new HotelDialog(hotelTableModel, getSelectedHotel(hotelTable.getSelectedRow())).setVisible(true);
     }//GEN-LAST:event_jButtonUpdateHotelActionPerformed
+
+    private void jButtonDeleteUser1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonDeleteUser1ActionPerformed
+              if (userTable.getSelectedRowCount() == 0) {
+            JOptionPane.showMessageDialog(this, "Please select a user you to delete.", "Warning", JOptionPane.WARNING_MESSAGE);
+        } else {
+            int reply = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete this user?", "Confirm deletion", JOptionPane.YES_NO_OPTION);
+            if (reply == JOptionPane.YES_OPTION) {
+                try {
+                    int status = userRESTManager.deleteUser(getSelectedUser(userTable.getSelectedRow())).getStatus();
+                    switch (status) {
+                        case 404:
+                            JOptionPane.showMessageDialog(this, "Selected user cannot be deleted. The hotel is not present in the databse anymore - The record might have been deleted by someone else.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        case 417:
+                            JOptionPane.showMessageDialog(this, "Selected user cannot be deleted. The hotel still has an existing room.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        case 500:
+                            JOptionPane.showMessageDialog(this, "There was an error on the server side. Please contact the administrator for furhter information.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                            break;
+                    }
+                    refreshUserTable();
+                } catch (ClientHandlerException che) {
+                    JOptionPane.showMessageDialog(this, "Server connection was lost. Please check your connection, or contact the administrator for further information. The application will now close.", "Cannot connect to server.", JOptionPane.ERROR_MESSAGE);
+                    System.exit(1);
+                } catch (IllegalArgumentException iae) {
+                    JOptionPane.showMessageDialog(this, "Cannot delete a nonexistent hotel.", "Error while deleting.", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        }
+    }//GEN-LAST:event_jButtonDeleteUser1ActionPerformed
 
 
 
